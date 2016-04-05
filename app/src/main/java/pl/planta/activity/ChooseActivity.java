@@ -42,6 +42,4 @@ public class ChooseActivity extends Activity {
             finish();
         }
     }
-
-
 }
