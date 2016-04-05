@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="45%"
+        app:layout_widthPercent="17%"
+        android:layout_height="0dp"
+        android:id="@+id/mainImageView1"
+        android:background="@drawable/miv1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+
+        />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="24%"
+        app:layout_widthPercent="83%"
+        android:id="@+id/mainImageView2"
+        android:background="@drawable/miv2"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/mainImageView1"
+        android:layout_toEndOf="@+id/mainImageView1" />
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="22%"
+        app:layout_widthPercent="83%"
+        android:id="@+id/cityButton"
+        android:background="@drawable/button_city"
+        android:layout_alignBottom="@+id/mainImageView1"
+        android:layout_toRightOf="@+id/mainImageView1"
+        android:layout_toEndOf="@+id/mainImageView1" />
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="40.8%"
+        app:layout_widthPercent="47%"
+        android:id="@+id/plantaButton"
+        android:background="@drawable/button_planta"
+        android:layout_below="@+id/mainImageView1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+
+        />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="14.2%"
+        app:layout_widthPercent="47%"
+        android:id="@+id/mainImageView3"
+        android:background="@drawable/miv3"
+        android:layout_below="@+id/plantaButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="50%"
+        app:layout_widthPercent="15%"
+        android:id="@+id/januszButton"
+        android:background="@drawable/button_janusz"
+        android:layout_below="@+id/cityButton"
+        android:layout_toRightOf="@+id/plantaButton"
+        android:layout_toEndOf="@+id/plantaButton" />
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="40.8%"
+        app:layout_widthPercent="38%"
+        android:id="@+id/mineButton"
+        android:background="@drawable/button_mine"
+        android:layout_alignTop="@+id/januszButton"
+        android:layout_toRightOf="@+id/januszButton"
+        android:layout_toEndOf="@+id/januszButton" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_heightPercent="14.2%"
+        app:layout_widthPercent="38%"
+        android:id="@+id/mainImageView4"
+        android:background="@drawable/miv4"
+        android:layout_below="@+id/mineButton"
+        android:layout_toRightOf="@+id/januszButton"
+        android:layout_toEndOf="@+id/januszButton" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_heightPercent="5%"
+        app:layout_widthPercent="15%"
+        android:id="@+id/mainImageView5"
+        android:background="@drawable/miv5"
+        android:layout_below="@+id/januszButton"
+        android:layout_toRightOf="@+id/mainImageView3"
+        android:layout_toLeftOf="@+id/mainImageView4"
+         />
+</android.support.percent.PercentRelativeLayout>

@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">Planta</string>
+    <string name="action_settings">Settings</string>
+    <string name="logo">Logo</string>
+    <string name="register">REJESTRACJA/LOGOWANIE</string>
+    <string name="facebook">FACEBOOK</string>
+    <string name="googleplus">GOOGLE+</string>
+    <string name="btn_toLoginActivity">Posiadasz konto? Zaloguj się!</string>
+    <string name="btn_toRegisterActivity">Nie posiadasz konta? Załóż je!</string>
+    <string name="text_register">Podaj następujące dane</string>
+    <string name="text_login_hint">Aby się zalogować, wpisz dane użyte podczas rejestracji</string>
+    <string name="continue_textview">Zakładając konto, akceptujesz:</string>
+    <string name="rules_textview">Regulamin</string>
+    <string name="button_register">REJESTRUJ</string>
+    <string name="button_login">LOGUJ</string>
+    <!--
+    hints
+    -->
+    <string name="hint_name">Nick</string>
+    <string name="hint_meil">Adres e-mail</string>
+    <string name="hint_password">Hasło</string>
+    <!--
+    checkboxes
+    -->
+    <string name="checkbox_password">Pokaż hasło</string>
+    <!--
+    Whatever
+    -->
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="gameLogo">App\'s main logo</string>
+    <string name="tvLoad">Loading&#8230;</string>
+    <string name="btnsecondgame">Second Game</string>
+    <string name="btnThirdGame">Third Game</string>
+    <!--
+    ChangeLog strings
+    -->
+    <string name="changelog_full_title">Co nowego?</string>
+    <string name="changelog_title">Co nowego?</string>
+    <string name="changelog_ok_button">OK</string>
+    <string name="changelog_show_full">Więcej&#8230;</string>
+    <string name="background_color">white</string>
+    <!--
+    AlertDialog strings
+    -->
+    <string name="alertDialogTitle">Confirm Exit</string>
+    <string name="alertDialogMessage">Czy chcesz wyjść z gry?</string>
+    <string name="alertDialogPositiveBtn">Zostań</string>
+    <string name="alertDialogNegativeBtn">Wyjście</string>
+    <string name="settings_text">User name:</string>
+    <string name="btn_logout">WYLOGUJ</string>
+    <string name="btn_settings">MENU</string>
+    <string name="btn_play">Graj</string>
+</resources>
