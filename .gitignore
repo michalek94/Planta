@@ -6,3 +6,33 @@
 .DS_Store
 /build
 /captures
+# Local configuration file (sdk path, etc)
+# Crashlytics configuations
+com_crashlytics_export_strings.xml
+
+# Built application files
+# OS-specific files
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# User-specific configurations
+.idea/tasks.xml
+.idea/.name
+.idea/compiler.xml
+.idea/copyright/profiles_settings.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/scopes/scope_settings.xml
+.idea/vcs.xml
+
+# Gradle generated files
+# Gradle:
+.idea/gradle.xml
+
+# Signing files
+.signing/
