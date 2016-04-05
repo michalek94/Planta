@@ -44,7 +44,7 @@
     <!--
     AlertDialog strings
     -->
-    <string name="alertDialogTitle">Confirm Exit</string>
+    <string name="alertDialogTitle">Potwierdź wyjście</string>
     <string name="alertDialogMessage">Czy chcesz wyjść z gry?</string>
     <string name="alertDialogPositiveBtn">Zostań</string>
     <string name="alertDialogNegativeBtn">Wyjście</string>
