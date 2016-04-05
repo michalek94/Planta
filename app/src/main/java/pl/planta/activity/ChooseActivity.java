@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-
 import pl.planta.helper.SessionManager;
 import pl.planta.planta.R;
 
