@@ -15,7 +15,7 @@ public class ChooseActivity extends Activity {
 
     private Button btnRegister;
     private SessionManager sessionManager;
-    // to jest komentarz
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
