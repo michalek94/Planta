@@ -19,11 +19,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/text_register"
         android:id="@+id/tvHintLogowania"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="35dp"
         android:layout_below="@+id/cvSeparator"
         android:layout_centerHorizontal="true"
         android:textColor="#052535"
-        android:textSize="20sp" />
+        android:textSize="32sp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -54,6 +54,7 @@
         android:layout_alignStart="@+id/etNick"
         android:layout_alignRight="@+id/etNick"
         android:layout_alignEnd="@+id/etNick"
+        android:layout_marginTop="25dp"
         android:textColorHint="#FF052535" />
 
     <EditText
@@ -68,6 +69,7 @@
         android:layout_alignStart="@+id/etMeil"
         android:layout_alignRight="@+id/etMeil"
         android:layout_alignEnd="@+id/etMeil"
+        android:layout_marginTop="25dp"
         android:textColorHint="#FF052535" />
 
     <CheckBox
@@ -79,6 +81,8 @@
         android:layout_alignLeft="@+id/etPassword"
         android:layout_alignStart="@+id/etPassword"
         android:onClick="showPassword"
+        android:layout_marginTop="25dp"
+        android:textSize="32sp"
         android:textColor="#FF052535" />
 
     <Button
@@ -89,10 +93,10 @@
         android:text="@string/btn_toLoginActivity"
         android:textAllCaps="false"
         android:textColor="#FF052535"
-        android:textSize="16sp"
+        android:textSize="32sp"
         android:layout_below="@+id/btnRegister"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="35dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -127,7 +131,7 @@
         android:layout_below="@+id/cbPassword"
         android:layout_centerHorizontal="true"
         android:background="@drawable/button_rejestracja"
-        android:layout_marginTop="10dp"
-        android:textSize="24sp" />
+        android:layout_marginTop="35dp"
+        android:textSize="32sp" />
 
 </RelativeLayout>

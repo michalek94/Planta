@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="240dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:id="@+id/cvSeparator" />
@@ -24,7 +24,7 @@
         android:layout_below="@+id/cvSeparator"
         android:layout_centerHorizontal="true"
         android:textColor="#052535"
-        android:textSize="20sp" />
+        android:textSize="36sp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
         android:ems="10"
         android:id="@+id/etNick"
         android:hint="@string/hint_name"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="45dp"
         android:layout_below="@+id/tvHintLogowania"
         android:layout_alignRight="@+id/cvSeparator"
         android:layout_alignEnd="@+id/cvSeparator"
@@ -55,6 +55,7 @@
         android:layout_alignStart="@+id/etNick"
         android:layout_alignRight="@+id/etNick"
         android:layout_alignEnd="@+id/etNick"
+        android:layout_marginTop="35dp"
         android:textColorHint="#FF052535" />
 
     <EditText
@@ -69,6 +70,7 @@
         android:layout_alignStart="@+id/etMeil"
         android:layout_alignRight="@+id/etMeil"
         android:layout_alignEnd="@+id/etMeil"
+        android:layout_marginTop="35dp"
         android:textColorHint="#FF052535" />
 
     <CheckBox
@@ -80,6 +82,8 @@
         android:layout_alignLeft="@+id/etPassword"
         android:layout_alignStart="@+id/etPassword"
         android:onClick="showPassword"
+        android:layout_marginTop="35dp"
+        android:textSize="36sp"
         android:textColor="#FF052535" />
 
     <Button
@@ -90,10 +94,10 @@
         android:text="@string/btn_toLoginActivity"
         android:textAllCaps="false"
         android:textColor="#FF052535"
-        android:textSize="16sp"
+        android:textSize="36sp"
         android:layout_below="@+id/btnRegister"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="45dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -111,6 +115,7 @@
             android:id="@+id/ivLogo"
             android:contentDescription="@string/logo"
             android:background="@drawable/logo"
+            android:layout_margin="10dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
@@ -124,7 +129,7 @@
         android:layout_below="@+id/cbPassword"
         android:layout_centerHorizontal="true"
         android:background="@drawable/button_rejestracja"
-        android:layout_marginTop="10dp"
-        android:textSize="24sp" />
+        android:layout_marginTop="45dp"
+        android:textSize="40sp" />
 
 </RelativeLayout>
