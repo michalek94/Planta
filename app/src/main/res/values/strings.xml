@@ -52,4 +52,8 @@
     <string name="btn_logout">WYLOGUJ</string>
     <string name="btn_settings">MENU</string>
     <string name="btn_play">Graj</string>
+    <!--
+    Facebook Settings
+    -->
+    <string name="facebook_app_id">1699194817018407</string>
 </resources>

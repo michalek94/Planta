@@ -34,12 +34,12 @@ public class SplashActivity extends Activity {
                      */
                     case NORMAL:
                         Log.w("SplashActivity", "normal run");
-                        if(sessionManager.isLoggedIn()) {
+                        if (sessionManager.isLoggedIn()) {
                             Log.w(TAG, "Starting MenuActivity");
                             Intent menuIntent = new Intent(SplashActivity.this, MenuActivity.class);
                             startActivity(menuIntent);
                             finish();
-                        }else{
+                        } else {
                             Log.w(TAG, "Starting ChooseActivity");
                             Intent chooseIntent = new Intent(SplashActivity.this, ChooseActivity.class);
                             startActivity(chooseIntent);
@@ -51,12 +51,12 @@ public class SplashActivity extends Activity {
                      */
                     case FIRST_TIME_VERSION:
                         Log.w(TAG, "First time version run");
-                        if(sessionManager.isLoggedIn()) {
+                        if (sessionManager.isLoggedIn()) {
                             Log.w(TAG, "Starting MenuActivity");
                             Intent menuIntent = new Intent(SplashActivity.this, MenuActivity.class);
                             startActivity(menuIntent);
                             finish();
-                        }else{
+                        } else {
                             Log.w(TAG, "Starting ChooseActivity");
                             Intent menuIntent = new Intent(SplashActivity.this, ChooseActivity.class);
                             startActivity(menuIntent);

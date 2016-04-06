@@ -28,18 +28,20 @@
         android:layout_marginLeft="12.5dp"
         android:layout_marginRight="12.5dp" />
 
-    <Button
+    <com.facebook.login.widget.LoginButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/facebook"
         android:id="@+id/btnFacebook"
-        android:background="@drawable/button_facebook"
         android:layout_below="@+id/btnRegister"
         android:layout_alignLeft="@+id/btnRegister"
         android:layout_alignStart="@+id/btnRegister"
         android:layout_marginTop="30dp"
         android:layout_alignRight="@+id/btnRegister"
-        android:layout_alignEnd="@+id/btnRegister" />
+        android:layout_alignEnd="@+id/btnRegister"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp" />
 
     <Button
         android:layout_width="wrap_content"

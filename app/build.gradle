@@ -31,5 +31,5 @@ dependencies {
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
     compile 'com.android.support:support-v4:23.2.1'
     compile 'com.android.support:percent:23.0.0'
-    compile 'com.facebook.android:facebook-android-sdk:4.10.1'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 }
