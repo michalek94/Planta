@@ -10,6 +10,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.widget.LoginButton;
+
 import pl.planta.R;
 import pl.planta.helper.ChangeLog;
 import pl.planta.helper.SQLiteHandler;
@@ -22,14 +27,28 @@ public class MenuActivity extends Activity {
     private SQLiteHandler sqLiteHandler;
     private LayoutInflater layoutInflater;
     private View view;
+    private CallbackManager callbackManager;
+    private LoginButton btnFacebook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /**
+         * Facebook SDK Initialize
+         */
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        /**
+         * Initialize instance of CallbackManager
+         */
+        callbackManager = CallbackManager.Factory.create();
+        /**
+         * Set flags to make full screen on device
+         */
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_menu);
 
+        btnFacebook = (LoginButton)findViewById(R.id.btnFacebook);
         btnLogout = (Button)findViewById(R.id.btnLogout);
         btnGraj = (Button)findViewById(R.id.btnGraj);
         btnMenuTesting = (Button)findViewById(R.id.btnUstawienia);
@@ -62,6 +81,17 @@ public class MenuActivity extends Activity {
             }
         });
 
+        btnFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sessionManager.setLogin(false);
+                LoginManager.getInstance().logOut();
+                Intent chooseIntent = new Intent(MenuActivity.this, ChooseActivity.class);
+                startActivity(chooseIntent);
+                finish();
+            }
+        });
+
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,8 +106,8 @@ public class MenuActivity extends Activity {
 
         sqLiteHandler.deleteUsers();
 
-        Intent loginIntent = new Intent(MenuActivity.this, LoginActivity.class);
-        startActivity(loginIntent);
+        Intent chooseIntent = new Intent(MenuActivity.this, ChooseActivity.class);
+        startActivity(chooseIntent);
         finish();
     }
 

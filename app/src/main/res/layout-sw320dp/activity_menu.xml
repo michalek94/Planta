@@ -75,5 +75,20 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp" />
 
+    <com.facebook.login.widget.LoginButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnFacebook"
+        android:layout_below="@+id/btnLogout"
+        android:layout_alignLeft="@+id/btnLogout"
+        android:layout_alignStart="@+id/btnLogout"
+        android:layout_marginTop="30dp"
+        android:layout_alignRight="@+id/btnLogout"
+        android:layout_alignEnd="@+id/btnLogout"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp" />
+
 
 </RelativeLayout>
