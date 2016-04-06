@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="45%"
+        app:layout_widthPercent="100%"
+        android:layout_height="0dp"
+        android:id="@+id/cityImageView1"
+        android:background="@drawable/civ1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="2%"
+        app:layout_widthPercent="100%"
+        android:layout_height="0dp"
+        android:id="@+id/cityImageView2"
+        android:background="@drawable/civ2"
+        android:layout_alignBottom="@+id/cityImageView1"
+        />
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="53%"
+        app:layout_widthPercent="35%"
+        android:id="@+id/industryButton"
+        android:background="@drawable/button_industry"
+        android:layout_below="@+id/cityImageView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="53%"
+        app:layout_widthPercent="30%"
+        android:id="@+id/shopButton"
+        android:background="@drawable/button_shop"
+        android:layout_below="@+id/cityImageView2"
+        android:layout_toRightOf="@+id/industryButton"
+        android:layout_toEndOf="@+id/industryButton" />
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="53%"
+        app:layout_widthPercent="36%"
+        android:id="@+id/residenceButton"
+        android:background="@drawable/button_residence"
+        android:layout_below="@+id/cityImageView2"
+        android:layout_toRightOf="@+id/shopButton"
+        android:layout_toEndOf="@+id/shopButton" />
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="2%"
+        app:layout_widthPercent="100%"
+        android:layout_height="0dp"
+        android:id="@+id/cityImageView3"
+        android:background="@drawable/civ3"
+        android:layout_below="@+id/shopButton"
+        />
+
+</android.support.percent.PercentRelativeLayout>

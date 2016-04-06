@@ -49,7 +49,7 @@ public class MenuActivity extends Activity {
         btnGraj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gameIntent = new Intent(MenuActivity.this, CoalGameActivity.class);
+                Intent gameIntent = new Intent(MenuActivity.this, MainMenuActivity.class);
                 startActivity(gameIntent);
             }
         });
