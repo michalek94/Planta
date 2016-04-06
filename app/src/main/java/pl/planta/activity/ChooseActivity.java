@@ -8,12 +8,18 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -57,6 +63,32 @@ public class ChooseActivity extends Activity {
             public void onSuccess(LoginResult loginResult) {
                 Log.w(TAG, "Login Success");
                 sessionManager.setLogin(true);
+
+                GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        JSONObject jsonObject = response.getJSONObject();
+                        try{
+                            if(jsonObject != null){
+                                int id = jsonObject.getInt("id");
+                                String name = jsonObject.getString("name");
+                                String email = jsonObject.getString("email");
+                                Log.d("ID: ", String.valueOf(id));
+                                Log.d("Name: ", name);
+                                Log.d("Email: ", email);
+                            }
+                        }catch(JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id, name, link, email");
+                request.setParameters(parameters);
+                request.executeAsync();
+
+
                 Intent menuIntent = new Intent(ChooseActivity.this, MenuActivity.class);
                 startActivity(menuIntent);
                 finish();
