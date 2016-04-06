@@ -18,7 +18,7 @@ import android.view.SurfaceView;
 import java.util.ArrayList;
 import java.util.Random;
 
-import pl.planta.planta.R;
+import pl.planta.R;
 import pl.planta.painter.Background;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, SensorEventListener
@@ -79,7 +79,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
         a.inScaled=false;
         bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.tlo,a));
         player = new Player(BitmapFactory.decodeResource(getResources(), R.drawable.wuzek,a),340,244,1);
-        coals = new ArrayList<Coal>();
+        coals = new ArrayList<>();
         coalStartTime = System.nanoTime();
         thread = new MainThread(getHolder(), this);
         senSensorManager = (SensorManager)mContext.getSystemService(Context.SENSOR_SERVICE);

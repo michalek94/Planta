@@ -9,7 +9,7 @@ import android.view.SurfaceView;
 
 import java.util.Random;
 
-import pl.planta.planta.R;
+import pl.planta.R;
 import pl.planta.painter.Background;
 
 

@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
-import pl.planta.planta.R;
+import pl.planta.R;
 
 public abstract class Pipe {
     protected Bitmap partsImage;

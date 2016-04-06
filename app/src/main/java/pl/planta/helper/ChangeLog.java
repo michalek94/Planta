@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import pl.planta.planta.R;
+import pl.planta.R;
 
 public class ChangeLog {
 

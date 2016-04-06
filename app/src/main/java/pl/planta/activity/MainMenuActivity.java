@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import pl.planta.planta.R;
+import pl.planta.R;
 
 public class MainMenuActivity extends Activity {
 

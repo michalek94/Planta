@@ -24,7 +24,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import pl.planta.planta.R;
+
+import pl.planta.R;
 import pl.planta.app.AppConfiguration;
 import pl.planta.app.AppController;
 import pl.planta.helper.InternetConnection;

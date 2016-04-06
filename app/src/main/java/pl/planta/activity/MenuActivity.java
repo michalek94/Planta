@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
-import pl.planta.planta.R;
+import pl.planta.R;
 import pl.planta.helper.ChangeLog;
 import pl.planta.helper.SQLiteHandler;
 import pl.planta.helper.SessionManager;

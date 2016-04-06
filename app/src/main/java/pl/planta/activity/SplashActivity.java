@@ -7,7 +7,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.WindowManager;
 
-import pl.planta.planta.R;
+import pl.planta.R;
 import pl.planta.helper.SessionManager;
 
 public class SplashActivity extends Activity {

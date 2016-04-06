@@ -8,7 +8,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import pl.planta.helper.SessionManager;
-import pl.planta.planta.R;
+import pl.planta.R;
 
 public class ChooseActivity extends Activity {
 

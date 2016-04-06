@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import pl.planta.planta.R;
+import pl.planta.R;
 
 public class GamingTestsActivity extends Activity {
 
