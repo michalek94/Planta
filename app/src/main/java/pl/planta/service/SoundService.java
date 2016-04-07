@@ -39,14 +39,6 @@ public class SoundService extends Service{
         return Boolean.parseBoolean(null);
     }
 
-    public void onStop(){
-
-    }
-
-    public void onPause(){
-
-    }
-
     @Override
     public void onDestroy() {
         mediaPlayer.stop();
