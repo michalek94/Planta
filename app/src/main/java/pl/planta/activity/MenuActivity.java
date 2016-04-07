@@ -48,20 +48,20 @@ public class MenuActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_menu);
 
-        btnFacebook = (LoginButton)findViewById(R.id.btnFacebook);
-        btnLogout = (Button)findViewById(R.id.btnLogout);
-        btnGraj = (Button)findViewById(R.id.btnGraj);
-        btnMenuTesting = (Button)findViewById(R.id.btnUstawienia);
+        btnFacebook = (LoginButton) findViewById(R.id.btnFacebook);
+        btnLogout = (Button) findViewById(R.id.btnLogout);
+        btnGraj = (Button) findViewById(R.id.btnGraj);
+        btnMenuTesting = (Button) findViewById(R.id.btnUstawienia);
 
         sessionManager = new SessionManager(getApplicationContext());
         sqLiteHandler = new SQLiteHandler(getApplicationContext());
 
         ChangeLog changeLog = new ChangeLog(this);
-        if (changeLog.firstRun()){
+        if (changeLog.firstRun()) {
             changeLog.getLogDialog().show();
         }
 
-        if(!sessionManager.isLoggedIn()){
+        if (!sessionManager.isLoggedIn()) {
             logoutUser();
         }
 
