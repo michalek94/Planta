@@ -19,7 +19,6 @@ import pl.planta.R;
 import pl.planta.helper.ChangeLog;
 import pl.planta.helper.SQLiteHandler;
 import pl.planta.helper.SessionManager;
-import pl.planta.service.SoundService;
 
 public class MenuActivity extends Activity {
 
@@ -48,9 +47,6 @@ public class MenuActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_menu);
-
-        Intent svc = new Intent(this, SoundService.class);
-        startService(svc);
 
         btnFacebook = (LoginButton) findViewById(R.id.btnFacebook);
         btnLogout = (Button) findViewById(R.id.btnLogout);
