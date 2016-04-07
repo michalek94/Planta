@@ -12,6 +12,7 @@ import pl.planta.R;
 public class MainMenuActivity extends Activity {
 
     private ImageButton cityButton;
+    private ImageButton januszButton;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,11 +21,20 @@ public class MainMenuActivity extends Activity {
         setContentView(R.layout.activity_home);
 
         cityButton = (ImageButton)findViewById(R.id.cityButton);
+        januszButton = (ImageButton)findViewById(R.id.januszButton);
 
         cityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent gameIntent = new Intent(MainMenuActivity.this, CityActivity.class);
+                startActivity(gameIntent);
+            }
+        });
+
+       januszButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gameIntent = new Intent(MainMenuActivity.this, JanuszWorkActivity.class);
                 startActivity(gameIntent);
             }
         });

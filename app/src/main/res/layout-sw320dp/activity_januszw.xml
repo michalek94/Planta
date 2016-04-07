@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="25%"
+        app:layout_widthPercent="100%"
+        android:layout_height="0dp"
+        android:id="@+id/januszWImageView1"
+        android:background="@drawable/jiv1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="65%"
+        app:layout_widthPercent="15%"
+        android:layout_height="0dp"
+        android:id="@+id/januszWImageView2"
+        android:background="@drawable/jiv2"
+        android:layout_below="@+id/januszWImageView1"
+        />
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="65%"
+        app:layout_widthPercent="23%"
+        android:id="@+id/januszEQButton"
+        android:background="@drawable/button_januszw"
+        android:layout_below="@+id/januszWImageView1"
+        android:layout_toRightOf="@+id/januszWImageView2"
+        android:layout_toEndOf="@+id/januszWImageView2" />
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="65%"
+        app:layout_widthPercent="17%"
+        android:layout_height="0dp"
+        android:id="@+id/januszWImageView3"
+        android:background="@drawable/jiv3"
+        android:layout_below="@+id/januszWImageView1"
+        android:layout_toRightOf="@+id/januszEQButton"
+        android:layout_toEndOf="@+id/januszEQButton"
+        />
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="65%"
+        app:layout_widthPercent="45%"
+        android:id="@+id/heapButton"
+        android:background="@drawable/button_heap"
+        android:layout_below="@+id/januszWImageView1"
+        android:layout_toRightOf="@+id/januszWImageView3"
+        android:layout_toEndOf="@+id/januszWImageView3" />
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="10%"
+        app:layout_widthPercent="100%"
+        android:layout_height="0dp"
+        android:id="@+id/januszWImageView4"
+        android:background="@drawable/jiv4"
+        android:layout_below="@+id/januszEQButton"
+        />
+
+
+    </android.support.percent.PercentRelativeLayout>
