@@ -9,9 +9,6 @@ import android.widget.ImageButton;
 
 import pl.planta.R;
 
-/**
- * Created by Jakub on 2016-04-06.
- */
 public class JanuszWorkActivity extends Activity {
 
     private ImageButton heapButton;

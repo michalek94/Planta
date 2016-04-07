@@ -6,9 +6,6 @@ import android.view.WindowManager;
 
 import pl.planta.R;
 
-/**
- * Created by Jakub on 2016-04-06.
- */
 public class CityActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
