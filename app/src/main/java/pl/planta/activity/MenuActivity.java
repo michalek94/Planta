@@ -158,4 +158,15 @@ public class MenuActivity extends Activity {
     public void onBackPressed() {
         showConfirmExitDialog();
     }
+    /**
+     * Forward the login results to the callbackManager created in onCreate()
+     * @param requestCode requestCode
+     * @param resultCode resultCode
+     * @param data data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 }
