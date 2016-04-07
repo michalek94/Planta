@@ -76,7 +76,7 @@ public class MenuActivity extends Activity {
         btnMenuTesting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gamingTests = new Intent(MenuActivity.this, GamingTestsActivity.class);
+                Intent gamingTests = new Intent(MenuActivity.this, SettingsActivity.class);
                 startActivity(gamingTests);
             }
         });
