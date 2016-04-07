@@ -43,10 +43,6 @@ public class ChooseActivity extends Activity {
          */
         FacebookSdk.sdkInitialize(getApplicationContext());
         /**
-         * Initialize instance of CallbackManager
-         */
-        callbackManager = CallbackManager.Factory.create();
-        /**
          * Set flags to make full screen on device
          */
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -55,57 +51,86 @@ public class ChooseActivity extends Activity {
          * Set screen's view (layout)
          */
         setContentView(R.layout.activity_choose);
-
+        /**
+         * Initialize instance of CallbackManager
+         */
+        callbackManager = CallbackManager.Factory.create();
+        /**
+         * Initialize instance of SessionManager
+         */
+        sessionManager = new SessionManager(getApplicationContext());
+        /**
+         * Initialize required buttons
+         */
         btnFacebook = (LoginButton)findViewById(R.id.btnFacebook);
+        btnRegister = (Button)findViewById(R.id.btnRegister);
+        /**
+         * Setting read permission for Facebook Login
+         * public_profile - for id, name, first_name, last_name
+         * email - for facebook's user email
+         */
         btnFacebook.setReadPermissions(Arrays.asList("public_profile", "email"));
-        btnFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        btnFacebook.registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.w(TAG, "Login Success");
-                sessionManager.setLogin(true);
-
+                btnFacebook.setVisibility(View.INVISIBLE);
+                /**
+                 * GraphRequest to get Facebook's user data like: name, email or id.
+                 */
                 GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         JSONObject jsonObject = response.getJSONObject();
-                        try{
-                            if(jsonObject != null){
+                        try {
+                            if (jsonObject != null) {
                                 int id = jsonObject.getInt("id");
-                                String name = jsonObject.getString("name");
+                                String name = jsonObject.getString("first_name");
                                 String email = jsonObject.getString("email");
                                 Log.d("ID: ", String.valueOf(id));
                                 Log.d("Name: ", name);
                                 Log.d("Email: ", email);
+                                sessionManager.saveFacebookCredentials(id, name, email);
                             }
-                        }catch(JSONException e){
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                 });
 
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, name, link, email");
+                parameters.putString("fields", "id, first_name, link, email");
                 request.setParameters(parameters);
                 request.executeAsync();
 
-
+                sessionManager.setLogin(true);
                 Intent menuIntent = new Intent(ChooseActivity.this, MenuActivity.class);
                 startActivity(menuIntent);
                 finish();
             }
 
+                    /**
+                     * When Facebook Login was cancelled by user
+                     */
             @Override
             public void onCancel() {
-                Log.w(TAG, "Login Cancel");
+                Log.w(TAG, "Login Cancelled");
             }
 
+                    /**
+                     * When Facebook Login error occurred
+                     * onError method, which handle the error, is called
+                      * @param error error message
+                     */
             @Override
             public void onError(FacebookException error) {
-
+                Log.e(TAG, error.getMessage());
             }
         });
-
-        btnRegister = (Button)findViewById(R.id.btnRegister);
+        /**
+         * Default register
+         */
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,10 +139,9 @@ public class ChooseActivity extends Activity {
                 finish();
             }
         });
-
-        sessionManager = new SessionManager(getApplicationContext());
-        // Sprawdź czy użytkownik jest już zalogowany.
-        // Jeśli tak, przenieś go do MenuActivity
+        /**
+         * If user is already logged in, take him to MenuActivity
+         */
         if(sessionManager.isLoggedIn()){
             // Użytkownik jest zalogowany. Przenoszę go do MenuActivity
             Intent menuIntent = new Intent(ChooseActivity.this, MenuActivity.class);
@@ -125,9 +149,15 @@ public class ChooseActivity extends Activity {
             finish();
         }
     }
-
+    /**
+     * Forward the login results to the callbackManager created in onCreate()
+     * @param requestCode requestCode
+     * @param resultCode resultCode
+     * @param data data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }

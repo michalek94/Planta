@@ -25,6 +25,9 @@ public class SessionManager {
     private static final String PREF_NAME = "android_planta";
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
     private static final String KEY_LAST_APP_VERSION = "lastAppVersion";
+    private static final String KEY_FACEBOOK_USER_ID = "fb_user_id";
+    private static final String KEY_FACEBOOK_USER_NAME = "fb_user_name";
+    private static final String KEY_FACEBOOK_USER_EMAIL = "fb_user_email";
 
     public SessionManager(Context context){
         mContext = context;
@@ -41,6 +44,15 @@ public class SessionManager {
 
     public boolean isLoggedIn(){
         return sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false);
+    }
+
+    public void saveFacebookCredentials(int id, String name, String email){
+        editor.putInt(KEY_FACEBOOK_USER_ID, id);
+        editor.putString(KEY_FACEBOOK_USER_NAME, name);
+        editor.putString(KEY_FACEBOOK_USER_EMAIL, email);
+        editor.commit();
+
+        Log.d(TAG, "Zapisano dane uzytkownika z FB do SharedPreferences");
     }
 
     public void setLastAppVersion(int currentVersioncode){
