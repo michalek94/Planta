@@ -5,6 +5,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Region;
 
 import java.util.ArrayList;
 
@@ -25,16 +27,26 @@ public class Board  {
     private int partWidth;
     private int partHeight;
 
+    public Region getPipeArea() {
+        return pipeArea;
+    }
+
+    private Rect pipeRect;
+    private Region pipeArea;
+
     public Board(int x,int y, int width, int height, Context context) {
         partWidth=width/FieldsOnXAxis;
         partHeight=height/FieldsOnYAxis;
         BoardX=x; BoardY=y; BoardWidth=width; BoardHeight=height;
         amount=2;
-        pipes =new ArrayList<Pipe>();
+        pipes =new ArrayList<>();
         typeOfPart =0;
         for(int i=0;i<amount;i++){
             if(typeOfPart==0) {
                 pipes.add(new StraightPipe(context, 0, height-partHeight, partWidth, partHeight));
+                pipeRect= new Rect(0, height-partHeight, partWidth, partHeight);
+                pipeArea=new Region();
+                pipeArea.set(pipeRect);
                 //liczbaProstych++;
                 typeOfPart =1;
             }
@@ -43,6 +55,12 @@ public class Board  {
                 //liczbaKolanek++;
             }
         }
+    }
+
+    public void movePipes(int x, int y){
+        pipes.get(0).setX(x - partWidth / 2);
+        pipes.get(0).setY(y - partHeight / 2);
+        //System.out.println(pipes.get(0).getX());
     }
 
     public void draw(Canvas canvas){

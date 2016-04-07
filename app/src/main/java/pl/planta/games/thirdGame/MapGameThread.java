@@ -1,17 +1,18 @@
-package pl.planta.games.coalGame;
+package pl.planta.games.thirdGame;
+
 
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
-public class MainThread extends Thread {
+public class MapGameThread extends Thread {
     private int FPS = 30;
     private double averageFPS;
-    private final SurfaceHolder surfaceHolder;
-    private GamePanel gamePanel;
+    private SurfaceHolder surfaceHolder;
+    private MapGamePanel gamePanel;
     private boolean running;
     public static Canvas canvas;
 
-    public MainThread(SurfaceHolder surfaceHolder, GamePanel gamePanel)
+    public MapGameThread(SurfaceHolder surfaceHolder, MapGamePanel gamePanel)
     {
         super();
         this.surfaceHolder = surfaceHolder;

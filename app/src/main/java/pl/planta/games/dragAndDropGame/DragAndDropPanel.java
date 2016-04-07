@@ -17,11 +17,15 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
 {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 400;
+    private float scaleFactorX;
+    private float scaleFactorY;
     private DragAndDropThread thread;
     private Background bg;
     private BitmapFactory.Options a;
     private Board myBoard;
     private Random rand = new Random();
+    private boolean canMove=false;
+
 
     Context mContext;
 
@@ -65,9 +69,26 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-        if(event.getAction()==MotionEvent.ACTION_DOWN){
+        int positionX = (int)(event.getX()/scaleFactorX);
+        int positionY = (int)(event.getY()/scaleFactorY);
+        if(canMove){
+            myBoard.movePipes(positionX, positionY);
             return true;
         }
+
+        System.out.println(myBoard.getPipeArea().contains(50,350));
+        //  myBoard.movePipes(positionX, positionY);
+        if(event.getAction()==MotionEvent.ACTION_DOWN&&myBoard.getPipeArea().contains(positionX, positionY)){
+            canMove=true;
+            return true;
+        }
+
+        if(event.getAction()==MotionEvent.ACTION_UP){
+            System.out.println("actuin up");
+            canMove=false;
+            return true;
+        }
+
         return super.onTouchEvent(event);
     }
 
@@ -77,8 +98,8 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
     }
 
     public void myDraw(Canvas canvas) {
-        final float scaleFactorX = getWidth() / (WIDTH * 1.f);
-        final float scaleFactorY = getHeight() / (HEIGHT * 1.f);
+        scaleFactorX = getWidth() / (WIDTH * 1.f);
+        scaleFactorY = getHeight() / (HEIGHT * 1.f);
         if (canvas != null) {
             canvas.scale(scaleFactorX, scaleFactorY);
             bg.draw(canvas);
