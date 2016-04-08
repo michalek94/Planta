@@ -150,7 +150,6 @@ public class MenuActivity extends Activity {
         });
 
     }
-
     /**
      * Po naciśnięciu przycisku Back pojawi się AlertDialog
      * informujący użytkownika czy zamierza wyjść z aplikacji czy też zostać.
@@ -202,6 +201,8 @@ public class MenuActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.d("MenuActivity", "onDestroy");
+        stopService(new Intent(this, SoundService.class));
         unbindService(serviceConnection);
     }
 
