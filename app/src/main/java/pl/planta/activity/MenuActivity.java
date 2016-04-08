@@ -2,8 +2,13 @@ package pl.planta.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,6 +23,7 @@ import pl.planta.R;
 import pl.planta.helper.ChangeLog;
 import pl.planta.helper.SQLiteHandler;
 import pl.planta.helper.SessionManager;
+import pl.planta.service.SoundService;
 
 public class MenuActivity extends Activity {
 
@@ -28,6 +34,8 @@ public class MenuActivity extends Activity {
     private View view;
     private CallbackManager callbackManager;
     private LoginButton btnFacebook;
+    private SoundService soundService;
+    private boolean isBound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,10 @@ public class MenuActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_menu);
+        doBindService();
+        Intent soundIntent = new Intent();
+        soundIntent.setClass(this, SoundService.class);
+        startService(soundIntent);
 
         btnFacebook = (LoginButton) findViewById(R.id.btnFacebook);
         btnLogout = (Button) findViewById(R.id.btnLogout);
@@ -54,7 +66,7 @@ public class MenuActivity extends Activity {
 
         sessionManager = new SessionManager(getApplicationContext());
         sqLiteHandler = new SQLiteHandler(getApplicationContext());
-
+        soundService = new SoundService();
         ChangeLog changeLog = new ChangeLog(this);
         if (changeLog.firstRun()) {
             changeLog.getLogDialog().show();
@@ -121,7 +133,7 @@ public class MenuActivity extends Activity {
         final AlertDialog builder = new AlertDialog.Builder(this).create();
         builder.setView(view);
         builder.setCancelable(false);
-
+        builder.show();
         btnPositive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,10 +144,11 @@ public class MenuActivity extends Activity {
             @Override
             public void onClick(View v) {
                 builder.dismiss();
+                soundService.pauseMusic();
                 finish();
             }
         });
-        builder.show();
+
     }
 
     /**
@@ -156,5 +169,45 @@ public class MenuActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            SoundService.ServiceBinder binder = (SoundService.ServiceBinder) service;
+            soundService = binder.getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            soundService = null;
+        }
+    };
+
+    void doBindService(){
+        if(!isBound){
+            bindService(new Intent(this, SoundService.class),
+                    serviceConnection, Context.BIND_AUTO_CREATE);
+            isBound = true;
+        }
+    }
+
+    void doUnbindService(){
+        if(isBound){
+            unbindService(serviceConnection);
+            isBound = false;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(serviceConnection);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        soundService.resumeMusic();
     }
 }
