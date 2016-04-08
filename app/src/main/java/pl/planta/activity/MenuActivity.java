@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
@@ -111,18 +110,6 @@ public class MenuActivity extends Activity {
         finish();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Toast.makeText(getApplicationContext(), "onResume() method used", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Toast.makeText(getApplicationContext(), "onPause() method used", Toast.LENGTH_LONG).show();
-    }
-
     private void showConfirmExitDialog(){
         layoutInflater = getLayoutInflater();
         view = layoutInflater.inflate(R.layout.exit_alertdialog, null);
@@ -144,6 +131,7 @@ public class MenuActivity extends Activity {
         btnNegative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                builder.dismiss();
                 finish();
             }
         });
