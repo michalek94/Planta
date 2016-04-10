@@ -3,6 +3,7 @@ package pl.planta.games.dragAndDropGame;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -69,22 +70,22 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
+        Rect pipeRect = new Rect(0,300,100,400);
         int positionX = (int)(event.getX()/scaleFactorX);
         int positionY = (int)(event.getY()/scaleFactorY);
         if(canMove){
             myBoard.movePipes(positionX, positionY);
             return true;
         }
+        //myBoard.movePipes(positionX, positionY);
 
-        System.out.println(myBoard.getPipeArea().contains(50,350));
-        //  myBoard.movePipes(positionX, positionY);
-        if(event.getAction()==MotionEvent.ACTION_DOWN&&myBoard.getPipeArea().contains(positionX, positionY)){
+        if(event.getAction()==MotionEvent.ACTION_DOWN&&pipeRect.contains(positionX, positionY)){
             canMove=true;
             return true;
         }
 
         if(event.getAction()==MotionEvent.ACTION_UP){
-            System.out.println("actuin up");
+            System.out.println("action up");
             canMove=false;
             return true;
         }

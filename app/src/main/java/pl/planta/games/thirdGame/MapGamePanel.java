@@ -18,10 +18,11 @@ public class MapGamePanel extends SurfaceView implements SurfaceHolder.Callback,
 
     public static final int WIDTH = 3000;
     public static final int HEIGHT = 2999;
-   // private float scaleFactorX;
-  //  private float scaleFactorY;
+    private float scaleFactorX;
+    private float scaleFactorY;
     private MapGameThread thread;
     private Map map;
+    private Ball ball;
     private BitmapFactory.Options a;
     private SensorManager senSensorManager;
     private Sensor senAccelerometer;
@@ -43,7 +44,10 @@ public class MapGamePanel extends SurfaceView implements SurfaceHolder.Callback,
     public void surfaceCreated(SurfaceHolder holder) {
         a = new BitmapFactory.Options();
         a.inScaled=false;
+        scaleFactorX = (getWidth()/(WIDTH * 1.f))*3;
+        scaleFactorY = (getHeight()/(HEIGHT * 1.f))*3;
         map = new Map(BitmapFactory.decodeResource(getResources(), R.drawable.map, a));
+        ball = new Ball(mContext,WIDTH/2/3,HEIGHT/2/3,15,15);
         senSensorManager = (SensorManager)mContext.getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
@@ -73,15 +77,17 @@ public class MapGamePanel extends SurfaceView implements SurfaceHolder.Callback,
     }
 
     public void update() {
+        map.update();
     }
 
     public void myDraw(Canvas canvas) {
-        final float scaleFactorX = (getWidth()/(WIDTH * 1.f));//*3;
-        final float scaleFactorY = (getHeight()/(HEIGHT * 1.f));//*3;
+       //scaleFactorX = (getWidth()/(WIDTH * 1.f));
+        //scaleFactorY = (getHeight()/(HEIGHT * 1.f));
         if (canvas != null) {
             canvas.scale(scaleFactorX, scaleFactorY);
-            map.update();
             map.draw(canvas);
+            ball.draw(canvas);
+
         }
     }
 
@@ -89,8 +95,8 @@ public class MapGamePanel extends SurfaceView implements SurfaceHolder.Callback,
     public void onSensorChanged(SensorEvent event) {
         Sensor mySensor = event.sensor;
         if(mySensor.getType() == 1) {
-            float x = event.values[0];
-            float y = event.values[1];
+            float y = event.values[0];
+            float x = event.values[1];
            // float z = event.values[2];
             map.move(x,y);
         }
