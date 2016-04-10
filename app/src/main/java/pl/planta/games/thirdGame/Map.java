@@ -7,7 +7,7 @@ import android.graphics.Canvas;
 public class Map {
 private Bitmap image;
 //int x=-1170-350,y=-1000-350;
-int x=0,y=0;
+int x=-215,y=-250;
 int dx,dy;
 
         public Map(Bitmap res)
@@ -24,15 +24,15 @@ int dx,dy;
         public void update()
         {
             //System.out.println(image.getPixel(-x,-y)) ;
-          //  if(image.getPixel(-x+350,-y+350)==0xffffff00)
-          //  {
-          //      dx=-dx;
-           //     dy=-dy;
-          //  }
-            if(dx>8)dx=8;
-            if(dx<-8)dx=-8;
-            if(dy>8)dy=8;
-            if(dy<-8)dy=-8;
+            //if(image.getPixel(-215,-250)==0xffffff00)
+           // {
+            //    dx=-dx;
+            //    dy=-dy;
+           // }
+            if(dx>5)dx=5;
+            if(dx<-5)dx=-5;
+            if(dy>5)dy=5;
+            if(dy<-5)dy=-5;
             x -= dx;
             y -= dy;
             if(x<-2250){
