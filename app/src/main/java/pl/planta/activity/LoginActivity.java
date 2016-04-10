@@ -53,13 +53,13 @@ public class LoginActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
-        btnLogin = (Button)findViewById(R.id.btnLogin);
-        btnLinkToRegisterScreen = (Button)findViewById(R.id.btnLinkToRegisterScreen);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnLinkToRegisterScreen = (Button) findViewById(R.id.btnLinkToRegisterScreen);
 
-        inputEmail = (EditText)findViewById(R.id.etMeil);
-        inputPassword = (EditText)findViewById(R.id.etPassword);
+        inputEmail = (EditText) findViewById(R.id.etMeil);
+        inputPassword = (EditText) findViewById(R.id.etPassword);
 
-        cbPassword = (CheckBox)findViewById(R.id.cbPassword);
+        cbPassword = (CheckBox) findViewById(R.id.cbPassword);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -72,7 +72,7 @@ public class LoginActivity extends Activity {
 
         internetConnection = new InternetConnection();
 
-        if(sessionManager.isLoggedIn()){
+        if (sessionManager.isLoggedIn()) {
             // Użytkownik już jest zalogowany. Przenoszę go do MenuActivity
             Intent menuIntent = new Intent(LoginActivity.this, MenuActivity.class);
             startActivity(menuIntent);
@@ -86,19 +86,19 @@ public class LoginActivity extends Activity {
                 String password = inputPassword.getText().toString().trim();
 
                 // Jeśli nie są puste pola, wywołaj metodę checkLogin(par1, par2);
-                if(internetConnection.isNetworkAvailable(getApplicationContext())){
+                if (internetConnection.isNetworkAvailable(getApplicationContext())) {
                     if (!email.isEmpty() && !password.isEmpty()) {
-                        if(regEx.checkEmail(email)) {
+                        if (regEx.checkEmail(email)) {
                             // zaloguj użyytkownika
                             checkLogin(email, password);
-                        }else{
+                        } else {
                             Toast.makeText(getApplicationContext(), "Niepoprawny adres e-mail.", Toast.LENGTH_LONG).show();
                         }
                     } else {
                         // Poproś użytkownika o wpisanie danych
                         Toast.makeText(getApplicationContext(), "Prosze wprowadz dane!", Toast.LENGTH_LONG).show();
                     }
-                }else{
+                } else {
                     Toast.makeText(getApplicationContext(), "Brak polaczenia z Internetem.", Toast.LENGTH_LONG).show();
                 }
             }
@@ -128,7 +128,7 @@ public class LoginActivity extends Activity {
 
         StringRequest stringRequest = new StringRequest(Method.POST, AppConfiguration.URL_LOGIN, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response){
+            public void onResponse(String response) {
                 Log.d(TAG, "Odpowiedź logowania: " + response);
                 hideDialog();
 
@@ -171,7 +171,7 @@ public class LoginActivity extends Activity {
                 Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                 hideDialog();
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
@@ -186,13 +186,13 @@ public class LoginActivity extends Activity {
     }
 
     private void showDialog() {
-        if(!progressDialog.isShowing()){
+        if (!progressDialog.isShowing()) {
             progressDialog.show();
         }
     }
 
-    private void hideDialog(){
-        if(progressDialog.isShowing()){
+    private void hideDialog() {
+        if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
     }
@@ -200,10 +200,10 @@ public class LoginActivity extends Activity {
     /*
     Funkcja służąca do pokazywania hasła, jeśli użytkownik zaznaczy Checkbox'a
      */
-    public void showPassword(View view){
-        if(cbPassword.isChecked()){
+    public void showPassword(View view) {
+        if (cbPassword.isChecked()) {
             inputPassword.setTransformationMethod(null);
-        }else{
+        } else {
             inputPassword.setTransformationMethod(new PasswordTransformationMethod());
         }
     }

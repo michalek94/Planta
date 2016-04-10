@@ -2,12 +2,12 @@ package pl.planta.helper;
 
 /**
  * Copyright (C) 2011-2013, Karste Priegnitz
- *
+ * <p/>
  * Permission to use, copy, modify, and distribute this piece of software
  * for any purpose with or without fee is hereby granted, provided that
  * the above copyright notice and this permission notice appear in the
  * source code of all copies.
- *
+ * <p/>
  * It would be appreciated if you mention the author in your change log,
  * contributors list or the like.
  *
@@ -33,24 +33,23 @@ import pl.planta.R;
 
 public class ChangeLog {
 
-    private static String TAG = ChangeLog.class.getSimpleName();
-
-    private static Context mContext;
-    private Editor editor;
-    private SharedPreferences sharedPreferences;
-
-    private String lastVersion, thisVersion;
-
     // this is the key for storing the version name in SharedPreferences
     private static final String PREF_NAME = "android_planta";
     private static final String VERSION_KEY = "PREFS_VERSION_KEY";
     private static final String NO_VERSION = "";
-
+    private static final String KEY_END_OF_CHANGE_LOG = "END_OF_CHANGE_LOG";
+    private static String TAG = ChangeLog.class.getSimpleName();
+    private static Context mContext;
     /**
      * Tryb SharedPreferences |
      * 0 = prywatny, tylko ta aplikacja ma do nich dostęp
      */
     int PRIVATE_MODE = 0;
+    private Editor editor;
+    private SharedPreferences sharedPreferences;
+    private String lastVersion, thisVersion;
+    private Listmode listmode = Listmode.NONE;
+    private StringBuffer stringBuffer = null;
 
     public ChangeLog(Context context) {
         mContext = context;
@@ -59,9 +58,9 @@ public class ChangeLog {
 
         lastVersion = sharedPreferences.getString(VERSION_KEY, NO_VERSION);
         Log.d(TAG, "The latest version: " + lastVersion);
-        try{
+        try {
             thisVersion = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
-        }catch(NameNotFoundException e){
+        } catch (NameNotFoundException e) {
             thisVersion = NO_VERSION;
             Log.e(TAG, "Couldn't get the app version from AndroidManifest.xml file.");
             e.printStackTrace();
@@ -78,7 +77,7 @@ public class ChangeLog {
 
     /**
      * @return <code>true</code> if your app including ChangeLog is started the first time ever.
-     *         Also <code>true</code> if your app was deinstalled and installed again.
+     * Also <code>true</code> if your app was deinstalled and installed again.
      */
     private boolean firstRunEver() {
         return NO_VERSION.equals(lastVersion);
@@ -86,8 +85,8 @@ public class ChangeLog {
 
     /**
      * @return An AlertDialog displaying the changes since the previous installed version of your
-     *         app (what's new). But when this is the first run of your app including ChangeLog then
-     *         the full log dialog is show.
+     * app (what's new). But when this is the first run of your app including ChangeLog then
+     * the full log dialog is show.
      */
     public AlertDialog getLogDialog() {
         return getDialog(firstRunEver());
@@ -110,18 +109,18 @@ public class ChangeLog {
                 .setView(webView)
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                updateVersionInPreferences();
-                            }
-                        });
+                    public void onClick(DialogInterface dialog, int which) {
+                        updateVersionInPreferences();
+                    }
+                });
 
         if (!full) {
             // Button "More..."
             builder.setNegativeButton("More...", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            getFullLogDialog().show();
-                        }
-                    });
+                public void onClick(DialogInterface dialog, int id) {
+                    getFullLogDialog().show();
+                }
+            });
         }
 
         return builder.create();
@@ -136,7 +135,7 @@ public class ChangeLog {
 
     /**
      * @return HTML displaying the changes since the previous installed version of your app (what's
-     *         new)
+     * new)
      */
     public String getLog() {
         return getLog(false);
@@ -148,15 +147,6 @@ public class ChangeLog {
     public String getFullLog() {
         return getLog(true);
     }
-
-    /** modes for HTML-Lists (bullet, numbered) */
-    private enum Listmode {
-        NONE, ORDERED, UNORDERED
-    }
-
-    private Listmode listmode = Listmode.NONE;
-    private StringBuffer stringBuffer = null;
-    private static final String KEY_END_OF_CHANGE_LOG = "END_OF_CHANGE_LOG";
 
     private String getLog(boolean full) {
         // Czytaj changelog.txt
@@ -245,5 +235,12 @@ public class ChangeLog {
             stringBuffer.append("</ul></div>\n");
         }
         listmode = Listmode.NONE;
+    }
+
+    /**
+     * modes for HTML-Lists (bullet, numbered)
+     */
+    private enum Listmode {
+        NONE, ORDERED, UNORDERED
     }
 }

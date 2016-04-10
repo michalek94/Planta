@@ -23,8 +23,8 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-import pl.planta.helper.SessionManager;
 import pl.planta.R;
+import pl.planta.helper.SessionManager;
 
 public class ChooseActivity extends Activity {
 
@@ -62,8 +62,8 @@ public class ChooseActivity extends Activity {
         /**
          * Initialize required buttons
          */
-        btnFacebook = (LoginButton)findViewById(R.id.btnFacebook);
-        btnRegister = (Button)findViewById(R.id.btnRegister);
+        btnFacebook = (LoginButton) findViewById(R.id.btnFacebook);
+        btnRegister = (Button) findViewById(R.id.btnRegister);
         /**
          * Setting read permission for Facebook Login
          * public_profile - for id, name, first_name, last_name
@@ -72,69 +72,69 @@ public class ChooseActivity extends Activity {
         btnFacebook.setReadPermissions(Arrays.asList("public_profile", "email"));
         btnFacebook.registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.w(TAG, "Login Success");
-                btnFacebook.setVisibility(View.INVISIBLE);
-                /**
-                 * GraphRequest to get Facebook's user data like: name, email or id.
-                 */
-                GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                     @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        JSONObject jsonObject = response.getJSONObject();
-                        try {
-                            if (jsonObject != null) {
-                                int id = jsonObject.getInt("id");
-                                String name = jsonObject.getString("first_name");
-                                String email = jsonObject.getString("email");
-                                Log.d("ID: ", String.valueOf(id));
-                                Log.d("Name: ", name);
-                                Log.d("Email: ", email);
-                                sessionManager.saveFacebookCredentials(id, name, email);
+                    public void onSuccess(LoginResult loginResult) {
+                        Log.w(TAG, "Login Success");
+                        btnFacebook.setVisibility(View.INVISIBLE);
+                        /**
+                         * GraphRequest to get Facebook's user data like: name, email or id.
+                         */
+                        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                JSONObject jsonObject = response.getJSONObject();
+                                try {
+                                    if (jsonObject != null) {
+                                        int id = jsonObject.getInt("id");
+                                        String name = jsonObject.getString("first_name");
+                                        String email = jsonObject.getString("email");
+                                        Log.d("ID: ", String.valueOf(id));
+                                        Log.d("Name: ", name);
+                                        Log.d("Email: ", email);
+                                        sessionManager.saveFacebookCredentials(id, name, email);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        });
+
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields", "id, first_name, link, email");
+                        request.setParameters(parameters);
+                        request.executeAsync();
+
+                        sessionManager.setLogin(true);
+                        Intent menuIntent = new Intent(ChooseActivity.this, MenuActivity.class);
+                        startActivity(menuIntent);
+                        finish();
                     }
-                });
-
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, first_name, link, email");
-                request.setParameters(parameters);
-                request.executeAsync();
-
-                sessionManager.setLogin(true);
-                Intent menuIntent = new Intent(ChooseActivity.this, MenuActivity.class);
-                startActivity(menuIntent);
-                finish();
-            }
 
                     /**
                      * When Facebook Login was cancelled by user
                      */
-            @Override
-            public void onCancel() {
-                Log.w(TAG, "Login Cancelled");
-            }
+                    @Override
+                    public void onCancel() {
+                        Log.w(TAG, "Login Cancelled");
+                    }
 
                     /**
                      * When Facebook Login error occurred
                      * onError method, which handle the error, is called
-                      * @param error error message
+                     * @param error error message
                      */
-            @Override
-            public void onError(FacebookException error) {
-                Log.e(TAG, error.getMessage());
-            }
-        });
+                    @Override
+                    public void onError(FacebookException error) {
+                        Log.e(TAG, error.getMessage());
+                    }
+                });
         /**
          * Default register
          */
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChooseActivity.this,RegisterActivity.class);
+                Intent intent = new Intent(ChooseActivity.this, RegisterActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -142,18 +142,20 @@ public class ChooseActivity extends Activity {
         /**
          * If user is already logged in, take him to MenuActivity
          */
-        if(sessionManager.isLoggedIn()){
+        if (sessionManager.isLoggedIn()) {
             // Użytkownik jest zalogowany. Przenoszę go do MenuActivity
             Intent menuIntent = new Intent(ChooseActivity.this, MenuActivity.class);
             startActivity(menuIntent);
             finish();
         }
     }
+
     /**
      * Forward the login results to the callbackManager created in onCreate()
+     *
      * @param requestCode requestCode
-     * @param resultCode resultCode
-     * @param data data
+     * @param resultCode  resultCode
+     * @param data        data
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

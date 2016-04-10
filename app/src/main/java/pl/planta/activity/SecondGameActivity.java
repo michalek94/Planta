@@ -7,7 +7,7 @@ import android.view.WindowManager;
 
 import pl.planta.games.dragAndDropGame.DragAndDropPanel;
 
-public class SecondGameActivity extends Activity{
+public class SecondGameActivity extends Activity {
 
     private DragAndDropPanel view;
 
@@ -16,7 +16,7 @@ public class SecondGameActivity extends Activity{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         //Ustaw na pełen ekran
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         view = new DragAndDropPanel(this);
         setContentView(view);

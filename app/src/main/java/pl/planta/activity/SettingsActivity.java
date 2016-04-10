@@ -8,7 +8,7 @@ import android.view.WindowManager;
 
 import pl.planta.R;
 
-public class SettingsActivity extends PreferenceActivity{
+public class SettingsActivity extends PreferenceActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,8 +25,9 @@ public class SettingsActivity extends PreferenceActivity{
                 new SettingsFragment()).commit();
     }
 
-    public static class SettingsFragment extends PreferenceFragment{
+    public static class SettingsFragment extends PreferenceFragment {
         private final static String TAG = "UserPreferencesFragment";
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);

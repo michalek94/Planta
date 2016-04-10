@@ -20,9 +20,9 @@ public class GamingTestsActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_gamingtests);
 
-        btnSecondGame = (Button)findViewById(R.id.btnSecondGame);
-        btnThirdGame = (Button)findViewById(R.id.btnThirdGame);
-        btnMainMenu = (Button)findViewById(R.id.btnMainManu);
+        btnSecondGame = (Button) findViewById(R.id.btnSecondGame);
+        btnThirdGame = (Button) findViewById(R.id.btnThirdGame);
+        btnMainMenu = (Button) findViewById(R.id.btnMainManu);
 
         btnSecondGame.setOnClickListener(new View.OnClickListener() {
             @Override

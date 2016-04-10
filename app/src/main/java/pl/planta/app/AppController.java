@@ -15,20 +15,19 @@ public class AppController extends Application {
 
     private static final String TAG = AppController.class.getSimpleName();
     private static AppController mInstance;
+    private static Context mContext;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
-    private static Context mContext;
 
-    public AppController(){
+    public AppController() {}
 
-    } // zero argument constructor
-
-    private AppController(Context context){
+    private AppController(Context context) {
         mContext = context;
         mRequestQueue = getRequestQueue();
 
         mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
             private final LruCache<String, Bitmap> cache = new LruCache<>(20);
+
             @Override
             public Bitmap getBitmap(String url) {
                 return cache.get(url);
@@ -41,15 +40,15 @@ public class AppController extends Application {
         });
     }
 
-    public static synchronized AppController getInstance(Context context){
-        if(mInstance == null){
+    public static synchronized AppController getInstance(Context context) {
+        if (mInstance == null) {
             mInstance = new AppController(context);
         }
         return mInstance;
     }
 
-    public RequestQueue getRequestQueue(){
-        if(mRequestQueue == null){
+    public RequestQueue getRequestQueue() {
+        if (mRequestQueue == null) {
             // getApplicationContext() is key, it keeps you from leaking the
             // Activity or BroadcastReceiver if someone passes one in.
             mRequestQueue = Volley.newRequestQueue(mContext.getApplicationContext());
@@ -73,7 +72,7 @@ public class AppController extends Application {
         }
     }
 
-    public ImageLoader getmImageLoader(){
+    public ImageLoader getmImageLoader() {
         return mImageLoader;
     }
 }

@@ -50,14 +50,14 @@ public class RegisterActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_register);
 
-        btnRegister = (Button)findViewById(R.id.btnRegister);
-        btnLinkToLoginScreen = (Button)findViewById(R.id.btnLinkToLoginScreen);
+        btnRegister = (Button) findViewById(R.id.btnRegister);
+        btnLinkToLoginScreen = (Button) findViewById(R.id.btnLinkToLoginScreen);
 
-        inputNick = (EditText)findViewById(R.id.etNick);
-        inputEmail = (EditText)findViewById(R.id.etMeil);
-        inputPassword = (EditText)findViewById(R.id.etPassword);
+        inputNick = (EditText) findViewById(R.id.etNick);
+        inputEmail = (EditText) findViewById(R.id.etMeil);
+        inputPassword = (EditText) findViewById(R.id.etPassword);
 
-        checkPassword = (CheckBox)findViewById(R.id.cbPassword);
+        checkPassword = (CheckBox) findViewById(R.id.cbPassword);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -70,7 +70,7 @@ public class RegisterActivity extends Activity {
 
         // Sprawdź czy użytkownik jest już zalogowany.
         // Jeśli tak, przenieś go do MenuActivity
-        if(sessionManager.isLoggedIn()){
+        if (sessionManager.isLoggedIn()) {
             Log.w(TAG, "Starting MenuActivity");
             // Użytkownik jest zalogowany. Przenoszę go do MenuActivity
             Intent menuIntent = new Intent(RegisterActivity.this, MenuActivity.class);
@@ -86,17 +86,17 @@ public class RegisterActivity extends Activity {
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
-                if(internetConnection.isNetworkAvailable(getApplicationContext())) {
-                    if(!name.isEmpty() && !email.isEmpty() && !password.isEmpty()){
-                        if(regEx.checkEmail(email)){
+                if (internetConnection.isNetworkAvailable(getApplicationContext())) {
+                    if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+                        if (regEx.checkEmail(email)) {
                             registerUser(name, email, password);
-                        }else{
+                        } else {
                             Toast.makeText(getApplicationContext(), "Niepoprawny adres e-mail.", Toast.LENGTH_LONG).show();
                         }
-                    }else{
+                    } else {
                         Toast.makeText(getApplicationContext(), "Prosze wprowadzic dane.", Toast.LENGTH_SHORT).show();
                     }
-                }else{
+                } else {
                     Toast.makeText(getApplicationContext(), "Brak polaczenia z Internetem.", Toast.LENGTH_LONG).show();
                 }
             }
@@ -113,7 +113,7 @@ public class RegisterActivity extends Activity {
         });
     }
 
-    private void registerUser(final String name, final String email, final String password){
+    private void registerUser(final String name, final String email, final String password) {
         String tag_string_req = "req_register";
 
         progressDialog.setMessage("Rejestrowanie...");
@@ -128,7 +128,7 @@ public class RegisterActivity extends Activity {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     boolean error = jsonObject.getBoolean("error");
-                    if (!error){
+                    if (!error) {
                         Toast.makeText(getApplicationContext(), "Uzytkownik " + name + " zarejestrowany pomyslnie", Toast.LENGTH_LONG).show();
 
                         Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -149,10 +149,10 @@ public class RegisterActivity extends Activity {
                 Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                 hideDialog();
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
+                Map<String, String> params = new HashMap<>();
                 params.put("name", name);
                 params.put("email", email);
                 params.put("password", password);
@@ -163,23 +163,25 @@ public class RegisterActivity extends Activity {
         AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
     }
 
-    private void showDialog(){
-        if(!progressDialog.isShowing()){
+    private void showDialog() {
+        if (!progressDialog.isShowing()) {
             progressDialog.show();
         }
     }
-    private void hideDialog(){
-        if(progressDialog.isShowing()){
+
+    private void hideDialog() {
+        if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
     }
+
     /*
     Funkcja służąca do pokazywania hasła, jeśli użytkownik zaznaczy Checkbox'a
      */
-    public void showPassword(View view){
-        if(checkPassword.isChecked()){
+    public void showPassword(View view) {
+        if (checkPassword.isChecked()) {
             inputPassword.setTransformationMethod(null);
-        }else{
+        } else {
             inputPassword.setTransformationMethod(new PasswordTransformationMethod());
         }
     }

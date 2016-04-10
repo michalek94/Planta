@@ -20,8 +20,8 @@ public class MainMenuActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home);
 
-        cityButton = (ImageButton)findViewById(R.id.cityButton);
-        januszButton = (ImageButton)findViewById(R.id.januszButton);
+        cityButton = (ImageButton) findViewById(R.id.cityButton);
+        januszButton = (ImageButton) findViewById(R.id.januszButton);
 
         cityButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,7 +31,7 @@ public class MainMenuActivity extends Activity {
             }
         });
 
-       januszButton.setOnClickListener(new View.OnClickListener() {
+        januszButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent gameIntent = new Intent(MainMenuActivity.this, JanuszWorkActivity.class);

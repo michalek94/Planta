@@ -19,9 +19,9 @@ public class JanuszWorkActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_januszw);
 
-        heapButton = (ImageButton)findViewById(R.id.heapButton);
+        heapButton = (ImageButton) findViewById(R.id.heapButton);
 
-       heapButton.setOnClickListener(new View.OnClickListener() {
+        heapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent gameIntent = new Intent(JanuszWorkActivity.this, GamingTestsActivity.class);

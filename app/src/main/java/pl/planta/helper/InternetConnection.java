@@ -13,11 +13,10 @@ public class InternetConnection {
 
     public boolean isNetworkAvailable(final Context context) {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
-        if (connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnectedOrConnecting()){
+        if (connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnectedOrConnecting()) {
             Log.d(TAG, "Internet connection available.");
             return true;
-        }
-        else{
+        } else {
             Log.d(TAG, "There is no an Internet connection.");
             return false;
         }

@@ -36,6 +36,18 @@ public class MenuActivity extends Activity {
     private LoginButton btnFacebook;
     private SoundService soundService;
     private boolean isBound = false;
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            SoundService.ServiceBinder binder = (SoundService.ServiceBinder) service;
+            soundService = binder.getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            soundService = null;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +124,7 @@ public class MenuActivity extends Activity {
 
     }
 
-    private void logoutUser(){
+    private void logoutUser() {
         sessionManager.setLogin(false);
 
         sqLiteHandler.deleteUsers();
@@ -122,7 +134,7 @@ public class MenuActivity extends Activity {
         finish();
     }
 
-    private void showConfirmExitDialog(){
+    private void showConfirmExitDialog() {
         layoutInflater = getLayoutInflater();
         view = layoutInflater.inflate(R.layout.exit_alertdialog, null);
 
@@ -150,6 +162,7 @@ public class MenuActivity extends Activity {
         });
 
     }
+
     /**
      * Po naciśnięciu przycisku Back pojawi się AlertDialog
      * informujący użytkownika czy zamierza wyjść z aplikacji czy też zostać.
@@ -158,11 +171,13 @@ public class MenuActivity extends Activity {
     public void onBackPressed() {
         showConfirmExitDialog();
     }
+
     /**
      * Forward the login results to the callbackManager created in onCreate()
+     *
      * @param requestCode requestCode
-     * @param resultCode resultCode
-     * @param data data
+     * @param resultCode  resultCode
+     * @param data        data
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -170,29 +185,16 @@ public class MenuActivity extends Activity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            SoundService.ServiceBinder binder = (SoundService.ServiceBinder) service;
-            soundService = binder.getService();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            soundService = null;
-        }
-    };
-
-    private void doBindService(){
-        if(!isBound){
+    private void doBindService() {
+        if (!isBound) {
             bindService(new Intent(this, SoundService.class),
                     serviceConnection, Context.BIND_AUTO_CREATE);
             isBound = true;
         }
     }
 
-    private void doUnbindService(){
-        if(isBound){
+    private void doUnbindService() {
+        if (isBound) {
             unbindService(serviceConnection);
             isBound = false;
         }
