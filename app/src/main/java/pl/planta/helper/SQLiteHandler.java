@@ -41,30 +41,27 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                                                     + KEY_COAL_SCORE + " INTEGER,"
                                                     + KEY_COAL_HIGHSCORE + " INTEGER,"
                                                     + KEY_CREATED_AT + " TEXT" + ")";
-
     /**
      * Konstruktor
-     * @param context
+     * @param context context
      */
     public SQLiteHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
     /**
      * Tworzenie bazy danych
-     * @param db
+     * @param db database object
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER_TABLE);
         Log.d(TAG, "Tabela utworzona.");
     }
-
     /**
      * Aktualizacja SQLite
-     * @param db
-     * @param oldVersion
-     * @param newVersion
+     * @param db database object
+     * @param oldVersion database's old version
+     * @param newVersion database's new version2
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -74,15 +71,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         // Utworzenie ponownie tabeli
         onCreate(db);
     }
-
     /**
      * Zapis użytkownika do SQLite
-     * @param uid
-     * @param name
-     * @param email
-     * @param coal_score
-     * @param coal_highscore
-     * @param created_at
+     * @param uid unique id
+     * @param name user's name
+     * @param email user's email
+     * @param coal_score user's coal score
+     * @param coal_highscore user's best score
+     * @param created_at time when user has been created
      */
     public void addUser(String uid, String name, String email, int coal_score, int coal_highscore, String created_at){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -101,10 +97,31 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         Log.d(TAG, "Nowy uzytkownik dodany do bazy SQLite: " + id);
     }
+    /**
+     * Pobieranie z SQLite tylko UID gracza
+     * @return user UID - unique id
+     */
+    public HashMap<String, String> getUserUid(){
+        HashMap<String, String> userUID = new HashMap<>();
+        String selectQuery = "SELECT uid FROM " + TABLE_USER;
 
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        if(cursor.getCount() > 0){
+            userUID.put("uid", cursor.getString(1));
+        }
+        cursor.close();
+        db.close();
+
+        // Zwracanie user'a
+        Log.d(TAG, "Pobieranie UID uzytkownika z SQLite: " + userUID.toString());
+        return userUID;
+    }
     /**
      * Pobranie z SQLite uid, name, email, created_at
-     * @return
+     * @return user
      */
     public HashMap<String, String> getUserDetails(){
         HashMap<String, String> user = new HashMap<>();
@@ -129,10 +146,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         return user;
     }
-
     /**
      * Pobranie z SQLite coal_score & coal_highscore
-     * @return
+     * @return userCoal
      */
     public HashMap<String, Integer> getUserCoalScores(){
         HashMap<String, Integer> userCoal = new HashMap<>();
@@ -154,13 +170,12 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         return userCoal;
     }
-
     /**
      * Aktualizacja wiersza z userID = 1
-     * @param userID
-     * @param coal_score
-     * @param coal_highscore
-     * @return
+     * @param userID user's unique id
+     * @param coal_score user's coal score
+     * @param coal_highscore user's best score
+     * @return return true if id > 0 else return false
      */
     public boolean updateCoalScores(long userID, int coal_score, int coal_highscore){
 
@@ -170,8 +185,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         contentValues.put(KEY_COAL_SCORE, coal_score);
         contentValues.put(KEY_COAL_HIGHSCORE, coal_highscore);
 
-        int i = db.update(TABLE_USER, contentValues, KEY_ID + "=" + userID, null);
-        return i > 0;
+        long id = db.update(TABLE_USER, contentValues, KEY_ID + "=" + userID, null);
+        if (id > 0) return true;
+        else return false;
     }
 
     /**

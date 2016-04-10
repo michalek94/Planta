@@ -183,7 +183,7 @@ public class MenuActivity extends Activity {
         }
     };
 
-    void doBindService(){
+    private void doBindService(){
         if(!isBound){
             bindService(new Intent(this, SoundService.class),
                     serviceConnection, Context.BIND_AUTO_CREATE);
@@ -191,7 +191,7 @@ public class MenuActivity extends Activity {
         }
     }
 
-    void doUnbindService(){
+    private void doUnbindService(){
         if(isBound){
             unbindService(serviceConnection);
             isBound = false;
@@ -203,12 +203,18 @@ public class MenuActivity extends Activity {
         super.onDestroy();
         Log.d("MenuActivity", "onDestroy");
         stopService(new Intent(this, SoundService.class));
-        unbindService(serviceConnection);
+        doUnbindService();
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
         soundService.resumeMusic();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        soundService.pauseMusic();
     }
 }
