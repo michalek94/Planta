@@ -86,19 +86,6 @@
         android:textSize="36sp"
         android:textColor="#FF052535" />
 
-    <Button
-        android:id="@+id/btnLinkToLoginScreen"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:text="@string/btn_toLoginActivity"
-        android:textAllCaps="false"
-        android:textColor="#FF052535"
-        android:textSize="36sp"
-        android:layout_below="@+id/btnRegister"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -125,7 +112,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_register"
-        android:id="@+id/btnRegister"
+        android:id="@+id/btn_Regist"
         android:layout_below="@+id/cbPassword"
         android:layout_centerHorizontal="true"
         android:background="@drawable/button_rejestracja"

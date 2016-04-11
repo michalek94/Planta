@@ -35,7 +35,7 @@ import pl.planta.helper.SessionManager;
 public class RegisterActivity extends Activity {
 
     private static final String TAG = RegisterActivity.class.getSimpleName();
-    private Button btnRegister, btnLinkToLoginScreen;
+    private Button btn_Regist;
     private EditText inputNick, inputEmail, inputPassword;
     private CheckBox checkPassword;
     private ProgressDialog progressDialog;
@@ -50,8 +50,7 @@ public class RegisterActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_register);
 
-        btnRegister = (Button) findViewById(R.id.btnRegister);
-        btnLinkToLoginScreen = (Button) findViewById(R.id.btnLinkToLoginScreen);
+        btn_Regist = (Button) findViewById(R.id.btn_Regist);
 
         inputNick = (EditText) findViewById(R.id.etNick);
         inputEmail = (EditText) findViewById(R.id.etMeil);
@@ -79,7 +78,7 @@ public class RegisterActivity extends Activity {
         }
 
         // Przycisk rejestracji
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        btn_Regist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String name = inputNick.getText().toString().trim();
@@ -99,16 +98,6 @@ public class RegisterActivity extends Activity {
                 } else {
                     Toast.makeText(getApplicationContext(), "Brak polaczenia z Internetem.", Toast.LENGTH_LONG).show();
                 }
-            }
-        });
-
-        // Przycisk przenoszący do ekranu logowania
-        btnLinkToLoginScreen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(loginIntent);
-                finish();
             }
         });
     }

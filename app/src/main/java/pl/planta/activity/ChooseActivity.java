@@ -30,7 +30,7 @@ public class ChooseActivity extends Activity {
 
     private static final String TAG = ChooseActivity.class.getSimpleName();
 
-    private Button btnRegister;
+    private Button btn_Login, btn_Register;
     private LoginButton btnFacebook;
     private SessionManager sessionManager;
     private CallbackManager callbackManager;
@@ -62,8 +62,9 @@ public class ChooseActivity extends Activity {
         /**
          * Initialize required buttons
          */
+        btn_Login = (Button) findViewById(R.id.btn_Login);
+        btn_Register = (Button) findViewById(R.id.btn_Register);
         btnFacebook = (LoginButton) findViewById(R.id.btnFacebook);
-        btnRegister = (Button) findViewById(R.id.btnRegister);
         /**
          * Setting read permission for Facebook Login
          * public_profile - for id, name, first_name, last_name
@@ -129,14 +130,23 @@ public class ChooseActivity extends Activity {
                     }
                 });
         /**
-         * Default register
+         *
          */
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        btn_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChooseActivity.this, RegisterActivity.class);
-                startActivity(intent);
-                finish();
+                Intent loginIntent = new Intent(ChooseActivity.this, LoginActivity.class);
+                startActivity(loginIntent);
+            }
+        });
+        /**
+         * Default register
+         */
+        btn_Register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registerIntent = new Intent(ChooseActivity.this, RegisterActivity.class);
+                startActivity(registerIntent);
             }
         });
         /**

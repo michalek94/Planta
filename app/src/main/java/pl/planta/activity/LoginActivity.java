@@ -37,7 +37,7 @@ public class LoginActivity extends Activity {
 
     private static String TAG = LoginActivity.class.getSimpleName();
 
-    private Button btnLogin, btnLinkToRegisterScreen;
+    private Button btn_LogIn;
     private EditText inputEmail, inputPassword;
     private CheckBox cbPassword;
     private ProgressDialog progressDialog;
@@ -53,8 +53,7 @@ public class LoginActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnLinkToRegisterScreen = (Button) findViewById(R.id.btnLinkToRegisterScreen);
+        btn_LogIn = (Button) findViewById(R.id.btn_LogIn);
 
         inputEmail = (EditText) findViewById(R.id.etMeil);
         inputPassword = (EditText) findViewById(R.id.etPassword);
@@ -79,7 +78,7 @@ public class LoginActivity extends Activity {
             finish();
         }
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        btn_LogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = inputEmail.getText().toString().trim();
@@ -101,16 +100,6 @@ public class LoginActivity extends Activity {
                 } else {
                     Toast.makeText(getApplicationContext(), "Brak polaczenia z Internetem.", Toast.LENGTH_LONG).show();
                 }
-            }
-        });
-
-        // Przeniesienie do ekranu Rejestracji
-        btnLinkToRegisterScreen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent registerIntent = new Intent(getApplicationContext(), RegisterActivity.class);
-                startActivity(registerIntent);
-                finish();
             }
         });
     }

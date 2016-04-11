@@ -4,58 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginTop="200dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:id="@+id/cvSeparator" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/register"
-        android:id="@+id/btnRegister"
-        android:background="@drawable/button_rejestracja"
-        android:layout_below="@+id/cvSeparator"
-        android:layout_marginTop="70dp"
-        android:layout_alignRight="@+id/cvSeparator"
-        android:layout_alignEnd="@+id/cvSeparator"
-        android:layout_alignLeft="@+id/cvSeparator"
-        android:layout_alignStart="@+id/cvSeparator"
-        android:layout_marginLeft="12.5dp"
-        android:layout_marginRight="12.5dp" />
-
-    <com.facebook.login.widget.LoginButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnFacebook"
-        android:layout_below="@+id/btnRegister"
-        android:layout_alignLeft="@+id/btnRegister"
-        android:layout_alignStart="@+id/btnRegister"
-        android:layout_marginTop="30dp"
-        android:layout_alignRight="@+id/btnRegister"
-        android:layout_alignEnd="@+id/btnRegister"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/googleplus"
-        android:id="@+id/btnGoogle"
-        android:background="@drawable/button_google"
-        android:layout_below="@+id/btnFacebook"
-        android:layout_alignLeft="@+id/btnFacebook"
-        android:layout_alignStart="@+id/btnFacebook"
-        android:layout_marginTop="70dp"
-        android:layout_alignRight="@+id/btnFacebook"
-        android:layout_alignEnd="@+id/btnFacebook" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -72,38 +20,101 @@
             android:background="@drawable/logo"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_margin="20dp" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/btnGoogle"
-        android:layout_centerHorizontal="true">
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="160dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/cvSeparator" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/continue_textview"
-            android:id="@+id/textView"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:id="@+id/btn_Login"
+        android:background="@drawable/button_rejestracja"
+        android:layout_below="@+id/tvLogHint"
+        android:layout_marginTop="17.5dp"
+        android:layout_alignLeft="@+id/cvSeparator"
+        android:layout_alignStart="@+id/cvSeparator"
+        android:layout_alignRight="@+id/cvSeparator"
+        android:layout_alignEnd="@+id/cvSeparator"
+        android:layout_marginLeft="13.5dp"
+        android:layout_marginRight="13.5dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/rules_textview"
-            android:id="@+id/textView2"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/textView"
-            android:layout_centerHorizontal="true" />
+    <com.facebook.login.widget.LoginButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnFacebook"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="17.5dp"
+        android:layout_alignLeft="@+id/btn_Register"
+        android:layout_alignStart="@+id/btn_Register"
+        android:layout_alignRight="@+id/btn_Register"
+        android:layout_alignEnd="@+id/btn_Register" />
 
-    </RelativeLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register"
+        android:id="@+id/btn_Register"
+        android:background="@drawable/button_rejestracja"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="17.5dp"
+        android:layout_alignLeft="@+id/btn_Login"
+        android:layout_alignStart="@+id/btn_Login"
+        android:layout_alignRight="@+id/btn_Login"
+        android:layout_alignEnd="@+id/btn_Login" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/tv_login_hint"
+        android:id="@+id/tvLogHint"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/cvSeparator"
+        android:gravity="center_horizontal"
+        android:layout_alignLeft="@+id/btn_Login"
+        android:layout_alignStart="@+id/btn_Login"
+        android:layout_alignRight="@+id/btn_Login"
+        android:layout_alignEnd="@+id/btn_Login" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/tv_register_hint"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/btn_Login"
+        android:layout_marginTop="17.5dp"
+        android:gravity="center_horizontal"
+        android:layout_alignLeft="@+id/btn_Login"
+        android:layout_alignStart="@+id/btn_Login"
+        android:layout_alignRight="@+id/btn_Login"
+        android:layout_alignEnd="@+id/btn_Login" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/tv_facebook_hint"
+        android:id="@+id/textView4"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/btn_Register"
+        android:layout_marginTop="17.5dp"
+        android:layout_alignRight="@+id/btnFacebook"
+        android:layout_alignEnd="@+id/btnFacebook"
+        android:layout_alignLeft="@+id/btnFacebook"
+        android:layout_alignStart="@+id/btnFacebook" />
 
 </RelativeLayout>

@@ -2,7 +2,11 @@
     <string name="app_name">Planta</string>
     <string name="action_settings">Settings</string>
     <string name="logo">Logo</string>
-    <string name="register">REJESTRACJA/LOGOWANIE</string>
+    <string name="login">LOGOWANIE</string>
+    <string name="register">REJESTRACJA</string>
+    <string name="tv_login_hint">Jeśli posiadasz już konto, zaloguj się.</string>
+    <string name="tv_register_hint">Jeśli nie, założ je.</string>
+    <string name="tv_facebook_hint">Facebook, testy.</string>
     <string name="facebook">FACEBOOK</string>
     <string name="googleplus">GOOGLE+</string>
     <string name="btn_toLoginActivity">Posiadasz konto? Zaloguj się!</string>
@@ -56,4 +60,5 @@
     Facebook Settings
     -->
     <string name="facebook_app_id">1699194817018407</string>
+
 </resources>
