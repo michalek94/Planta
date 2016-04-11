@@ -2,6 +2,7 @@ package pl.planta.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 
 import pl.planta.R;
+import pl.planta.dialogs.ExitDialog;
 import pl.planta.helper.ChangeLog;
 import pl.planta.helper.SQLiteHandler;
 import pl.planta.helper.SessionManager;
@@ -35,6 +37,7 @@ public class MenuActivity extends Activity {
     private CallbackManager callbackManager;
     private LoginButton btnFacebook;
     private SoundService soundService;
+    private FragmentManager fragmentManager = getFragmentManager();
     private boolean isBound = false;
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
@@ -135,32 +138,8 @@ public class MenuActivity extends Activity {
     }
 
     private void showConfirmExitDialog() {
-        layoutInflater = getLayoutInflater();
-        view = layoutInflater.inflate(R.layout.exit_alertdialog, null);
-
-        btnPositive = (Button) view.findViewById(R.id.btnPositive);
-        btnNegative = (Button) view.findViewById(R.id.btnNegative);
-
-        // Use the Builder class for convenient dialog construction
-        final AlertDialog builder = new AlertDialog.Builder(this).create();
-        builder.setView(view);
-        builder.setCancelable(false);
-        builder.show();
-        btnPositive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                builder.dismiss();
-            }
-        });
-        btnNegative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                builder.dismiss();
-                soundService.pauseMusic();
-                finish();
-            }
-        });
-
+        ExitDialog exitDialog = new ExitDialog();
+        exitDialog.show(fragmentManager, "Sample Fragment");
     }
 
     /**
