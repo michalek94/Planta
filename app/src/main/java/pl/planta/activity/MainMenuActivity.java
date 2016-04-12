@@ -13,6 +13,8 @@ public class MainMenuActivity extends Activity {
 
     private ImageButton cityButton;
     private ImageButton januszButton;
+    private ImageButton plantaButton;
+    private ImageButton mineButton;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +24,8 @@ public class MainMenuActivity extends Activity {
 
         cityButton = (ImageButton) findViewById(R.id.cityButton);
         januszButton = (ImageButton) findViewById(R.id.januszButton);
+        plantaButton = (ImageButton) findViewById(R.id.plantaButton);
+        mineButton = (ImageButton) findViewById(R.id.mineButton);
 
         cityButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +39,24 @@ public class MainMenuActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent gameIntent = new Intent(MainMenuActivity.this, JanuszWorkActivity.class);
+                startActivity(gameIntent);
+            }
+        });
+
+        plantaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gameIntent = new Intent(MainMenuActivity.this, PlantaActivity.class);
+                startActivity(gameIntent);
+            }
+        });
+
+
+
+        mineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gameIntent = new Intent(MainMenuActivity.this, MineActivity.class);
                 startActivity(gameIntent);
             }
         });

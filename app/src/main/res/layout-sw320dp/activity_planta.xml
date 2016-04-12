@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="40%"
+        app:layout_widthPercent="40.5%"
+        android:layout_height="0dp"
+        android:id="@+id/plantaImageView1"
+        android:background="@drawable/piv1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="40%"
+        app:layout_widthPercent="12.8%"
+        android:id="@+id/hookButton"
+        android:background="@drawable/button_hook"
+        android:layout_toRightOf="@+id/plantaImageView1"
+        android:layout_toEndOf="@+id/plantaImageView1" />
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="30%"
+        app:layout_widthPercent="26%"
+        android:layout_height="0dp"
+        android:id="@+id/plantaImageView2"
+        android:background="@drawable/piv2"
+        android:layout_toRightOf="@+id/hookButton"
+        android:layout_toEndOf="@+id/hookButton" />
+        />
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="100%"
+        app:layout_widthPercent="21%"
+        android:id="@+id/furnaceButton"
+        android:background="@drawable/button_furnace"
+        android:layout_toRightOf="@+id/plantaImageView2"
+        android:layout_toEndOf="@+id/plantaImageView2" />
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="42.7%"
+        app:layout_widthPercent="46.3%"
+        android:id="@+id/computerButton"
+        android:background="@drawable/button_computer"
+        android:layout_below="@+id/plantaImageView1" />
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="42.3%"
+        app:layout_widthPercent="7%"
+        android:layout_height="0dp"
+        android:id="@+id/plantaImageView3"
+        android:background="@drawable/piv3"
+        android:layout_toRightOf="@+id/computerButton"
+        android:layout_toEndOf="@+id/computerButton"
+        android:layout_below="@+id/hookButton"/>
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="52.55%"
+        app:layout_widthPercent="18%"
+        android:id="@+id/doorButton"
+        android:background="@drawable/button_door"
+        android:layout_below="@+id/plantaImageView2"
+        android:layout_toRightOf="@+id/plantaImageView3"
+        android:layout_toEndOf="@+id/plantaImageView3"/>
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="52.95%"
+        app:layout_widthPercent="8.1%"
+        android:layout_height="0dp"
+        android:id="@+id/plantaImageView4"
+        android:background="@drawable/piv4"
+        android:layout_toRightOf="@+id/doorButton"
+        android:layout_toEndOf="@+id/doorButton"
+        android:layout_below="@+id/plantaImageView2"/>
+    />
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="21%"
+        app:layout_widthPercent="80%"
+        android:layout_height="0dp"
+        android:id="@+id/plantaImageView5"
+        android:background="@drawable/piv5"
+        android:layout_below="@+id/plantaImageView3"/>
+    />
+
+    </android.support.percent.PercentRelativeLayout>
