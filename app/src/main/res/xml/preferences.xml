@@ -21,4 +21,12 @@
             android:defaultValue="false"/>
 
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Facebook">
+
+        <Preference
+            android:widgetLayout="@layout/pref_fb_button">
+        </Preference>
+    </PreferenceCategory>
 </PreferenceScreen>
