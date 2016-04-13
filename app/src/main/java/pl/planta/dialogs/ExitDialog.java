@@ -19,9 +19,9 @@ public class ExitDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.exit_alertdialog, container, false);
 
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        getDialog().setCanceledOnTouchOutside(false);
-        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.exit_dialog_bg);
+        getDialog().setCanceledOnTouchOutside(false); // you can't close dialog when you click outside of it
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE); // don't create dialog's title
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.exit_dialog_bg); // set new background file for dialog
 
         btnPositive = (Button) view.findViewById(R.id.btnPositive);
         btnNegative = (Button) view.findViewById(R.id.btnNegative);
