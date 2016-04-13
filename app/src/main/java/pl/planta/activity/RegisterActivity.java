@@ -164,8 +164,8 @@ public class RegisterActivity extends Activity {
         }
     }
 
-    /*
-    Funkcja służąca do pokazywania hasła, jeśli użytkownik zaznaczy Checkbox'a
+    /**
+    *Funkcja służąca do pokazywania hasła, jeśli użytkownik zaznaczy Checkbox'a
      */
     public void showPassword(View view) {
         if (checkPassword.isChecked()) {

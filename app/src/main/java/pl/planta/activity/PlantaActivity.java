@@ -6,9 +6,6 @@ import android.view.WindowManager;
 
 import pl.planta.R;
 
-/**
- * Created by Jakub on 2016-04-12.
- */
 public class PlantaActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {

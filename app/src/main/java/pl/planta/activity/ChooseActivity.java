@@ -106,9 +106,7 @@ public class ChooseActivity extends Activity {
                         request.executeAsync();
 
                         sessionManager.setLogin(true);
-                        Intent menuIntent = new Intent(ChooseActivity.this, MenuActivity.class);
-                        startActivity(menuIntent);
-                        finish();
+                        loginAfterFacebookLogin();
                     }
 
                     /**
@@ -171,5 +169,11 @@ public class ChooseActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void loginAfterFacebookLogin(){
+        Intent menuIntent = new Intent(ChooseActivity.this, MenuActivity.class);
+        startActivity(menuIntent);
+        finish();
     }
 }
