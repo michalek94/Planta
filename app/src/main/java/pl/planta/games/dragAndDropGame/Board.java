@@ -27,12 +27,10 @@ public class Board  {
     private int partWidth;
     private int partHeight;
 
-    public Region getPipeArea() {
-        return pipeArea;
+    public Rect getClickedPipe() {
+        return pipes.get(0).getPipeArea();
     }
 
-    private Rect pipeRect;
-    private Region pipeArea;
 
     public Board(int x,int y, int width, int height, Context context) {
         partWidth=width/FieldsOnXAxis;
@@ -44,9 +42,6 @@ public class Board  {
         for(int i=0;i<amount;i++){
             if(typeOfPart==0) {
                 pipes.add(new StraightPipe(context, 0, height-partHeight, partWidth, partHeight));
-                pipeRect= new Rect(0, height-partHeight, partWidth, partHeight);
-                pipeArea=new Region();
-                pipeArea.set(pipeRect);
                 //liczbaProstych++;
                 typeOfPart =1;
             }
@@ -60,6 +55,7 @@ public class Board  {
     public void movePipes(int x, int y){
         pipes.get(0).setX(x - partWidth / 2);
         pipes.get(0).setY(y - partHeight / 2);
+        pipes.get(0).updateArea();
         //System.out.println(pipes.get(0).getX());
     }
 
@@ -74,16 +70,10 @@ public class Board  {
                 canvas.drawRect(i * partWidth, j * partHeight, partWidth, partHeight, paint);
             }
         }
-     //   paint.setTextSize(30);
-       // paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
         for (int i=0;i< pipes.size();i++)
         {
             pipes.get(i).draw(canvas);
         }
-        paint.setColor(Color.YELLOW);
-        paint.setStyle(Paint.Style.FILL);
-        canvas.drawRect(0,0,100,100,paint);
-        //canvas.drawText(""+liczbaKolanek,startXKolanek+100,startYKolanek+100,paint);
-        //canvas.drawText(""+liczbaProstych,startXProstych+100,startYProstych+100,paint);
+
     }
 }
