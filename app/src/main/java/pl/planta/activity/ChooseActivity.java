@@ -135,6 +135,7 @@ public class ChooseActivity extends Activity {
             public void onClick(View v) {
                 Intent loginIntent = new Intent(ChooseActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
+                finish();
             }
         });
         /**
@@ -145,6 +146,7 @@ public class ChooseActivity extends Activity {
             public void onClick(View v) {
                 Intent registerIntent = new Intent(ChooseActivity.this, RegisterActivity.class);
                 startActivity(registerIntent);
+                finish();
             }
         });
         /**
