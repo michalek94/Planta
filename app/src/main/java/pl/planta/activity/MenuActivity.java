@@ -1,16 +1,9 @@
 package pl.planta.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.FragmentManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -25,32 +18,18 @@ import pl.planta.dialogs.ExitDialog;
 import pl.planta.helper.ChangeLog;
 import pl.planta.helper.SQLiteHandler;
 import pl.planta.helper.SessionManager;
-import pl.planta.service.SoundService;
 
 public class MenuActivity extends Activity {
 
-    private Button btnLogout, btnGraj, btnMenuTesting, btnPositive, btnNegative;
+    private Button btnLogout, btnGraj, btnMenuTesting;
     private SessionManager sessionManager;
     private SQLiteHandler sqLiteHandler;
-    private LayoutInflater layoutInflater;
-    private View view;
     private CallbackManager callbackManager;
     private LoginButton btnFacebook;
-    private SoundService soundService;
+    private ChangeLog changeLog;
+    private ExitDialog exitDialog;
     private FragmentManager fragmentManager = getFragmentManager();
-    private boolean isBound = false;
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            SoundService.ServiceBinder binder = (SoundService.ServiceBinder) service;
-            soundService = binder.getService();
-        }
 
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            soundService = null;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +48,9 @@ public class MenuActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_menu);
-        doBindService();
-        Intent soundIntent = new Intent();
-        soundIntent.setClass(this, SoundService.class);
-        startService(soundIntent);
-
+        /**
+         * Initialize button's
+         */
         btnFacebook = (LoginButton) findViewById(R.id.btnFacebook);
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnGraj = (Button) findViewById(R.id.btnGraj);
@@ -81,8 +58,10 @@ public class MenuActivity extends Activity {
 
         sessionManager = new SessionManager(getApplicationContext());
         sqLiteHandler = new SQLiteHandler(getApplicationContext());
-        soundService = new SoundService();
-        ChangeLog changeLog = new ChangeLog(this);
+
+        changeLog = new ChangeLog(this);
+        exitDialog = new ExitDialog();
+
         if (changeLog.firstRun()) {
             changeLog.getLogDialog().show();
         }
@@ -124,7 +103,6 @@ public class MenuActivity extends Activity {
                 logoutUser();
             }
         });
-
     }
 
     private void logoutUser() {
@@ -138,7 +116,6 @@ public class MenuActivity extends Activity {
     }
 
     private void showConfirmExitDialog() {
-        ExitDialog exitDialog = new ExitDialog();
         exitDialog.show(fragmentManager, "Sample Fragment");
     }
 
@@ -162,40 +139,5 @@ public class MenuActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void doBindService() {
-        if (!isBound) {
-            bindService(new Intent(this, SoundService.class),
-                    serviceConnection, Context.BIND_AUTO_CREATE);
-            isBound = true;
-        }
-    }
-
-    private void doUnbindService() {
-        if (isBound) {
-            unbindService(serviceConnection);
-            isBound = false;
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("MenuActivity", "onDestroy");
-        stopService(new Intent(this, SoundService.class));
-        doUnbindService();
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        soundService.resumeMusic();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        soundService.pauseMusic();
     }
 }
