@@ -16,7 +16,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="@android:color/holo_blue_dark"
+        android:background="@android:color/holo_blue_light"
         android:textColor="#ffffff"
         android:textSize="30sp" />
 
@@ -44,9 +44,13 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="35dp"
         android:layout_marginStart="35dp"
-        android:padding="20dp"
-        android:background="@drawable/roundshapebutton"
-        android:textColor="#ffffff" />
+        android:background="@drawable/roundshapebutton_exit"
+        android:textColor="@android:color/holo_blue_light"
+        android:layout_marginBottom="10dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -59,7 +63,11 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="35dp"
         android:layout_marginEnd="35dp"
-        android:background="@drawable/roundshapebutton"
-        android:padding="20dp"
-        android:textColor="#ffffff" />
+        android:background="@drawable/roundshapebutton_stay"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="10dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
 </RelativeLayout>

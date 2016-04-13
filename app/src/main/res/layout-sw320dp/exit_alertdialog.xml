@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/exit_dialog_bg">
 
     <TextView
         android:layout_width="wrap_content"
@@ -16,58 +17,68 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="@android:color/holo_blue_dark"
-        android:textColor="#ffffff"
+        android:background="@drawable/exit_dialog_title"
+        android:textColor="#FFFFFF"
         android:textSize="30sp" />
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="94dp"
-        android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/alertDialogMessage"
-        android:id="@+id/tv_ExitDialog_Message"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/tv_ExitDialog_Title"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:background="@drawable/exit_dialog_bg2">
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/alertDialogNegativeBtn"
-        android:id="@+id/btnNegative"
-        android:layout_below="@+id/tv_ExitDialog_Message"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="35dp"
-        android:layout_marginStart="35dp"
-        android:background="@drawable/roundshapebutton"
-        android:textColor="#ffffff"
-        android:layout_marginBottom="10dp"
-        android:paddingRight="30dp"
-        android:paddingLeft="30dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp" />
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/alertDialogNegativeBtn"
+            android:id="@+id/btnNegative"
+            android:layout_below="@+id/tv_ExitDialog_Message"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="45dp"
+            android:layout_marginStart="45dp"
+            android:background="@drawable/roundshapebutton_exit"
+            android:textColor="@android:color/holo_blue_light"
+            android:layout_marginBottom="10dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/alertDialogPositiveBtn"
-        android:id="@+id/btnPositive"
-        android:layout_below="@+id/tv_ExitDialog_Message"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="35dp"
-        android:layout_marginEnd="35dp"
-        android:background="@drawable/roundshapebutton"
-        android:textColor="#ffffff"
-        android:layout_marginBottom="10dp"
-        android:paddingLeft="30dp"
-        android:paddingTop="20dp"
-        android:paddingRight="30dp"
-        android:paddingBottom="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="94dp"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/alertDialogMessage"
+            android:id="@+id/tv_ExitDialog_Message"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/alertDialogPositiveBtn"
+            android:id="@+id/btnPositive"
+            android:layout_below="@+id/tv_ExitDialog_Message"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="45dp"
+            android:layout_marginEnd="45dp"
+            android:background="@drawable/roundshapebutton_stay"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="10dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp" />
+    </RelativeLayout>
+
 </RelativeLayout>
