@@ -26,7 +26,7 @@ public class SessionManager {
      * Tryb SharedPreferences |
      * 0 = prywatny, tylko ta aplikacja ma do nich dostęp
      */
-    int PRIVATE_MODE = 0;
+    private int PRIVATE_MODE = 0;
     private SharedPreferences sharedPreferences;
     private Editor editor;
     private PackageInfo packageInfo;

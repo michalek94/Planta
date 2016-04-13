@@ -10,8 +10,6 @@ import android.widget.Button;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
-import com.facebook.login.LoginManager;
-import com.facebook.login.widget.LoginButton;
 
 import pl.planta.R;
 import pl.planta.dialogs.ExitDialog;
@@ -25,7 +23,6 @@ public class MenuActivity extends Activity {
     private SessionManager sessionManager;
     private SQLiteHandler sqLiteHandler;
     private CallbackManager callbackManager;
-    private LoginButton btnFacebook;
     private ChangeLog changeLog;
     private ExitDialog exitDialog;
     private FragmentManager fragmentManager = getFragmentManager();
@@ -51,7 +48,6 @@ public class MenuActivity extends Activity {
         /**
          * Initialize button's
          */
-        btnFacebook = (LoginButton) findViewById(R.id.btnFacebook);
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnGraj = (Button) findViewById(R.id.btnGraj);
         btnMenuTesting = (Button) findViewById(R.id.btnUstawienia);
@@ -83,17 +79,6 @@ public class MenuActivity extends Activity {
             public void onClick(View v) {
                 Intent gamingTests = new Intent(MenuActivity.this, SettingsActivity.class);
                 startActivity(gamingTests);
-            }
-        });
-
-        btnFacebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sessionManager.setLogin(false);
-                LoginManager.getInstance().logOut();
-                Intent chooseIntent = new Intent(MenuActivity.this, ChooseActivity.class);
-                startActivity(chooseIntent);
-                finish();
             }
         });
 

@@ -116,7 +116,7 @@ public class ChangeLog {
 
         if (!full) {
             // Button "More..."
-            builder.setNegativeButton("More...", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton("Więcej...", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     getFullLogDialog().show();
                 }
@@ -235,12 +235,5 @@ public class ChangeLog {
             stringBuffer.append("</ul></div>\n");
         }
         listmode = Listmode.NONE;
-    }
-
-    /**
-     * modes for HTML-Lists (bullet, numbered)
-     */
-    private enum Listmode {
-        NONE, ORDERED, UNORDERED
     }
 }

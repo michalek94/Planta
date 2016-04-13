@@ -12,14 +12,18 @@ import pl.planta.R;
 
 public class ExitDialog extends DialogFragment {
 
+    private Button btnPositive;
+    private Button btnNegative;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.exit_alertdialog, container, false);
+
         getDialog().setCanceledOnTouchOutside(false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
-        Button btnPositive = (Button) view.findViewById(R.id.btnPositive);
-        Button btnNegative = (Button) view.findViewById(R.id.btnNegative);
+        btnPositive = (Button) view.findViewById(R.id.btnPositive);
+        btnNegative = (Button) view.findViewById(R.id.btnNegative);
 
         btnPositive.setOnClickListener(new View.OnClickListener() {
             @Override
