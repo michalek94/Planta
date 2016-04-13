@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 
 import pl.planta.R;
 
@@ -12,15 +13,25 @@ public abstract class Pipe {
     protected Bitmap image;
     protected BitmapFactory.Options a;
     protected boolean isMatched;
+    protected Rect pipeArea;
+    protected int width;
+    protected int height;
     protected int x;
     protected int y;
 
     public Pipe(Context context, int x, int y, int width, int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        pipeArea = new Rect(x,y,x+width,y+height);
         a = new BitmapFactory.Options();
         a.inScaled=false;
         partsImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.pipes,a);
-        this.x = x;
-        this.y = y;
+    }
+
+    public void updateArea(){
+        pipeArea = new Rect(x,y,x+width,y+height);
     }
 
     public void draw(Canvas canvas) {
@@ -67,6 +78,13 @@ public abstract class Pipe {
         this.partsImage = partsImage;
     }
 
+    public Rect getPipeArea() {
+        return pipeArea;
+    }
+
+    public void setPipeArea(Rect pipeArea) {
+        this.pipeArea = pipeArea;
+    }
 
 
 
