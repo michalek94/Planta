@@ -8,18 +8,25 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Region;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Stack;
 
 public class Board  {
     final private int FieldsOnXAxis=7             +1;//Jeden wiersz wiecej na panel gdzie beda wygenerowane
     final private int FieldsOnYAxis=4;
     private int BoardX, BoardY, BoardWidth, BoardHeight;
-    private ArrayList<Pipe> pipes;
-    private String map="3 0 1 1 ";
-    private int amount;
-    private int typeOfPart;
-    private int liczbaKolanek;
+    private Stack<Pipe> pipes;
+    private String map="2 2";//pierwsza liczba to liczba prostych, druga to kolanka
     private int liczbaProstych;
+    private int liczbaKolanek;
     private int startXKolanek;
     private int startYKolanek;
     private int startXProstych;
@@ -27,36 +34,44 @@ public class Board  {
     private int partWidth;
     private int partHeight;
 
-    public Rect getClickedPipe() {
-        return pipes.get(0).getPipeArea();
-    }
-
 
     public Board(int x,int y, int width, int height, Context context) {
         partWidth=width/FieldsOnXAxis;
         partHeight=height/FieldsOnYAxis;
+        startXProstych=0; startYProstych= height-partHeight;
+        startXKolanek=0; startYKolanek= height-partHeight*2;
         BoardX=x; BoardY=y; BoardWidth=width; BoardHeight=height;
-        amount=2;
-        pipes =new ArrayList<>();
-        typeOfPart =0;
-        for(int i=0;i<amount;i++){
-            if(typeOfPart==0) {
-                pipes.add(new StraightPipe(context, 0, height-partHeight, partWidth, partHeight));
-                //liczbaProstych++;
-                typeOfPart =1;
-            }
-            else if(typeOfPart==1) {
-                pipes.add(new KneePipe(context,0, height-partHeight*2, partWidth, partHeight));
-                //liczbaKolanek++;
-            }
+        liczbaProstych =  Character.getNumericValue(map.charAt(0));
+        liczbaKolanek =  Character.getNumericValue(map.charAt(2));
+        pipes =new Stack<>();
+        for(int i=0;i<liczbaProstych;i++){
+                pipes.add(new StraightPipe(context, startXProstych, startYProstych, partWidth, partHeight));
+        }
+        for(int i=0;i<liczbaKolanek;i++){
+                pipes.add(new KneePipe(context, startXKolanek, startYKolanek, partWidth, partHeight));
         }
     }
 
     public void movePipes(int x, int y){
-        pipes.get(0).setX(x - partWidth / 2);
-        pipes.get(0).setY(y - partHeight / 2);
-        pipes.get(0).updateArea();
-        //System.out.println(pipes.get(0).getX());
+        for(int i = pipes.size()-1; i>=0; i--) {
+            if (pipes.get(i).getPipeArea().contains(x, y)) {
+                pipes.push(pipes.get(i));
+                pipes.remove(pipes.get(i));
+                pipes.peek().setX(x - partWidth / 2);
+                pipes.peek().setY(y - partHeight / 2);
+                pipes.peek().updateArea();
+                break;
+            }
+        }
+    }
+
+    public boolean isPipeClicked(int positionX, int positionY){
+        for(Pipe e : pipes) {
+            if (e.getPipeArea().contains(positionX, positionY)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void draw(Canvas canvas){
