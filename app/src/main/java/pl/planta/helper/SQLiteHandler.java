@@ -120,7 +120,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
-            userUID.put("uid", cursor.getString(1));
+            userUID.put("uid", cursor.getString(0));
         }
         cursor.close();
         db.close();
@@ -145,10 +145,10 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         // Przejdź do pierwszego wiersza
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
-            user.put("uid", cursor.getString(1));
-            user.put("name", cursor.getString(2));
-            user.put("email", cursor.getString(3));
-            user.put("created_at", cursor.getString(6));
+            user.put("uid", cursor.getString(0));
+            user.put("name", cursor.getString(1));
+            user.put("email", cursor.getString(2));
+            user.put("created_at", cursor.getString(3));
         }
         cursor.close();
         db.close();
@@ -173,8 +173,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
-            userCoal.put("coal_score", cursor.getInt(4));
-            userCoal.put("coal_highscore", cursor.getInt(5));
+            userCoal.put("coal_score", cursor.getInt(0));
+            userCoal.put("coal_highscore", cursor.getInt(1));
         }
         cursor.close();
         db.close();

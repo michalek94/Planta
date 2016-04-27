@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import pl.planta.R;
+import pl.planta.helper.SessionManager;
 import pl.planta.painter.Background;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, SensorEventListener
@@ -46,6 +47,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
     private Sensor senAccelerometer;
     private boolean end=false;
     Context mContext;
+    private SessionManager sessionManager;
 
     public GamePanel(Context mContext)
     {
@@ -53,6 +55,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
         this.mContext = mContext;
         getHolder().addCallback(this);
         setFocusable(true);
+        sessionManager = new SessionManager(mContext);
     }
 
     @Override
@@ -125,6 +128,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
                     if(!coals.get(i).areCatched) {
                         coals.get(i).areCatched = true;
                         counter++;
+
                     }
                 }
                 if(coals.get(i).areCatched&&coals.get(i).getY()>500)
