@@ -202,8 +202,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         contentValues.put(KEY_COAL_HIGHSCORE, coal_highscore);
 
         long id = db.update(TABLE_USER, contentValues, KEY_ID + "=" + userID, null);
-        if (id > 0) return true;
-        else return false;
+        return id > 0;
     }
 
     /**

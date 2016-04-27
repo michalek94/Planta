@@ -74,6 +74,7 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
         int positionX = (int)(event.getX()/scaleFactorX);
         int positionY = (int)(event.getY()/scaleFactorY);
         if(event.getAction()==MotionEvent.ACTION_UP){
+            myBoard.fitPipe();
             canMove=false;
             return true;
         }

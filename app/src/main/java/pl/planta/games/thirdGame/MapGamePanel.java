@@ -44,10 +44,8 @@ public class MapGamePanel extends SurfaceView implements SurfaceHolder.Callback,
     public void surfaceCreated(SurfaceHolder holder) {
         a = new BitmapFactory.Options();
         a.inScaled=false;
-        scaleFactorX = (getWidth()/(WIDTH * 1.f))*3;
-        scaleFactorY = (getHeight()/(HEIGHT * 1.f))*3;
-        map = new Map(BitmapFactory.decodeResource(getResources(), R.drawable.map, a));
-        ball = new Ball(mContext,WIDTH/2/3,HEIGHT/2/3,15,15);
+        map = new Map(BitmapFactory.decodeResource(getResources(), R.drawable.map, a),getWidth(),getHeight());
+        ball = new Ball(mContext,getWidth()/2,getHeight()/2,30,30);
         senSensorManager = (SensorManager)mContext.getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
@@ -81,10 +79,10 @@ public class MapGamePanel extends SurfaceView implements SurfaceHolder.Callback,
     }
 
     public void myDraw(Canvas canvas) {
-       //scaleFactorX = (getWidth()/(WIDTH * 1.f));
+        //scaleFactorX = (getWidth()/(WIDTH * 1.f));
         //scaleFactorY = (getHeight()/(HEIGHT * 1.f));
         if (canvas != null) {
-            canvas.scale(scaleFactorX, scaleFactorY);
+          //  canvas.scale(scaleFactorX, scaleFactorY);
             map.draw(canvas);
             ball.draw(canvas);
 

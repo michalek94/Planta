@@ -65,6 +65,15 @@ public class Board  {
         }
     }
 
+    public void fitPipe(){
+            Pipe myObj = pipes.peek();
+            double xRegion =(int)((double)myObj.getPipeArea().centerX()/(double)BoardWidth*FieldsOnXAxis);
+            myObj.setX((int)(xRegion*myObj.getWidth()));
+            double yRegion =(int)((double)myObj.getPipeArea().centerY()/(double)BoardHeight*FieldsOnYAxis);
+            myObj.setY((int)(yRegion*myObj.getHeight()));
+            myObj.updateArea();
+    }
+
     public boolean isPipeClicked(int positionX, int positionY){
         for(Pipe e : pipes) {
             if (e.getPipeArea().contains(positionX, positionY)) {
