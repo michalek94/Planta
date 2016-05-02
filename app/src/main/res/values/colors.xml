@@ -6,7 +6,7 @@
 
     <color name="colorFacebook">#45619d</color>
     <color name="colorGoogle">#d73d32</color>
-
+    <color name="colorPopWindow">#6a6e69</color>
     <color name="bg_login">#26ae90</color>
     <color name="bg_register">#ffffff</color>
     <color name="bg_main">#428bca</color>

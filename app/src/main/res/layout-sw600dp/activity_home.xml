@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.percent.PercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
-
-
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -36,16 +32,185 @@
         android:layout_toRightOf="@+id/mainImageView1"
         android:layout_toEndOf="@+id/mainImageView1" />
 
-    <ImageButton
+    <ImageView
         android:layout_width="0dp"
+        app:layout_heightPercent="13%"
+        app:layout_widthPercent="17%"
+        app:layout_marginLeftPercent="25%"
         android:layout_height="0dp"
-        app:layout_heightPercent="22%"
-        app:layout_widthPercent="83%"
-        android:id="@+id/cityButton"
-        android:background="@drawable/button_city"
-        android:layout_alignBottom="@+id/mainImageView1"
-        android:layout_toRightOf="@+id/mainImageView1"
-        android:layout_toEndOf="@+id/mainImageView1" />
+        android:id="@+id/cloudImageView1"
+        android:background="@drawable/cloud"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="7%"
+        app:layout_widthPercent="3%"
+        app:layout_marginLeftPercent="28.5%"
+        app:layout_marginTopPercent="3%"
+        android:layout_height="0dp"
+        android:id="@+id/waterImageView1"
+        android:background="@drawable/water_03"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        app:layout_heightPercent="7%"
+        app:layout_widthPercent="5.5%"
+        app:layout_marginLeftPercent="0.5%"
+        app:layout_marginTopPercent="4%"
+        android:text="0"
+        android:gravity="right"
+        android:textSize="12sp"
+        android:layout_height="0dp"
+        android:id="@+id/waterTextView1"
+        android:layout_toRightOf="@+id/waterImageView1"
+        android:layout_toEndOf="@+id/waterImageView1"
+        />
+
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="13%"
+        app:layout_widthPercent="17%"
+        app:layout_marginLeftPercent="2%"
+        android:layout_height="0dp"
+        android:id="@+id/cloudImageView2"
+        android:background="@drawable/cloud"
+        android:layout_toRightOf="@+id/cloudImageView1"
+        android:layout_toEndOf="@+id/cloudImageView1"
+        />
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="8%"
+        app:layout_widthPercent="3%"
+        app:layout_marginLeftPercent="5.5%"
+        app:layout_marginTopPercent="2%"
+        android:layout_height="0dp"
+        android:id="@+id/electricityImageView1"
+        android:background="@drawable/electricity_03"
+        android:layout_toRightOf="@+id/cloudImageView1"
+        android:layout_toEndOf="@+id/cloudImageView1"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        app:layout_heightPercent="7%"
+        app:layout_widthPercent="5.5%"
+        app:layout_marginLeftPercent="0.5%"
+        app:layout_marginTopPercent="4%"
+        android:text="0"
+        android:gravity="right"
+        android:textSize="12sp"
+        android:layout_height="0dp"
+        android:id="@+id/electricityTextView1"
+        android:layout_toRightOf="@+id/electricityImageView1"
+        android:layout_toEndOf="@+id/electricityImageView1"
+        />
+
+
+    <ImageView
+    android:layout_width="0dp"
+    app:layout_heightPercent="13%"
+    app:layout_widthPercent="17%"
+    app:layout_marginLeftPercent="2%"
+    android:layout_height="0dp"
+    android:id="@+id/cloudImageView3"
+    android:background="@drawable/cloud"
+    android:layout_toRightOf="@+id/cloudImageView2"
+    android:layout_toEndOf="@+id/cloudImageView2"
+    />
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="7%"
+        app:layout_widthPercent="3%"
+        app:layout_marginLeftPercent="5.5%"
+        app:layout_marginTopPercent="2.5%"
+        android:layout_height="0dp"
+        android:id="@+id/coalImageView1"
+        android:background="@drawable/coal_03"
+        android:layout_toRightOf="@+id/cloudImageView2"
+        android:layout_toEndOf="@+id/cloudImageView2"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        app:layout_heightPercent="7%"
+        app:layout_widthPercent="5.5%"
+        app:layout_marginLeftPercent="0.5%"
+        app:layout_marginTopPercent="4%"
+        android:text="0"
+        android:gravity="right"
+        android:textSize="12sp"
+        android:layout_height="0dp"
+        android:id="@+id/coalTextView1"
+        android:layout_toRightOf="@+id/coalImageView1"
+        android:layout_toEndOf="@+id/coalImageView1"
+        />
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="13%"
+        app:layout_widthPercent="17%"
+        app:layout_marginLeftPercent="2%"
+        android:layout_height="0dp"
+        android:id="@+id/cloudImageView4"
+        android:background="@drawable/cloud"
+        android:layout_toRightOf="@+id/cloudImageView3"
+        android:layout_toEndOf="@+id/cloudImageView3"
+        />
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="7%"
+        app:layout_widthPercent="3%"
+        app:layout_marginLeftPercent="5.5%"
+        app:layout_marginTopPercent="2.5%"
+        android:layout_height="0dp"
+        android:id="@+id/cashImageView1"
+        android:background="@drawable/cash"
+        android:layout_toRightOf="@+id/cloudImageView3"
+        android:layout_toEndOf="@+id/cloudImageView3"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        app:layout_heightPercent="7%"
+        app:layout_widthPercent="5.5%"
+        app:layout_marginLeftPercent="0.5%"
+        app:layout_marginTopPercent="4%"
+        android:text="0"
+        android:gravity="right"
+        android:textSize="12sp"
+        android:layout_height="0dp"
+        android:id="@+id/cashTextView1"
+        android:layout_toRightOf="@+id/cashImageView1"
+        android:layout_toEndOf="@+id/cashImageView1"
+        />
+
+
+
+
+    <ImageButton
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_heightPercent="22%"
+    app:layout_widthPercent="83%"
+    android:id="@+id/cityButton"
+    android:background="@drawable/button_city"
+    android:layout_alignBottom="@+id/mainImageView1"
+    android:layout_toRightOf="@+id/mainImageView1"
+    android:layout_toEndOf="@+id/mainImageView1" />
+
+
 
     <ImageButton
         android:layout_width="0dp"

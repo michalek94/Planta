@@ -35,8 +35,8 @@
     <ImageView
         android:layout_width="0dp"
         app:layout_heightPercent="13%"
-        app:layout_widthPercent="22%"
-        app:layout_marginLeftPercent="30%"
+        app:layout_widthPercent="17%"
+        app:layout_marginLeftPercent="25%"
         android:layout_height="0dp"
         android:id="@+id/cloudImageView1"
         android:background="@drawable/cloud"
@@ -49,7 +49,7 @@
         android:layout_width="0dp"
         app:layout_heightPercent="7%"
         app:layout_widthPercent="3%"
-        app:layout_marginLeftPercent="33.5%"
+        app:layout_marginLeftPercent="28.5%"
         app:layout_marginTopPercent="3%"
         android:layout_height="0dp"
         android:id="@+id/waterImageView1"
@@ -73,39 +73,12 @@
         android:layout_toRightOf="@+id/waterImageView1"
         android:layout_toEndOf="@+id/waterImageView1"
         />
-    <TextView
-        android:layout_width="0dp"
-        app:layout_heightPercent="7%"
-        app:layout_widthPercent="1%"
-        app:layout_marginLeftPercent="0.5%"
-        app:layout_marginTopPercent="4%"
-        android:text="/"
-        android:textSize="12sp"
-        android:layout_height="0dp"
-        android:id="@+id/waterTextView2"
-        android:layout_toRightOf="@+id/waterTextView1"
-        android:layout_toEndOf="@+id/waterTextView1"
-        />
-    <TextView
-        android:layout_width="0dp"
-        app:layout_heightPercent="7%"
-        app:layout_widthPercent="5.5%"
-        app:layout_marginLeftPercent="0.5%"
-        app:layout_marginTopPercent="4%"
-        android:text="1000"
-        android:gravity="left"
-        android:textSize="12sp"
-        android:layout_height="0dp"
-        android:id="@+id/waterTextView3"
-        android:layout_toRightOf="@+id/waterTextView2"
-        android:layout_toEndOf="@+id/waterTextView2"
-        />
 
 
     <ImageView
         android:layout_width="0dp"
         app:layout_heightPercent="13%"
-        app:layout_widthPercent="22%"
+        app:layout_widthPercent="17%"
         app:layout_marginLeftPercent="2%"
         android:layout_height="0dp"
         android:id="@+id/cloudImageView2"
@@ -141,39 +114,12 @@
         android:layout_toRightOf="@+id/electricityImageView1"
         android:layout_toEndOf="@+id/electricityImageView1"
         />
-    <TextView
-        android:layout_width="0dp"
-        app:layout_heightPercent="7%"
-        app:layout_widthPercent="1%"
-        app:layout_marginLeftPercent="0.5%"
-        app:layout_marginTopPercent="4%"
-        android:text="/"
-        android:textSize="12sp"
-        android:layout_height="0dp"
-        android:id="@+id/electricityTextView2"
-        android:layout_toRightOf="@+id/electricityTextView1"
-        android:layout_toEndOf="@+id/electricityTextView1"
-        />
-    <TextView
-        android:layout_width="0dp"
-        app:layout_heightPercent="7%"
-        app:layout_widthPercent="5.5%"
-        app:layout_marginLeftPercent="0.5%"
-        app:layout_marginTopPercent="4%"
-        android:text="1000"
-        android:gravity="left"
-        android:textSize="12sp"
-        android:layout_height="0dp"
-        android:id="@+id/electricityTextView3"
-        android:layout_toRightOf="@+id/electricityTextView2"
-        android:layout_toEndOf="@+id/electricityTextView2"
-        />
 
 
     <ImageView
     android:layout_width="0dp"
     app:layout_heightPercent="13%"
-    app:layout_widthPercent="22%"
+    app:layout_widthPercent="17%"
     app:layout_marginLeftPercent="2%"
     android:layout_height="0dp"
     android:id="@+id/cloudImageView3"
@@ -209,33 +155,48 @@
         android:layout_toRightOf="@+id/coalImageView1"
         android:layout_toEndOf="@+id/coalImageView1"
         />
-    <TextView
+
+    <ImageView
+        android:layout_width="0dp"
+        app:layout_heightPercent="13%"
+        app:layout_widthPercent="17%"
+        app:layout_marginLeftPercent="2%"
+        android:layout_height="0dp"
+        android:id="@+id/cloudImageView4"
+        android:background="@drawable/cloud"
+        android:layout_toRightOf="@+id/cloudImageView3"
+        android:layout_toEndOf="@+id/cloudImageView3"
+        />
+
+    <ImageView
         android:layout_width="0dp"
         app:layout_heightPercent="7%"
-        app:layout_widthPercent="1%"
-        app:layout_marginLeftPercent="0.5%"
-        app:layout_marginTopPercent="4%"
-        android:text="/"
-        android:textSize="12sp"
+        app:layout_widthPercent="3%"
+        app:layout_marginLeftPercent="5.5%"
+        app:layout_marginTopPercent="2.5%"
         android:layout_height="0dp"
-        android:id="@+id/coalTextView2"
-        android:layout_toRightOf="@+id/coalTextView1"
-        android:layout_toEndOf="@+id/coalTextView1"
+        android:id="@+id/cashImageView1"
+        android:background="@drawable/cash"
+        android:layout_toRightOf="@+id/cloudImageView3"
+        android:layout_toEndOf="@+id/cloudImageView3"
         />
+
     <TextView
         android:layout_width="0dp"
         app:layout_heightPercent="7%"
         app:layout_widthPercent="5.5%"
         app:layout_marginLeftPercent="0.5%"
         app:layout_marginTopPercent="4%"
-        android:text="1000"
-        android:gravity="left"
+        android:text="0"
+        android:gravity="right"
         android:textSize="12sp"
         android:layout_height="0dp"
-        android:id="@+id/coalTextView3"
-        android:layout_toRightOf="@+id/coalTextView2"
-        android:layout_toEndOf="@+id/coalTextView2"
+        android:id="@+id/cashTextView1"
+        android:layout_toRightOf="@+id/cashImageView1"
+        android:layout_toEndOf="@+id/cashImageView1"
         />
+
+
 
 
     <ImageButton
