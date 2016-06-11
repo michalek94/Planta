@@ -19,4 +19,12 @@ public class OutPipe extends Pipe {
     public void rotateBitmap(float angle){
 
     }
+    @Override
+    public void setX(int x){
+
+    }
+    @Override
+    public void setY(int y){
+
+    }
 }
