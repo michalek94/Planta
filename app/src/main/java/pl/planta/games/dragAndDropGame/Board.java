@@ -64,7 +64,7 @@ public class Board  {
     }
 
     public void movePipes(int x, int y){
-        for(int i = pipes.size()-1; i>=0; i--) {
+        for(int i = pipes.size()-1; i>=2; i--) {
             if (pipes.get(i).getPipeArea().contains(x, y)) {
                 pipes.push(pipes.get(i));
                 pipes.peek().setX(x - partWidth / 2);

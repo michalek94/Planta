@@ -80,15 +80,18 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
+        if(myBoard.check()){
+            System.out.println("GRA UKONCZONA");
+            isTrue=true;
+        }
+        else{
+            isTrue=false;
+        }
         int positionX = (int)(event.getX()/scaleFactorX);
         int positionY = (int)(event.getY()/scaleFactorY);
         if(event.getAction()==MotionEvent.ACTION_UP){
             myBoard.fitPipe();
             canMove=false;
-            if(myBoard.check()){
-                System.out.println("GRA UKONCZONA");
-                isTrue=true;
-            }
             return true;
         }
         if(canMove){
