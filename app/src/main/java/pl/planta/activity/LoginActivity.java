@@ -135,11 +135,12 @@ public class LoginActivity extends Activity {
                         JSONObject user = jsonObject.getJSONObject("user");
                         String name = user.getString("name");
                         String email = user.getString("email");
+                        int money = user.getInt("money");
                         int coal_score = user.getInt("coal_score");
                         int coal_highscore = user.getInt("coal_highscore");
                         String created_at = user.getString("created_at");
 
-                        sqLiteHandler.addUser(uid, name, email, coal_score, coal_highscore, created_at);
+                        sqLiteHandler.addUser(uid, name, email, money, coal_score, coal_highscore, created_at);
 
                         Intent menuIntent = new Intent(LoginActivity.this, MenuActivity.class);
                         startActivity(menuIntent);
@@ -194,6 +195,16 @@ public class LoginActivity extends Activity {
             inputPassword.setTransformationMethod(null);
         } else {
             inputPassword.setTransformationMethod(new PasswordTransformationMethod());
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(progressDialog != null) {
+            progressDialog.dismiss();
+            progressDialog = null;
         }
     }
 }

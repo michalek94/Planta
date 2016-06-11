@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.TableLayout;
 
 import java.util.HashMap;
 
@@ -15,7 +16,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     // Wszystkie statyczne pola
     // Wersja bazy danych
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
 
     // Nazwa bazy danych
     private static final String DATABASE_NAME = "planta.db";
@@ -28,6 +29,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_UID = "uid";
     private static final String KEY_NICK = "name";
     private static final String KEY_EMAIL = "email";
+    private static final String KEY_MONEY = "money";
     private static final String KEY_COAL_SCORE = "coal_score";
     private static final String KEY_COAL_HIGHSCORE = "coal_highscore";
     private static final String KEY_CREATED_AT = "created_at";
@@ -38,6 +40,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             + KEY_UID + " TEXT,"
             + KEY_NICK + " TEXT,"
             + KEY_EMAIL + " TEXT UNIQUE,"
+            + KEY_MONEY + " INTEGER,"
             + KEY_COAL_SCORE + " INTEGER,"
             + KEY_COAL_HIGHSCORE + " INTEGER,"
             + KEY_CREATED_AT + " TEXT" + ")";
@@ -88,13 +91,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
      * @param coal_highscore user's best score
      * @param created_at     time when user has been created
      */
-    public void addUser(String uid, String name, String email, int coal_score, int coal_highscore, String created_at) {
+    public void addUser(String uid, String name, String email, int money, int coal_score, int coal_highscore, String created_at) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_UID, uid);
         contentValues.put(KEY_NICK, name);
         contentValues.put(KEY_EMAIL, email);
+        contentValues.put(KEY_MONEY, money);
         contentValues.put(KEY_COAL_SCORE, coal_score);
         contentValues.put(KEY_COAL_HIGHSCORE, coal_highscore);
         contentValues.put(KEY_CREATED_AT, created_at);
@@ -157,6 +161,26 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         Log.d(TAG, "Pobieranie uzytkownika z SQLite: " + user.toString());
 
         return user;
+    }
+
+    public HashMap<String, Integer> getUserMoney() {
+        HashMap<String, Integer> userMoney = new HashMap<>();
+        String selectQuery = "SELECT money FROM " + TABLE_USER;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            userMoney.put("money", cursor.getInt(0));
+        }
+        cursor.close();
+        db.close();
+
+        // Zwracanie wyniku
+        Log.d(TAG, "Uzytkownik posiada na koncie: " + userMoney.toString());
+
+        return userMoney;
     }
 
     /**
