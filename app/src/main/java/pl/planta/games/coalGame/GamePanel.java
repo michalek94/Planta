@@ -1,5 +1,6 @@
 package pl.planta.games.coalGame;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import pl.planta.R;
+import pl.planta.helper.SQLiteHandler;
 import pl.planta.helper.SessionManager;
 import pl.planta.painter.Background;
 
@@ -47,7 +49,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
     private Sensor senAccelerometer;
     private boolean end=false;
     Context mContext;
-    private SessionManager sessionManager;
 
     public GamePanel(Context mContext)
     {
@@ -55,7 +56,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
         this.mContext = mContext;
         getHolder().addCallback(this);
         setFocusable(true);
-        sessionManager = new SessionManager(mContext);
     }
 
     @Override

@@ -27,8 +27,6 @@ public class CoalGameActivity extends Activity {
     private static final String TAG = CoalGameActivity.class.getSimpleName();
 
     private GamePanel view;
-    private SessionManager sessionManager;
-    private SQLiteHandler sqLiteHandler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,22 +39,6 @@ public class CoalGameActivity extends Activity {
 
         view = new GamePanel(this);
         setContentView(view);
-
-        sessionManager = new SessionManager(this);
-        sqLiteHandler = new SQLiteHandler(getApplicationContext());
-
-        HashMap<String, Integer> scored = sqLiteHandler.getUserCoalScores();
-        HashMap<String, String> user = sqLiteHandler.getUserDetails();
-
-        String uid = user.get("uid");
-
-        int score = scored.get("coal_score") + 15;
-        int best = scored.get("coal_highscore") + 10;
-
-        saveCoalScoresOnServer(uid, score);
-
-        Log.d("Scores: ", "Score: " + String.valueOf(score) + "Best: " + String.valueOf(best));
-
     }
 
     private void saveCoalScoresOnServer(final String uid, final int score){

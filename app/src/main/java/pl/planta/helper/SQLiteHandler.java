@@ -32,6 +32,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_MONEY = "money";
     private static final String KEY_COAL_SCORE = "coal_score";
     private static final String KEY_COAL_HIGHSCORE = "coal_highscore";
+    private static final String KEY_PIPE_SCORE = "pipe_score";
     private static final String KEY_CREATED_AT = "created_at";
 
     private static final String CREATE_USER_TABLE = "CREATE TABLE "
@@ -43,6 +44,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             + KEY_MONEY + " INTEGER,"
             + KEY_COAL_SCORE + " INTEGER,"
             + KEY_COAL_HIGHSCORE + " INTEGER,"
+            + KEY_PIPE_SCORE + " INTEGER,"
             + KEY_CREATED_AT + " TEXT" + ")";
 
     /**
@@ -91,7 +93,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
      * @param coal_highscore user's best score
      * @param created_at     time when user has been created
      */
-    public void addUser(String uid, String name, String email, int money, int coal_score, int coal_highscore, String created_at) {
+    public void addUser(String uid, String name, String email, int money, int coal_score, int coal_highscore, int pipe_score, String created_at) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -101,6 +103,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         contentValues.put(KEY_MONEY, money);
         contentValues.put(KEY_COAL_SCORE, coal_score);
         contentValues.put(KEY_COAL_HIGHSCORE, coal_highscore);
+        contentValues.put(KEY_PIPE_SCORE, pipe_score);
         contentValues.put(KEY_CREATED_AT, created_at);
 
         // Dodawanie wiersza
@@ -207,6 +210,42 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         Log.d(TAG, "Pobieranie wyników użytkownika z SQLite: " + userCoal.toString());
 
         return userCoal;
+    }
+
+    /**
+     * Aktualizacja wiersza z userID = 1
+     *
+     * @param userID         user's unique id
+     * @param coal_score     user's coal score
+     * @return return true if id > 0 else return false
+     */
+    public boolean updateCoalScore(long userID, int coal_score) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_COAL_SCORE, coal_score);
+
+        long id = db.update(TABLE_USER, contentValues, KEY_ID + "=" + userID, null);
+        Log.d(TAG, "CoalScoreUpdated");
+        return id > 0;
+    }
+
+    /**
+     * Aktualizacja wiersza z userID = 1
+     *
+     * @param userID         user's unique id
+     * @param pipe_score     user's pipe score
+     * @return return true if id > 0 else return false
+     */
+    public boolean updatePipeScore(long userID, int pipe_score) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_PIPE_SCORE, pipe_score);
+
+        long id = db.update(TABLE_USER, contentValues, KEY_ID + "=" + userID, null);
+        Log.d(TAG, "PipeScoreUpdated");
+        return id > 0;
     }
 
     /**

@@ -6,8 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import java.util.HashMap;
 
 import pl.planta.R;
+import pl.planta.helper.SQLiteHandler;
 
 public class MainMenuActivity extends Activity {
 
@@ -15,6 +19,8 @@ public class MainMenuActivity extends Activity {
     private ImageButton januszButton;
     private ImageButton plantaButton;
     private ImageButton mineButton;
+    private TextView    mMoney;
+    private SQLiteHandler mSQLiteHandler;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,5 +65,13 @@ public class MainMenuActivity extends Activity {
             }
         });
 
+        mSQLiteHandler = new SQLiteHandler(getApplicationContext());
+        mMoney = (TextView) findViewById(R.id.cashTextView1);
+
+        HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
+
+        String money = userMoney.get("money").toString();
+
+        mMoney.setText(money);
     }
 }

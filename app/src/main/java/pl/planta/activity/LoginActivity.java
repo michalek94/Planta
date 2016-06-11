@@ -138,9 +138,10 @@ public class LoginActivity extends Activity {
                         int money = user.getInt("money");
                         int coal_score = user.getInt("coal_score");
                         int coal_highscore = user.getInt("coal_highscore");
+                        int pipe_score = user.getInt("pipe_score");
                         String created_at = user.getString("created_at");
 
-                        sqLiteHandler.addUser(uid, name, email, money, coal_score, coal_highscore, created_at);
+                        sqLiteHandler.addUser(uid, name, email, money, coal_score, coal_highscore, pipe_score, created_at);
 
                         Intent menuIntent = new Intent(LoginActivity.this, MenuActivity.class);
                         startActivity(menuIntent);
