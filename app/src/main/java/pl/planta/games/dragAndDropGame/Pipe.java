@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Rect;
 
 import pl.planta.R;
@@ -12,12 +13,13 @@ public abstract class Pipe {
     protected Bitmap partsImage;
     protected Bitmap image;
     protected BitmapFactory.Options a;
-    protected boolean isMatched;
     protected Rect pipeArea;
     protected int width;
     protected int height;
     protected int x;
     protected int y;
+    protected boolean[] outs = {false,false,false,false};
+    protected boolean isChecked=false;
 
     public Pipe(Context context, int x, int y, int width, int height) {
         this.x = x;
@@ -27,7 +29,14 @@ public abstract class Pipe {
         pipeArea = new Rect(x,y,x+width,y+height);
         a = new BitmapFactory.Options();
         a.inScaled=false;
-        partsImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.pipes,a);
+        partsImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.pipes_small,a);
+    }
+
+    public void rotateBitmap(float angle)
+    {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        image = Bitmap.createBitmap(image , 0, 0,width, height, matrix, true);
     }
 
     public void updateArea(){
@@ -70,14 +79,6 @@ public abstract class Pipe {
         this.y = y;
     }
 
-    public boolean getIsMatched() {
-        return isMatched;
-    }
-
-    public void setIsMatched(boolean isMatched) {
-        this.isMatched = isMatched;
-    }
-
     public BitmapFactory.Options getA() {
         return a;
     }
@@ -102,7 +103,15 @@ public abstract class Pipe {
         this.pipeArea = pipeArea;
     }
 
+    public boolean[] getOuts() {
+        return outs;
+    }
 
+    public boolean isChecked() {
+        return isChecked;
+    }
 
-
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 }

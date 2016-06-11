@@ -3,7 +3,11 @@ package pl.planta.games.dragAndDropGame;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
+import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -27,6 +31,7 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
     private Board myBoard;
     private Random rand = new Random();
     private boolean canMove=false;
+    private boolean isTrue=false;
 
 
     Context mContext;
@@ -68,6 +73,10 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
         thread.start();
 
     }
+
+
+    boolean firstTouch = false;
+    long time=0;
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
@@ -76,20 +85,30 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
         if(event.getAction()==MotionEvent.ACTION_UP){
             myBoard.fitPipe();
             canMove=false;
+            if(myBoard.check()){
+                System.out.println("GRA UKONCZONA");
+                isTrue=true;
+            }
             return true;
         }
-
         if(canMove){
             myBoard.movePipes(positionX, positionY);
             return true;
         }
-
         if(event.getAction()==MotionEvent.ACTION_DOWN&&myBoard.isPipeClicked(positionX,positionY)){
-            canMove=true;
+            if (firstTouch && (System.currentTimeMillis() - time) <= 300 && myBoard.getPipes().peek().getPipeArea().contains(positionX,positionY)) {
+                myBoard.peekPipe(positionX,positionY);
+                firstTouch = false;
+                myBoard.rotatePipe();
+            } else {
+                myBoard.peekPipe(positionX,positionY);
+                firstTouch = true;
+                time = System.currentTimeMillis();
+                canMove=true;
+                return true;
+            }
             return true;
         }
-
-
         return super.onTouchEvent(event);
     }
 
@@ -105,10 +124,21 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
             canvas.scale(scaleFactorX, scaleFactorY);
             bg.draw(canvas);
             myBoard.draw(canvas);
+            if(isTrue)
+                drawEnd(canvas);
         }
     }
 
     public void newGame() {
+    }
+
+    public void drawEnd(Canvas canvas) {
+            Paint paint1 = new Paint();
+            paint1.setColor(Color.BLACK);
+            paint1.setTextSize(80);
+            paint1.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+            canvas.drawText("DALES RADE BRAWO ", WIDTH / 2 - 310, HEIGHT / 2 - 50, paint1);
+
     }
 
 

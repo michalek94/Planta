@@ -85,7 +85,6 @@ public class MapGamePanel extends SurfaceView implements SurfaceHolder.Callback,
           //  canvas.scale(scaleFactorX, scaleFactorY);
             map.draw(canvas);
             ball.draw(canvas);
-
         }
     }
 
