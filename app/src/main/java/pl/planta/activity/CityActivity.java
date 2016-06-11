@@ -1,6 +1,7 @@
 package pl.planta.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -18,6 +19,7 @@ public class CityActivity extends Activity {
 
     private ImageButton buttonResidence;
     private ImageButton buttonIndustry;
+    private ImageButton buttonShop;
     private PopupWindow popUp;
     private LayoutInflater layoutInflater;
     private android.support.percent.PercentRelativeLayout relativeLayout;
@@ -43,6 +45,7 @@ public class CityActivity extends Activity {
 
         buttonResidence = (ImageButton)findViewById(R.id.residenceButton);
         buttonIndustry = (ImageButton)findViewById(R.id.industryButton);
+        buttonShop = (ImageButton) findViewById(R.id.shopButton);
 
         buttonResidence.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -114,6 +117,14 @@ public class CityActivity extends Activity {
 
             }
 
+        });
+
+        buttonShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CityActivity.this, ShopActivity.class);
+                startActivity(intent);
+            }
         });
 
 
