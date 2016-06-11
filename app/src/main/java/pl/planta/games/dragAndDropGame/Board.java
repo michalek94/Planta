@@ -86,13 +86,14 @@ public class Board  {
         }
     }
 
-    public void fitPipe(){
+    public boolean fitPipe(){
         Pipe myObj = pipes.peek();
         double xRegion =(int)((double)myObj.getPipeArea().centerX()/(double)BoardWidth*FieldsOnXAxis);
         myObj.setX((int)(xRegion*myObj.getWidth()));
         double yRegion =(int)((double)myObj.getPipeArea().centerY()/(double)BoardHeight*FieldsOnYAxis);
         myObj.setY((int)(yRegion*myObj.getHeight()));
         myObj.updateArea();
+        return true;
     }
 
     public void rotatePipe(){
@@ -199,6 +200,7 @@ public class Board  {
                         }
                     }
                     if(!isGood) return false;
+                    isGood=false;
 
                 }
             }
