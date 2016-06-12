@@ -205,7 +205,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
         player.resetDX();
         if(counter>best){
             best =counter;
-            sqliteHandler.updateCoalScore(1, best);
+            sqliteHandler.updateCoalHighScore(1, best);
         }
         counter2 = counter;
         counter=0;
