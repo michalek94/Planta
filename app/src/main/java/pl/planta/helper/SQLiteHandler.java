@@ -16,13 +16,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     // Wszystkie statyczne pola
     // Wersja bazy danych
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     // Nazwa bazy danych
     private static final String DATABASE_NAME = "planta.db";
 
     // Nazwa tabel
     private static final String TABLE_USER = "user";
+    private static final String TABLE_COAL = "coal";
 
     // Nazwy kolumn w tabeli "user"
     private static final String KEY_ID = "id";
@@ -35,6 +36,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_PIPE_SCORE = "pipe_score";
     private static final String KEY_CREATED_AT = "created_at";
 
+    // Nazwy kolumn w tabeli "coal"
+    private static final String KEY_COAL_PRICE = "coal_price";
+
     private static final String CREATE_USER_TABLE = "CREATE TABLE "
             + TABLE_USER + "("
             + KEY_ID + " INTEGER PRIMARY KEY,"
@@ -46,6 +50,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             + KEY_COAL_HIGHSCORE + " INTEGER,"
             + KEY_PIPE_SCORE + " INTEGER,"
             + KEY_CREATED_AT + " TEXT" + ")";
+
+    private static final String CREATE_COAL_TABLE = "CREATE TABLE "
+            + TABLE_COAL + "("
+            + KEY_ID + " INTEGER PRIMARY KEY,"
+            + KEY_COAL_PRICE + " REAL" + ")";
 
     /**
      * Konstruktor
@@ -64,6 +73,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER_TABLE);
+        db.execSQL(CREATE_COAL_TABLE);
         Log.d(TAG, "Tabela utworzona.");
     }
 
@@ -78,7 +88,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Usuń starą tabelę, jeśli istnieje
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
-
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COAL);
         // Utworzenie ponownie tabeli
         onCreate(db);
     }
@@ -279,5 +289,47 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.close();
 
         Log.d(TAG, "Usuwanie wszystkich informacji o uzytkowniku z SQLite.");
+    }
+
+    /**
+     * Dodawanie ceny węgla do bazy SQLite na stałe, cena niezmienna
+     * @param coal_price
+     */
+    public void addCoalPrice(double coal_price) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_COAL_PRICE, coal_price);
+
+        // Dodawanie wiersza
+        long id = db.insert(TABLE_COAL, null, contentValues);
+        db.close(); // Zamykanie bazy danych
+
+        Log.d(TAG, "Nowa cena wegla dodana do bazy: " + id);
+    }
+
+    /**
+     * Pobieranie ceny węgla z bazy SQLite
+     * @return
+     */
+    public HashMap<String, Double> getCoalPrice() {
+        HashMap<String, Double> coal = new HashMap<>();
+        String selectQuery = "SELECT coal_price FROM " + TABLE_COAL;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // Przejdź do pierwszego wiersza
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            coal.put("coal_price", cursor.getDouble(0));
+        }
+        cursor.close();
+        db.close();
+
+        // Zwracanie user'a
+        Log.d(TAG, "Pobieranie ceny wegla z SQLite: " + coal.toString());
+
+        return coal;
     }
 }

@@ -12,7 +12,10 @@ import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 import pl.planta.R;
+import pl.planta.helper.SQLiteHandler;
 
 public class MineActivity extends Activity {
 
@@ -27,6 +30,7 @@ public class MineActivity extends Activity {
     private TextView tvCost;
     private TextView tvPrice;
     private ImageButton buttonLvlUp;
+    private SQLiteHandler mSQLiteHandler;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,8 @@ public class MineActivity extends Activity {
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        mSQLiteHandler = new SQLiteHandler(getApplicationContext());
 
         final int width = dm.widthPixels;
         final int height = dm.heightPixels;
@@ -63,7 +69,10 @@ public class MineActivity extends Activity {
                 tvLvl.setText("2");
                 tvQue.setText("Czy chcesz ulepszyć kopalnię na kolejny poziom za: ");
                 tvCost.setText("2000");
-                tvPrice.setText("10");
+
+                HashMap<String,Double> coalPrice = mSQLiteHandler.getCoalPrice();
+                String coal_price = coalPrice.get("coal_price").toString();
+                tvPrice.setText(coal_price);
 
                 final int widthFur =(int) (width * .7);
                 final int heightFur =(int) (height * .2);

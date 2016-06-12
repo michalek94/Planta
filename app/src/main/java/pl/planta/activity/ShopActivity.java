@@ -20,21 +20,15 @@ public class ShopActivity extends Activity {
     private TextView mMoney;
 
     private String[] itemName = {
-            "100 złota",
-            "500 złota",
-            "1000 złota",
-            "100 platyny",
-            "500 platyny",
-            "1000 platyny"
+            "Przyspieszacz vol.10",
+            "Przyspieszacz vol.25",
+            "Przyspieszacz vol.50"
     };
 
     private String[] itemDescription = {
-            "Otrzymasz 100 złota w grze",
-            "Otrzymasz 500 złota w grze",
-            "Otrzymasz 1000 złota w grze",
-            "Otrzymasz 100 platyny w grze",
-            "Otrzymasz 500 platyny w grze",
-            "Otrzymasz 1000 platyny w grze"
+            "Prędkość wózka zostanie zwiększona o 10% na 5 godzin",
+            "Prędkość wózka zostanie zwiększona o 25% na 5 godzin",
+            "Prędkość wózka zostanie zwiększona o 50% na 5 godzin"
     };
 
     @Override

@@ -8,12 +8,14 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import pl.planta.R;
+import pl.planta.helper.SQLiteHandler;
 import pl.planta.helper.SessionManager;
 
 public class SplashActivity extends Activity {
 
     private static final String TAG = SplashActivity.class.getSimpleName();
     private SessionManager sessionManager;
+    private SQLiteHandler mSQLiteHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
 
         sessionManager = new SessionManager(getApplicationContext());
+        mSQLiteHandler = new SQLiteHandler(getApplicationContext());
 
         int SPLASH_TIME_OUT = 3000;
         new Handler().postDelayed(new Runnable() {
@@ -69,6 +72,7 @@ public class SplashActivity extends Activity {
                     case FIRST_TIME:
                         Log.w(TAG, "First time run");
                         Log.w(TAG, "Starting ChooseActivity");
+                        mSQLiteHandler.addCoalPrice(0.5);
                         Intent chooseIntent = new Intent(SplashActivity.this, ChooseActivity.class);
                         startActivity(chooseIntent);
                         finish();
