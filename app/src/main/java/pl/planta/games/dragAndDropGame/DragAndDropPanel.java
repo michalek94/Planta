@@ -32,6 +32,8 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
     private Random rand = new Random();
     private boolean canMove=false;
     private boolean isTrue=false;
+    private long startTime;
+    private long endTime;
 
 
     Context mContext;
@@ -68,6 +70,7 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
         a.inScaled=false;
         bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.rury,a));
         myBoard = new Board(0,0,WIDTH,HEIGHT,getContext());
+        startTime=System.nanoTime();
         thread = new DragAndDropThread(getHolder(), this);
         thread.setRunning(true);
         thread.start();
@@ -87,6 +90,7 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
             if(myBoard.fitPipe()){
                 if(myBoard.check()){
                     System.out.println("GRA UKONCZONA");
+                    endTime=(System.nanoTime()-startTime)/1000000000;
                     isTrue=true;
                 }
                 else{
@@ -142,7 +146,7 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
             paint1.setColor(Color.BLACK);
             paint1.setTextSize(80);
             paint1.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-            canvas.drawText("DALES RADE BRAWO ", WIDTH / 2 - 310, HEIGHT / 2 - 50, paint1);
+            canvas.drawText("Czas: "+endTime, WIDTH / 2 - 310, HEIGHT / 2 - 50, paint1);
 
     }
 
