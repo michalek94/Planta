@@ -17,6 +17,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import pl.planta.R;
@@ -37,6 +38,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
     private Random rand = new Random();
     private boolean newGameCreated;
 
+
     private long startReset;
     private boolean reset;
     private boolean dissapear;
@@ -48,12 +50,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
     private SensorManager senSensorManager;
     private Sensor senAccelerometer;
     private boolean end=false;
+
+    SQLiteHandler sqliteHandler;
+    HashMap<String, Integer> handler;
     Context mContext;
 
     public GamePanel(Context mContext)
     {
         super(mContext);
         this.mContext = mContext;
+        sqliteHandler = new SQLiteHandler(mContext);
         getHolder().addCallback(this);
         setFocusable(true);
     }
@@ -78,6 +84,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
 
     @Override
     public void surfaceCreated(SurfaceHolder holder){
+
+        handler = sqliteHandler.getUserCoalScores();
+        best =  handler.get("coal_highscore");
+
         a = new BitmapFactory.Options();
         a.inScaled=false;
         bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.tlo,a));
@@ -195,6 +205,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
         player.resetDX();
         if(counter>best){
             best =counter;
+            sqliteHandler.updateCoalScore(1, best);
         }
         counter2 = counter;
         counter=0;

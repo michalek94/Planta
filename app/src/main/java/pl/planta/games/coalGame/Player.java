@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
+import java.util.HashMap;
+
 import pl.planta.helper.SQLiteHandler;
 
 public class Player extends GameObject {
@@ -14,6 +16,8 @@ public class Player extends GameObject {
     private Animations animation = new Animations();
     private long startTime;
     SQLiteHandler sqliteHandler;
+    HashMap<String, Double> bonus;
+    double bonuss;
 
 
     public Player(Context context, Bitmap res, int w, int h, int numFrames){
@@ -24,6 +28,9 @@ public class Player extends GameObject {
         difficulty =0;
         height = h;
         width = w;
+        bonus = sqliteHandler.getCoalBonus();
+
+        bonuss = bonus.get("coal_bonus");
 
         Bitmap[] image = new Bitmap[numFrames];
         spritesheet = res;
@@ -37,7 +44,8 @@ public class Player extends GameObject {
 
     public void move(float b)
     {
-        dx += (b );
+
+        dx += (b * bonuss);
     }
 
     public void update(){

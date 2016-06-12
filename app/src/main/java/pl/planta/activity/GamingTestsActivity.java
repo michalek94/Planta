@@ -34,7 +34,7 @@ public class GamingTestsActivity extends Activity {
         btnThirdGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent thirdGame = new Intent(GamingTestsActivity.this, ThirdGameActivity.class);
+                Intent thirdGame = new Intent(GamingTestsActivity.this, CoalGameActivity.class);
                 startActivity(thirdGame);
             }
         });
