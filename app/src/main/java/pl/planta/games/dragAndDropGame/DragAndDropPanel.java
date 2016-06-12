@@ -89,7 +89,7 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
         if(event.getAction()==MotionEvent.ACTION_UP){
             if(myBoard.fitPipe()){
                 if(myBoard.check()){
-                   // System.out.println("GRA UKONCZONA");
+                    System.out.println("GRA UKONCZONA");
                     endTime=(System.nanoTime()-startTime)/1000000000;
                     isTrue=true;
                 }

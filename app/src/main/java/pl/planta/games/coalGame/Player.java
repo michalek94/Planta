@@ -1,8 +1,11 @@
 package pl.planta.games.coalGame;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+
+import pl.planta.helper.SQLiteHandler;
 
 public class Player extends GameObject {
     private Bitmap spritesheet;
@@ -10,8 +13,11 @@ public class Player extends GameObject {
     private boolean playing;
     private Animations animation = new Animations();
     private long startTime;
+    SQLiteHandler sqliteHandler;
 
-    public Player(Bitmap res, int w, int h, int numFrames){
+
+    public Player(Context context, Bitmap res, int w, int h, int numFrames){
+        sqliteHandler = new SQLiteHandler(context);
         x=GamePanel.WIDTH/2-250;
         y=GamePanel.HEIGHT-290;
         dx=0;
@@ -31,7 +37,7 @@ public class Player extends GameObject {
 
     public void move(float b)
     {
-        dx += b;
+        dx += (b );
     }
 
     public void update(){

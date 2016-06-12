@@ -29,6 +29,9 @@ public class CustomListView extends ArrayAdapter<String> {
     private View        mView;
     private TextView    mTitle;
     private TextView    mDesc;
+    private TextView    mMoney;
+    private int         money;
+    int i;
 
     private Button      mBuy;
     private SQLiteHandler mSQLiteHandler;
@@ -48,7 +51,7 @@ public class CustomListView extends ArrayAdapter<String> {
 
         mTitle = (TextView) mView.findViewById(R.id.itemName);
         mDesc = (TextView) mView.findViewById(R.id.itemDesc);
-        final TextView mMoney =  (TextView) ((Activity)context).findViewById(R.id.tvMoney);
+        mMoney =  (TextView) (context).findViewById(R.id.tvMoney);
         mBuy =(Button) mView.findViewById(R.id.itemBuy);
         mSQLiteHandler = new SQLiteHandler(context);
 
@@ -57,16 +60,17 @@ public class CustomListView extends ArrayAdapter<String> {
 
         final HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
 
-        final int money = userMoney.get("money");
-
+        money = userMoney.get("money");
+     i=1;
         mBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(position == 0) {
                     if(money >= 300) {
+                        i++;
                         mSQLiteHandler.updateCoalBonus(1, 1.1);
                         mSQLiteHandler.updateMoney(1, money-300);
-                        String money1 = userMoney.get("money").toString();
+                        String money1 = ""+i;//userMoney.get("money");
                         mMoney.setText(money1);
                     } else {
                         Toast.makeText(context, "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
@@ -75,6 +79,7 @@ public class CustomListView extends ArrayAdapter<String> {
                     if(money >= 600) {
                         mSQLiteHandler.updateCoalBonus(1, 1.25);
                         mSQLiteHandler.updateMoney(1, money-600);
+                      //  mMoney.setText(money-600);
                     } else {
                         Toast.makeText(context, "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
                     }
@@ -82,6 +87,7 @@ public class CustomListView extends ArrayAdapter<String> {
                     if(money >= 1000) {
                         mSQLiteHandler.updateCoalBonus(1, 1.50);
                         mSQLiteHandler.updateMoney(1, money-1000);
+                      //  mMoney.setText(money-1000);
                     } else {
                         Toast.makeText(context, "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
                     }
