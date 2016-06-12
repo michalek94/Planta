@@ -16,7 +16,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     // Wszystkie statyczne pola
     // Wersja bazy danych
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     // Nazwa bazy danych
     private static final String DATABASE_NAME = "planta.db";

@@ -25,6 +25,7 @@ public class MineActivity extends Activity {
     private TextView tvLvl;
     private TextView tvQue;
     private TextView tvCost;
+    private TextView tvPrice;
     private ImageButton buttonLvlUp;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,18 +50,20 @@ public class MineActivity extends Activity {
 
 
                 layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                View container = layoutInflater.inflate(R.layout.popwindow,null);
-                popUp = new PopupWindow(container,500,500,true);
+                View container = layoutInflater.inflate(R.layout.popcoalwindow,null);
+                popUp = new PopupWindow(container,550,600,true);
 
                 tvMain = (TextView) popUp.getContentView().findViewById(R.id.textViewPopMain);
                 tvLvl = (TextView) popUp.getContentView().findViewById(R.id.textViewPopLvl);
                 tvQue = (TextView) popUp.getContentView().findViewById(R.id.textViewPopQue);
                 tvCost = (TextView) popUp.getContentView().findViewById(R.id.textViewPopCost);
+                tvPrice = (TextView) popUp.getContentView().findViewById(R.id.textViewPopSellPrice);
 
                 tvMain.setText("Kopalnia jest na poziomie: ");
                 tvLvl.setText("2");
                 tvQue.setText("Czy chcesz ulepszyć kopalnię na kolejny poziom za: ");
                 tvCost.setText("2000");
+                tvPrice.setText("10");
 
                 final int widthFur =(int) (width * .7);
                 final int heightFur =(int) (height * .2);
@@ -86,7 +89,7 @@ public class MineActivity extends Activity {
 
                 layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View container = layoutInflater.inflate(R.layout.popwindow,null);
-                popUp = new PopupWindow(container,500,500,true);
+                popUp = new PopupWindow(container,550,500,true);
 
                 tvMain = (TextView) popUp.getContentView().findViewById(R.id.textViewPopMain);
                 tvLvl = (TextView) popUp.getContentView().findViewById(R.id.textViewPopLvl);

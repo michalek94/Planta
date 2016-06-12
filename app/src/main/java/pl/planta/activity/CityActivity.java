@@ -53,7 +53,7 @@ public class CityActivity extends Activity {
 
                 layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View container = layoutInflater.inflate(R.layout.popwindow,null);
-                popUp = new PopupWindow(container,500,500,true);
+                popUp = new PopupWindow(container,550,500,true);
 
                 tvMain = (TextView) popUp.getContentView().findViewById(R.id.textViewPopMain);
                 tvLvl = (TextView) popUp.getContentView().findViewById(R.id.textViewPopLvl);
@@ -89,7 +89,7 @@ public class CityActivity extends Activity {
 
                 layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View container = layoutInflater.inflate(R.layout.popwindow,null);
-                popUp = new PopupWindow(container,500,500,true);
+                popUp = new PopupWindow(container,550,500,true);
 
                 tvMain = (TextView) popUp.getContentView().findViewById(R.id.textViewPopMain);
                 tvLvl = (TextView) popUp.getContentView().findViewById(R.id.textViewPopLvl);

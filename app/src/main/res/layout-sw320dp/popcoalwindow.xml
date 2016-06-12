@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/pop_up"
+    android:id="@+id/popLayout"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:textColor="@color/colorPopWindow"
+        android:layout_height="wrap_content"
+        android:text="Piec jest na poziomie: "
+        android:id="@+id/textViewPopMain"
+        android:textSize="12sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_width="0dp"
+        android:textColor="@color/colorPopWindow"
+        app:layout_widthPercent="85%"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/textViewPopLvl"
+        android:textSize="12sp"
+        android:layout_toRightOf="@+id/textViewPopMain"
+        android:layout_toEndOf="@+id/textViewPopMain"/>
+    <TextView
+        android:layout_width="0dp"
+        android:textColor="@color/colorPopWindow"
+        app:layout_widthPercent="100%"
+        app:layout_marginTopPercent="5%"
+        android:layout_height="wrap_content"
+        android:text="Czy chcesz ulepszyć piec na kolejny poziom za:"
+        android:id="@+id/textViewPopQue"
+        android:textSize="12sp"
+        android:layout_below="@+id/textViewPopMain"/>
+    <TextView
+        android:layout_width="0dp"
+        android:textColor="@color/colorPopWindow"
+        app:layout_widthPercent="100%"
+        app:layout_marginTopPercent="1%"
+        android:layout_height="wrap_content"
+        android:text="1000"
+        android:textAlignment="center"
+        android:id="@+id/textViewPopCost"
+        android:textSize="14sp"
+        android:layout_below="@+id/textViewPopQue"/>
+    <TextView
+        android:layout_width="0dp"
+        android:textColor="@color/colorPopWindow"
+        app:layout_widthPercent="60%"
+        app:layout_marginTopPercent="1%"
+        android:layout_height="wrap_content"
+        android:text="Aktualna cena węgla:"
+
+        android:id="@+id/textViewPopSell"
+        android:textSize="12sp"
+        android:layout_below="@+id/textViewPopCost"/>
+    <TextView
+        android:layout_width="0dp"
+        android:textColor="@color/colorPopWindow"
+        app:layout_widthPercent="50%"
+        app:layout_marginTopPercent="3%"
+        android:layout_height="wrap_content"
+        android:text="20"
+        android:textAlignment="center"
+        android:id="@+id/textViewPopSellPrice"
+        android:textSize="14sp"
+        android:layout_below="@+id/textViewPopCost"
+        app:layout_marginLeftPercent="45%"/>
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_widthPercent="50%"
+        app:layout_heightPercent="40%"
+        android:id="@+id/lvlUpButton"
+        android:background="@drawable/lvl"
+        android:layout_below="@+id/textViewPopSell"
+
+        />
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_widthPercent="50%"
+        app:layout_heightPercent="40%"
+        android:id="@+id/sellButton"
+        android:background="@drawable/dollar"
+        android:layout_below="@+id/textViewPopSell"
+        app:layout_marginLeftPercent="50%"
+        />
+
+</android.support.percent.PercentRelativeLayout>
