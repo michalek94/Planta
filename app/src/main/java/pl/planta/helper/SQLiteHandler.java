@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.TableLayout;
 
 import java.util.HashMap;
 
@@ -16,7 +15,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     // Wszystkie statyczne pola
     // Wersja bazy danych
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     // Nazwa bazy danych
     private static final String DATABASE_NAME = "planta.db";
@@ -33,6 +32,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_MONEY = "money";
     private static final String KEY_COAL_SCORE = "coal_score";
     private static final String KEY_COAL_HIGHSCORE = "coal_highscore";
+    private static final String KEY_COAL_BONUS = "coal_bonus";
     private static final String KEY_PIPE_SCORE = "pipe_score";
     private static final String KEY_CREATED_AT = "created_at";
 
@@ -48,6 +48,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             + KEY_MONEY + " INTEGER,"
             + KEY_COAL_SCORE + " INTEGER,"
             + KEY_COAL_HIGHSCORE + " INTEGER,"
+            + KEY_COAL_BONUS + " INTEGER,"
             + KEY_PIPE_SCORE + " INTEGER,"
             + KEY_CREATED_AT + " TEXT" + ")";
 
@@ -196,6 +197,17 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         return userMoney;
     }
 
+    public boolean updateMoney(long userID, int money) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_MONEY, money);
+
+        long id = db.update(TABLE_USER, contentValues, KEY_ID + "=" + userID, null);
+        return id > 0;
+    }
+
     /**
      * Pobranie z SQLite coal_score & coal_highscore
      *
@@ -238,6 +250,50 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         long id = db.update(TABLE_USER, contentValues, KEY_ID + "=" + userID, null);
         Log.d(TAG, "CoalScoreUpdated");
         return id > 0;
+    }
+
+    public void addCoalBonus(double coalBonus) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_COAL_BONUS, coalBonus);
+
+        // Dodawanie wiersza
+        long id = db.insert(TABLE_USER, null, contentValues);
+        db.close(); // Zamykanie bazy danych
+
+        Log.d(TAG, "Nowy bonus zostal dodany: " + id);
+    }
+
+    public boolean updateCoalBonus(long userID, double coalBonus) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_COAL_BONUS, coalBonus);
+
+        long id = db.update(TABLE_USER, contentValues, KEY_ID + "=" + userID, null);
+        Log.d(TAG, "CoalBonusUpdated");
+
+        return id > 0;
+    }
+
+    public HashMap<String, Double> getCoalBonus() {
+        HashMap<String, Double> coalBonus = new HashMap<>();
+        String selectQuery = "SELECT coal_bonus FROM " + TABLE_USER;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            coalBonus.put("coal_bonus", cursor.getDouble(0));
+        }
+        cursor.close();
+        db.close();
+
+        // Zwracanie user'a
+        Log.d(TAG, "Pobieranie bonusu: " + coalBonus.toString());
+        return coalBonus;
     }
 
     /**

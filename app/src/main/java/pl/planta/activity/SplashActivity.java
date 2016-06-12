@@ -73,6 +73,7 @@ public class SplashActivity extends Activity {
                         Log.w(TAG, "First time run");
                         Log.w(TAG, "Starting ChooseActivity");
                         mSQLiteHandler.addCoalPrice(0.5);
+                        mSQLiteHandler.addCoalBonus(1);
                         Intent chooseIntent = new Intent(SplashActivity.this, ChooseActivity.class);
                         startActivity(chooseIntent);
                         finish();
