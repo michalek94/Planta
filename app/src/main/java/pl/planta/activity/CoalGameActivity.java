@@ -27,6 +27,7 @@ public class CoalGameActivity extends Activity {
     private static final String TAG = CoalGameActivity.class.getSimpleName();
 
     private GamePanel view;
+    private SQLiteHandler mSQLiteHandler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,12 @@ public class CoalGameActivity extends Activity {
 
         view = new GamePanel(this);
         setContentView(view);
+        mSQLiteHandler = new SQLiteHandler(getApplicationContext());
+
+
+        HashMap<String, String> userUID = mSQLiteHandler.getUserUid();
+        String uid = userUID.get("uid");
+        savePipeScoreOnServer("uid",567);
     }
 
     private void saveCoalScoresOnServer(final String uid, final int score){
@@ -63,6 +70,62 @@ public class CoalGameActivity extends Activity {
 
                 params.put("uid", uid);
                 params.put("coal_score", String.valueOf(score));
+
+                return params;
+            }
+        };
+        AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
+    }
+
+    private void saveCoalHighscoreOnServer(final String uid, final int highscore) {
+        String tag_string_req = "req_update_coal_highscore";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_COAL_HIGHSCORE_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("coal_highscore", String.valueOf(highscore));
+
+                return params;
+            }
+        };
+        AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
+    }
+
+    private void savePipeScoreOnServer(final String uid, final int score) {
+        String tag_string_req = "req_update_pipe_score";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_PIPE_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("pipe_score", String.valueOf(score));
 
                 return params;
             }
