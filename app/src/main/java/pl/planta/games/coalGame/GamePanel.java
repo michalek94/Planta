@@ -12,21 +12,34 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import pl.planta.R;
+import pl.planta.app.AppConfiguration;
+import pl.planta.app.AppController;
 import pl.planta.helper.SQLiteHandler;
 import pl.planta.helper.SessionManager;
 import pl.planta.painter.Background;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, SensorEventListener
 {
+
+    private static final String TAG = GamePanel.class.getSimpleName();
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
     private long coalStartTime;
@@ -200,12 +213,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
     }
 
     public void newGame() {
+        HashMap<String, String> userUID = sqliteHandler.getUserUid();
+        String uid = userUID.get("uid");
         dissapear = false;
         coals.clear();
         player.resetDX();
         if(counter>best){
             best =counter;
             sqliteHandler.updateCoalHighScore(1, best);
+            saveCoalHighscoreOnServer(uid, best);
         }
         counter2 = counter;
         counter=0;
@@ -267,5 +283,33 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    private void saveCoalHighscoreOnServer(final String uid, final int highscore) {
+        String tag_string_req = "req_update_coal_highscore";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_COAL_HIGHSCORE_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(mContext, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("coal_highscore", String.valueOf(highscore));
+
+                return params;
+            }
+        };
+        AppController.getInstance(mContext).addToRequestQueue(stringRequest, tag_string_req);
     }
 }
