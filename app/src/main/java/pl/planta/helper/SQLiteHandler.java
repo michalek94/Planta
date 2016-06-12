@@ -15,7 +15,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     // Wszystkie statyczne pola
     // Wersja bazy danych
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 1;
 
     // Nazwa bazy danych
     private static final String DATABASE_NAME = "planta.db";
@@ -252,19 +252,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         return id > 0;
     }
 
-    public void addCoalBonus(double coalBonus) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_COAL_BONUS, coalBonus);
-
-        // Dodawanie wiersza
-        long id = db.insert(TABLE_USER, null, contentValues);
-        db.close(); // Zamykanie bazy danych
-
-        Log.d(TAG, "Nowy bonus zostal dodany: " + id);
-    }
-
     public boolean updateCoalBonus(long userID, double coalBonus) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -347,21 +334,15 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         Log.d(TAG, "Usuwanie wszystkich informacji o uzytkowniku z SQLite.");
     }
 
-    /**
-     * Dodawanie ceny węgla do bazy SQLite na stałe, cena niezmienna
-     * @param coal_price
-     */
-    public void addCoalPrice(double coal_price) {
+    public boolean updateCoalPrice(long userID, double coal_price) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_COAL_PRICE, coal_price);
 
-        // Dodawanie wiersza
-        long id = db.insert(TABLE_COAL, null, contentValues);
-        db.close(); // Zamykanie bazy danych
-
-        Log.d(TAG, "Nowa cena wegla dodana do bazy: " + id);
+        long id = db.update(TABLE_COAL, contentValues, KEY_ID + "=" + userID, null);
+        Log.d(TAG, "CoalPriceUpdated");
+        return id > 0;
     }
 
     /**
