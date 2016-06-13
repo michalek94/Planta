@@ -11,7 +11,7 @@ import pl.planta.R;
 
 public class GamingTestsActivity extends Activity {
 
-    private Button btnSecondGame, btnThirdGame, btnMainMenu;
+    private Button btnSecondGame, btnMainMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,6 @@ public class GamingTestsActivity extends Activity {
         setContentView(R.layout.activity_gamingtests);
 
         btnSecondGame = (Button) findViewById(R.id.btnSecondGame);
-        btnThirdGame = (Button) findViewById(R.id.btnThirdGame);
         btnMainMenu = (Button) findViewById(R.id.btnMainManu);
 
         btnSecondGame.setOnClickListener(new View.OnClickListener() {
@@ -31,13 +30,7 @@ public class GamingTestsActivity extends Activity {
                 startActivity(secondGame);
             }
         });
-        btnThirdGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent thirdGame = new Intent(GamingTestsActivity.this, CoalGameActivity.class);
-                startActivity(thirdGame);
-            }
-        });
+
         btnMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

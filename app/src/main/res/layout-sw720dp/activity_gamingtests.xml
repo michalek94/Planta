@@ -7,28 +7,16 @@
         android:layout_height="wrap_content"
         android:text="@string/btnsecondgame"
         android:id="@+id/btnSecondGame"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="156dp" />
+        android:layout_marginBottom="180dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btnThirdGame"
-        android:id="@+id/btnThirdGame"
-        android:layout_below="@+id/btnSecondGame"
-        android:layout_marginTop="25dp"
-        android:layout_alignRight="@+id/btnSecondGame"
-        android:layout_alignEnd="@+id/btnSecondGame"
-        android:layout_alignLeft="@+id/btnSecondGame"
-        android:layout_alignStart="@+id/btnSecondGame" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Main Menu"
+        android:text="COAL KOPALNIA"
         android:id="@+id/btnMainManu"
-        android:layout_below="@+id/btnThirdGame"
+        android:layout_above="@+id/btnSecondGame"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp" />
+        android:layout_marginBottom="60dp" />
 </RelativeLayout>

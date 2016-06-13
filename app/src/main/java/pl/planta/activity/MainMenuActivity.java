@@ -8,6 +8,8 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 
 import pl.planta.R;
@@ -20,6 +22,7 @@ public class MainMenuActivity extends Activity {
     private ImageButton plantaButton;
     private ImageButton mineButton;
     private TextView    mMoney;
+    private TextView    mCoal;
     private SQLiteHandler mSQLiteHandler;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +70,15 @@ public class MainMenuActivity extends Activity {
 
         mSQLiteHandler = new SQLiteHandler(getApplicationContext());
         mMoney = (TextView) findViewById(R.id.cashTextView1);
+        mCoal = (TextView) findViewById(R.id.coalTextView1);
 
         HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
+        HashMap<String,Integer> userCoal = mSQLiteHandler.getUserCoalScores();
 
         String money = userMoney.get("money").toString();
+        String coal = userCoal.get("coal_highscore").toString();
 
         mMoney.setText(money);
+        mCoal.setText(coal);
     }
 }
