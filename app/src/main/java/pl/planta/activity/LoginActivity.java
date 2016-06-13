@@ -143,7 +143,7 @@ public class LoginActivity extends Activity {
 
                         sqLiteHandler.addUser(uid, name, email, money, coal_score, coal_highscore, pipe_score, created_at);
                         sqLiteHandler.addCoalPrice(0.0);
-                        sqLiteHandler.updateCoalPrice(1, 0.5);
+                        sqLiteHandler.updateCoalPrice(1, 2.0);
                         sqLiteHandler.updateCoalBonus(1, 1.0);
 
                         Intent menuIntent = new Intent(LoginActivity.this, MenuActivity.class);

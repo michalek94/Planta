@@ -81,4 +81,17 @@ public class MainMenuActivity extends Activity {
         mMoney.setText(money);
         mCoal.setText(coal);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
+        HashMap<String,Integer> userCoal = mSQLiteHandler.getUserCoalScores();
+
+        String money = userMoney.get("money").toString();
+        String coal = userCoal.get("coal_highscore").toString();
+
+        mMoney.setText(money);
+        mCoal.setText(coal);
+    }
 }

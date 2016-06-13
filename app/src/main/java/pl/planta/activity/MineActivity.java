@@ -2,6 +2,7 @@ package pl.planta.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -30,7 +32,11 @@ public class MineActivity extends Activity {
     private TextView tvCost;
     private TextView tvPrice;
     private ImageButton buttonLvlUp;
+    private ImageButton buttonSell;
     private SQLiteHandler mSQLiteHandler;
+    private int money;
+    private int coal;
+    HashMap<String, Integer> handler;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +48,8 @@ public class MineActivity extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         mSQLiteHandler = new SQLiteHandler(getApplicationContext());
+
+        money = mSQLiteHandler.getUserMoney().get("money");
 
         final int width = dm.widthPixels;
         final int height = dm.heightPixels;
@@ -64,6 +72,8 @@ public class MineActivity extends Activity {
                 tvQue = (TextView) popUp.getContentView().findViewById(R.id.textViewPopQue);
                 tvCost = (TextView) popUp.getContentView().findViewById(R.id.textViewPopCost);
                 tvPrice = (TextView) popUp.getContentView().findViewById(R.id.textViewPopSellPrice);
+                buttonLvlUp = (ImageButton) popUp.getContentView().findViewById(R.id.lvlUpButton);
+                buttonSell = (ImageButton) popUp.getContentView().findViewById(R.id.sellButton);
 
                 tvMain.setText("Kopalnia jest na poziomie: ");
                 tvLvl.setText("2");
@@ -73,6 +83,33 @@ public class MineActivity extends Activity {
                 HashMap<String,Double> coalPrice = mSQLiteHandler.getCoalPrice();
                 String coal_price = coalPrice.get("coal_price").toString();
                 tvPrice.setText(coal_price);
+
+                buttonLvlUp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(money >= 2000) {
+                            mSQLiteHandler.updateCoalBonus(1, 1.3);
+                            mSQLiteHandler.updateMoney(1, money-2000);
+                            tvLvl.setText("3");
+                            tvCost.setText("3500");
+                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś kopalnię do 3 poziomu!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                buttonSell.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        handler = mSQLiteHandler.getUserCoalScores();
+                        coal = handler.get("coal_highscore");
+                        double getCoal = coal*2.0;
+                        mSQLiteHandler.updateMoney(1, money+(int) getCoal);
+                        mSQLiteHandler.updateCoalHighScore(1, 0);
+                        Toast.makeText(getApplicationContext(), "Gratulacje! Sprzedałeś " + coal + " ton węgla!", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
                 final int widthFur =(int) (width * .7);
                 final int heightFur =(int) (height * .2);
