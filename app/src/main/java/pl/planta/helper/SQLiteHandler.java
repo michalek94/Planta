@@ -283,6 +283,25 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         return coalBonus;
     }
 
+    public HashMap<String, Integer> getPipeScore() {
+        HashMap<String, Integer> pipeScore = new HashMap<>();
+        String selectQuery = "SELECT pipe_score FROM " + TABLE_USER;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            pipeScore.put("pipe_score", cursor.getInt(0));
+        }
+        cursor.close();
+        db.close();
+
+        // Zwracanie user'a
+        Log.d(TAG, "Pobieranie wyników gry Pipe: " + pipeScore.toString());
+        return pipeScore;
+    }
+
     /**
      * Aktualizacja wiersza z userID = 1
      *
