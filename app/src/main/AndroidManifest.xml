@@ -76,12 +76,6 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".activity.ThirdGameActivity"
-            android:screenOrientation="landscape"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
             android:name=".activity.MainMenuActivity"
             android:screenOrientation="landscape"
             android:label="@string/app_name"

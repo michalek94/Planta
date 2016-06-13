@@ -34,6 +34,7 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
     private boolean isTrue=false;
     private long startTime;
     private long endTime;
+    private long bestTime;
 
 
     Context mContext;
@@ -91,6 +92,9 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
                 if(myBoard.check()){
                     System.out.println("GRA UKONCZONA");
                     endTime=(System.nanoTime()-startTime)/1000000000;
+                    if(bestTime<endTime) {
+                        bestTime = endTime;
+                    }
                     isTrue=true;
                 }
                 else{
@@ -133,6 +137,7 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
             canvas.scale(scaleFactorX, scaleFactorY);
             bg.draw(canvas);
             myBoard.draw(canvas);
+            drawText(canvas);
             if(isTrue)
                 drawEnd(canvas);
         }
@@ -141,12 +146,25 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
     public void newGame() {
     }
 
+    public void drawText(Canvas canvas) {
+        Paint paint = new Paint();
+        paint.setColor(Color.WHITE);
+        paint.setTextSize(25);
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+        canvas.drawText("Najlepszy czas: " + bestTime, WIDTH - 250,  25, paint);
+
+
+    }
+
     public void drawEnd(Canvas canvas) {
             Paint paint1 = new Paint();
             paint1.setColor(Color.BLACK);
-            paint1.setTextSize(80);
+            paint1.setTextSize(70);
             paint1.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-            canvas.drawText("Czas: "+endTime, WIDTH / 2 - 310, HEIGHT / 2 - 50, paint1);
+            canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ramka, a), 50, 0, null);
+        canvas.drawText("Ukończyłeś poziom!", WIDTH / 2 - 300, HEIGHT / 2 -80 , paint1);
+            canvas.drawText("Obecny czas: "+endTime, WIDTH / 2 - 280, HEIGHT / 2+70 , paint1);
+                canvas.drawText("Najlepszy czas: " + bestTime, WIDTH / 2 - 280,   HEIGHT / 2+150, paint1);
 
     }
 
