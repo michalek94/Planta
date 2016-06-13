@@ -333,6 +333,19 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         Log.d(TAG, "Usuwanie wszystkich informacji o uzytkowniku z SQLite.");
     }
 
+    public void addCoalPrice(double coalPrice) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_COAL_PRICE, coalPrice);
+
+        // Dodawanie wiersza
+        long id = db.insert(TABLE_COAL, null, contentValues);
+        db.close(); // Zamykanie bazy danych
+
+        Log.d(TAG, "Cena wegla dodana do SQLite: " + id);
+    }
+
     public boolean updateCoalPrice(long userID, double coal_price) {
         SQLiteDatabase db = this.getWritableDatabase();
 

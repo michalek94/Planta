@@ -142,6 +142,7 @@ public class LoginActivity extends Activity {
                         String created_at = user.getString("created_at");
 
                         sqLiteHandler.addUser(uid, name, email, money, coal_score, coal_highscore, pipe_score, created_at);
+                        sqLiteHandler.addCoalPrice(0.0);
                         sqLiteHandler.updateCoalPrice(1, 0.5);
                         sqLiteHandler.updateCoalBonus(1, 1.0);
 
