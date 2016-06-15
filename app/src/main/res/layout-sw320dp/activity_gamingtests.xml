@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btnsecondgame"
+        app:layout_widthPercent="50%"
+        app:layout_heightPercent="100%"
         android:id="@+id/btnSecondGame"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="180dp" />
+        android:background="@drawable/game_pipes"
+         />
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="COAL KOPALNIA"
+        app:layout_widthPercent="50%"
+        app:layout_heightPercent="100%"
+        android:background="@drawable/game_coal"
         android:id="@+id/btnMainManu"
-        android:layout_above="@+id/btnSecondGame"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp" />
-</RelativeLayout>
+        android:layout_alignParentRight="true"
+         />
+</android.support.percent.PercentRelativeLayout>

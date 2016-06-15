@@ -78,6 +78,7 @@
         android:id="@+id/lvlUpButton"
         android:background="@drawable/lvl"
         android:layout_below="@+id/textViewPopSell"
+        app:layout_marginTopPercent="5%"
 
         />
     <ImageButton
@@ -89,6 +90,7 @@
         android:background="@drawable/dollar"
         android:layout_below="@+id/textViewPopSell"
         app:layout_marginLeftPercent="50%"
+        app:layout_marginTopPercent="5%"
         />
 
 </android.support.percent.PercentRelativeLayout>

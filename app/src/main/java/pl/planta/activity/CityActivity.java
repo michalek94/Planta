@@ -40,6 +40,8 @@ public class CityActivity extends Activity {
 
         final int width = dm.widthPixels;
         final int height = dm.heightPixels;
+        final int widthPop =(int) (width * .35);
+        final int heightPop = (int) (height * .55);
 
         relativeLayout = (android.support.percent.PercentRelativeLayout) findViewById(R.id.cityLayout);
 
@@ -53,7 +55,7 @@ public class CityActivity extends Activity {
 
                 layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View container = layoutInflater.inflate(R.layout.popwindow,null);
-                popUp = new PopupWindow(container,550,500,true);
+                popUp = new PopupWindow(container,widthPop,heightPop,true);
 
                 tvMain = (TextView) popUp.getContentView().findViewById(R.id.textViewPopMain);
                 tvLvl = (TextView) popUp.getContentView().findViewById(R.id.textViewPopLvl);
@@ -89,7 +91,7 @@ public class CityActivity extends Activity {
 
                 layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View container = layoutInflater.inflate(R.layout.popwindow,null);
-                popUp = new PopupWindow(container,550,500,true);
+                popUp = new PopupWindow(container,widthPop,heightPop,true);
 
                 tvMain = (TextView) popUp.getContentView().findViewById(R.id.textViewPopMain);
                 tvLvl = (TextView) popUp.getContentView().findViewById(R.id.textViewPopLvl);

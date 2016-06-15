@@ -6,12 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import pl.planta.R;
 
 public class GamingTestsActivity extends Activity {
 
-    private Button btnSecondGame, btnMainMenu;
+    private ImageButton btnSecondGame, btnMainMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +21,8 @@ public class GamingTestsActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_gamingtests);
 
-        btnSecondGame = (Button) findViewById(R.id.btnSecondGame);
-        btnMainMenu = (Button) findViewById(R.id.btnMainManu);
+        btnSecondGame = (ImageButton) findViewById(R.id.btnSecondGame);
+        btnMainMenu = (ImageButton) findViewById(R.id.btnMainManu);
 
         btnSecondGame.setOnClickListener(new View.OnClickListener() {
             @Override
