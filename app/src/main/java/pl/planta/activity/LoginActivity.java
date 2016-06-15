@@ -42,7 +42,7 @@ public class LoginActivity extends Activity {
     private CheckBox cbPassword;
     private ProgressDialog progressDialog;
     private SessionManager sessionManager;
-    private SQLiteHandler sqLiteHandler;
+    private SQLiteHandler SQLiteHandler;
     private RegEx regEx;
     private InternetConnection internetConnection;
 
@@ -65,7 +65,7 @@ public class LoginActivity extends Activity {
 
         sessionManager = new SessionManager(getApplicationContext());
 
-        sqLiteHandler = new SQLiteHandler(getApplicationContext());
+        SQLiteHandler = new SQLiteHandler(getApplicationContext());
 
         regEx = new RegEx();
 
@@ -131,20 +131,38 @@ public class LoginActivity extends Activity {
                         sessionManager.setLogin(true);
 
                         //// Przechowaj jego dane w SQLite
-                        String uid = jsonObject.getString("uid");
-                        JSONObject user = jsonObject.getJSONObject("user");
-                        String name = user.getString("name");
-                        String email = user.getString("email");
-                        int money = user.getInt("money");
-                        int coal_score = user.getInt("coal_score");
-                        int coal_highscore = user.getInt("coal_highscore");
-                        int pipe_score = user.getInt("pipe_score");
-                        String created_at = user.getString("created_at");
+                        String uid          = jsonObject.getString("uid");
+                        JSONObject user     = jsonObject.getJSONObject("user");
+                        String name         = user.getString("name");
+                        String email        = user.getString("email");
+                        int money           = user.getInt("money");
+                        int level           = user.getInt("level");
 
-                        sqLiteHandler.addUser(uid, name, email, money, coal_score, coal_highscore, pipe_score, created_at);
-                        sqLiteHandler.addCoalPrice(0.0);
-                        sqLiteHandler.updateCoalPrice(1, 2.0);
-                        sqLiteHandler.updateCoalBonus(1, 1.0);
+                        int coalScore       = user.getInt("coal_score");
+                        int coalHighScore   = user.getInt("coal_highscore");
+                        double coalBonus    = user.getDouble("coal_bonus");
+                        double coalPrice    = user.getDouble("coal_price");
+
+                        int pipeScore       = user.getInt("pipe_score");
+                        int pipeHighScore   = user.getInt("pipe_highscore");
+                        double pipeBonus    = user.getDouble("pipe_bonus");
+                        double pipePrice    = user.getDouble("pipe_price");
+
+                        int computerLevel   = user.getInt("computer_level");
+                        int hookLevel       = user.getInt("hook_level");
+                        int storeroomLevel  = user.getInt("storeroom_level");
+                        int furnaceLevel    = user.getInt("furnace_level");
+                        int factory_level   = user.getInt("factory_level");
+                        int flatsLevel      = user.getInt("flats_level");
+                        int pipelineLevel   = user.getInt("pipeline_level");
+                        int mineLevel       = user.getInt("mine_level");
+
+                        String created_at   = user.getString("created_at");
+
+                        SQLiteHandler.addUser(uid, name, email, money, level, created_at);
+                        SQLiteHandler.addCoal(coalScore, coalHighScore, coalBonus, coalPrice);
+                        SQLiteHandler.addPipe(pipeScore, pipeHighScore, pipeBonus, pipePrice);
+                        SQLiteHandler.addLevels(computerLevel, hookLevel, storeroomLevel, furnaceLevel, factory_level, flatsLevel, pipelineLevel, mineLevel);
 
                         Intent menuIntent = new Intent(LoginActivity.this, MenuActivity.class);
                         startActivity(menuIntent);

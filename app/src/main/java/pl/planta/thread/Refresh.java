@@ -1,6 +1,5 @@
 package pl.planta.thread;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
@@ -16,9 +15,9 @@ public class Refresh {
     private TextView mCoal;
 
     private SQLiteHandler mSQLiteHandler;
-    final Handler handler = new Handler();
+    private final Handler handler = new Handler();
 
-    HashMap<String,Integer> userCoal;
+    private HashMap<String,Integer> userCoal;
 
     private long time;
 
@@ -27,7 +26,7 @@ public class Refresh {
         this.mContext = activity;
         this.time = time;
         mSQLiteHandler = new SQLiteHandler(mContext);
-        userCoal = mSQLiteHandler.getUserCoalScores();
+        userCoal = mSQLiteHandler.getCoalHighScore();
         mCoal = (TextView) ((Activity)mContext).findViewById(R.id.coalTextView1);
         handler.removeCallbacks(runnable);
         handler.postDelayed(runnable, time);

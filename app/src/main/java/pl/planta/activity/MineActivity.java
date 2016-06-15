@@ -82,7 +82,7 @@ public class MineActivity extends Activity {
                 tvQue.setText("Czy chcesz ulepszyć kopalnię na kolejny poziom za: ");
                 tvCost.setText("2000");
 
-                HashMap<String,Double> coalPrice = mSQLiteHandler.getCoalPrice();
+                HashMap<String,Double> coalPrice = mSQLiteHandler.getCoalBonusPrice();
                 String coal_price = coalPrice.get("coal_price").toString();
                 tvPrice.setText(coal_price);
 
@@ -90,8 +90,8 @@ public class MineActivity extends Activity {
                     @Override
                     public void onClick(View v) {
                         if(money >= 2000) {
-                            mSQLiteHandler.updateCoalBonus(1, 1.3);
-                            mSQLiteHandler.updateMoney(1, money-2000);
+                            mSQLiteHandler.updateCoalBonus(1.3);
+                            mSQLiteHandler.updateMoney(money-2000);
                             tvLvl.setText("3");
                             tvCost.setText("3500");
                             Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś kopalnię do 3 poziomu!", Toast.LENGTH_SHORT).show();
@@ -104,11 +104,11 @@ public class MineActivity extends Activity {
                 buttonSell.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        handler = mSQLiteHandler.getUserCoalScores();
+                        handler = mSQLiteHandler.getCoalHighScore();
                         coal = handler.get("coal_highscore");
                         double getCoal = coal*2.0;
-                        mSQLiteHandler.updateMoney(1, money+(int) getCoal);
-                        mSQLiteHandler.updateCoalHighScore(1, 0);
+                        mSQLiteHandler.updateMoney(money+(int) getCoal);
+                        mSQLiteHandler.updateCoalHighScore(0);
                         Toast.makeText(getApplicationContext(), "Gratulacje! Sprzedałeś " + coal + " ton węgla!", Toast.LENGTH_SHORT).show();
                     }
                 });

@@ -63,8 +63,8 @@ public class CustomListView extends ArrayAdapter<String> {
                 money = mSQLiteHandler.getUserMoney().get("money");
                 if(position == 0) {
                     if(money >= 300) {
-                        mSQLiteHandler.updateCoalBonus(1, 1.1);
-                        mSQLiteHandler.updateMoney(1, money-300);
+                        mSQLiteHandler.updateCoalBonus(1.1);
+                        mSQLiteHandler.updateMoney(money-300);
                         String money1 = mSQLiteHandler.getUserMoney().get("money").toString();
                         mMoney.setText(money1);
                     } else {
@@ -72,8 +72,8 @@ public class CustomListView extends ArrayAdapter<String> {
                     }
                 } else if (position == 1) {
                     if(money >= 600) {
-                        mSQLiteHandler.updateCoalBonus(1, 1.25);
-                        mSQLiteHandler.updateMoney(1, money-600);
+                        mSQLiteHandler.updateCoalBonus(1.25);
+                        mSQLiteHandler.updateMoney(money-600);
                         String money1 = mSQLiteHandler.getUserMoney().get("money").toString();
                         mMoney.setText(money1);
                     } else {
@@ -81,8 +81,8 @@ public class CustomListView extends ArrayAdapter<String> {
                     }
                 } else if (position == 2) {
                     if(money >= 1000) {
-                        mSQLiteHandler.updateCoalBonus(1, 1.50);
-                        mSQLiteHandler.updateMoney(1, money-1000);
+                        mSQLiteHandler.updateCoalBonus(1.50);
+                        mSQLiteHandler.updateMoney(money-1000);
                         String money1 = mSQLiteHandler.getUserMoney().get("money").toString();
                         mMoney.setText(money1);
                     } else {
