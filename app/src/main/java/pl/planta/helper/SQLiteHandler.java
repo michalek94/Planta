@@ -168,6 +168,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         Log.d(TAG, "Tabela " + TABLE_PIPE + " zostala utworzona.");
         db.execSQL(CREATE_LEVELS_TABLE);
         Log.d(TAG, "Tabela " + TABLE_LEVELS + " zostala utworzona.");
+        db.execSQL(CREATE_STOREROOM_TABLE);
+        Log.d(TAG, "Tabela " + TABLE_STOREROOM + " zostala utworzona.");
     }
 
     /**
@@ -184,6 +186,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COAL);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PIPE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LEVELS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STOREROOM);
         // Recreate tables
         onCreate(db);
     }
@@ -219,12 +222,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * ADD COAL VALUES TO SQLITE DATABASE
      *
-     * @param coalScore     user's coal score
      * @param coalHighScore user's coal highscore
      * @param coalBonus     coal bonus
      * @param coalPrice     coal price
      */
-    public void addCoal(int coalScore, int coalHighScore, double coalBonus, double coalPrice) {
+    public void addCoal(int coalHighScore, double coalBonus, double coalPrice) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -242,12 +244,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * ADD PIPE VALUES TO SQLITE DATABASE
      *
-     * @param pipeScore     user's pipe score
      * @param pipeHighScore user's pipe highscore
      * @param pipeBonus     pipe bonus
      * @param pipePrice     pipe price
      */
-    public void addPipe(int pipeScore, int pipeHighScore, double pipeBonus, double pipePrice) {
+    public void addPipe(int pipeHighScore, double pipeBonus, double pipePrice) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();

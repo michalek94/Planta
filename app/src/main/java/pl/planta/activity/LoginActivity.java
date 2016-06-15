@@ -160,8 +160,8 @@ public class LoginActivity extends Activity {
                         String created_at   = user.getString("created_at");
 
                         SQLiteHandler.addUser(uid, name, email, money, level, created_at);
-                        SQLiteHandler.addCoal(coalScore, coalHighScore, coalBonus, coalPrice);
-                        SQLiteHandler.addPipe(pipeScore, pipeHighScore, pipeBonus, pipePrice);
+                        SQLiteHandler.addCoal(coalHighScore, coalBonus, coalPrice);
+                        SQLiteHandler.addPipe(pipeHighScore, pipeBonus, pipePrice);
                         SQLiteHandler.addLevels(computerLevel, hookLevel, storeroomLevel, furnaceLevel, factory_level, flatsLevel, pipelineLevel, mineLevel);
 
                         Intent menuIntent = new Intent(LoginActivity.this, MenuActivity.class);
