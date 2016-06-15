@@ -3,6 +3,7 @@ package pl.planta.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 
 import pl.planta.R;
 import pl.planta.helper.SQLiteHandler;
+import pl.planta.thread.Refresh;
 
 public class MainMenuActivity extends Activity {
 
@@ -24,6 +26,8 @@ public class MainMenuActivity extends Activity {
     private TextView    mMoney;
     private TextView    mCoal;
     private SQLiteHandler mSQLiteHandler;
+    private Refresh refresh;
+    private long refreshTime = 1000;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,5 +97,15 @@ public class MainMenuActivity extends Activity {
 
         mMoney.setText(money);
         mCoal.setText(coal);
+        refresh = new Refresh(this,refreshTime);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        refresh.stop();
+    }
+
+
+
 }

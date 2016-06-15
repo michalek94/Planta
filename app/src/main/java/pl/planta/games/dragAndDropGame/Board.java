@@ -38,8 +38,15 @@ public class Board  {
     private int partWidth;
     private int partHeight;
 
+    public void setENDED(boolean ENDED) {
+        isENDED = ENDED;
+    }
+
+    private boolean isENDED;
+
 
     public Board(int x,int y, int width, int height, Context context) {
+        isENDED=false;
         partWidth=width/FieldsOnXAxis;
         partHeight=height/FieldsOnYAxis;
         startXProstych=0; startYProstych= height-partHeight*2;
@@ -64,14 +71,16 @@ public class Board  {
     }
 
     public void movePipes(int x, int y){
-        for(int i = pipes.size()-1; i>=2; i--) {
-            if (pipes.get(i).getPipeArea().contains(x, y)) {
-                pipes.push(pipes.get(i));
-                pipes.peek().setX(x - partWidth / 2);
-                pipes.peek().setY(y - partHeight / 2);
-                pipes.peek().updateArea();
-                pipes.remove(pipes.get(i));
-                break;
+        if(!isENDED) {
+            for (int i = pipes.size() - 1; i >= 2; i--) {
+                if (pipes.get(i).getPipeArea().contains(x, y)) {
+                    pipes.push(pipes.get(i));
+                    pipes.peek().setX(x - partWidth / 2);
+                    pipes.peek().setY(y - partHeight / 2);
+                    pipes.peek().updateArea();
+                    pipes.remove(pipes.get(i));
+                    break;
+                }
             }
         }
     }

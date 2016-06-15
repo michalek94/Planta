@@ -49,6 +49,7 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
     private long startTime;
     private int endTime;
     private int bestTime;
+    private boolean firstGame;
 
     SQLiteHandler sqliteHandler;
     HashMap<String, Integer> handler;
@@ -83,7 +84,7 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
 
     @Override
     public void surfaceCreated(SurfaceHolder holder){
-
+    firstGame = true;
         handler = sqliteHandler.getPipeScore();
         bestTime =  handler.get("pipe_score");
         a = new BitmapFactory.Options();
@@ -101,50 +102,54 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
     boolean firstTouch = false;
     long time=0;
     @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
-
-        int positionX = (int)(event.getX()/scaleFactorX);
-        int positionY = (int)(event.getY()/scaleFactorY);
-        if(event.getAction()==MotionEvent.ACTION_UP){
-            if(myBoard.fitPipe()){
-                if(myBoard.check()){
+    public boolean onTouchEvent(MotionEvent event) {
+        if (firstGame){
+            int positionX = (int) (event.getX() / scaleFactorX);
+        int positionY = (int) (event.getY() / scaleFactorY);
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            if (myBoard.fitPipe()) {
+                if (myBoard.check()) {
                     System.out.println("GRA UKONCZONA");
-                    endTime=(int)((System.nanoTime()-startTime)/1000000000);
-                    if(bestTime<endTime) {
-                        HashMap<String, String> userUID = sqliteHandler.getUserUid(); String uid = userUID.get("uid");
+                    endTime = (int) ((System.nanoTime() - startTime) / 1000000000);
+                    firstGame = false;
+                    if (bestTime > endTime && firstGame) {
+                        //  firstGame=false;
+                        myBoard.setENDED(true);
+                        HashMap<String, String> userUID = sqliteHandler.getUserUid();
+                        String uid = userUID.get("uid");
                         bestTime = endTime;
                         sqliteHandler.updatePipeScore(1, bestTime);
                         savePipeScoreOnServer(uid, bestTime);
                     }
-                    isTrue=true;
-                }
-                else{
-                    isTrue=false;
+                    isTrue = true;
+                } else {
+                    isTrue = false;
                 }
             }
-            canMove=false;
+            canMove = false;
             return true;
         }
-        if(canMove){
+        if (canMove) {
             myBoard.movePipes(positionX, positionY);
             return true;
         }
-        if(event.getAction()==MotionEvent.ACTION_DOWN&&myBoard.isPipeClicked(positionX,positionY)){
-            if (firstTouch && (System.currentTimeMillis() - time) <= 300 && myBoard.getPipes().peek().getPipeArea().contains(positionX,positionY)) {
-                myBoard.peekPipe(positionX,positionY);
+        if (event.getAction() == MotionEvent.ACTION_DOWN && myBoard.isPipeClicked(positionX, positionY)) {
+            if (firstTouch && (System.currentTimeMillis() - time) <= 300 && myBoard.getPipes().peek().getPipeArea().contains(positionX, positionY)) {
+                myBoard.peekPipe(positionX, positionY);
                 firstTouch = false;
                 myBoard.rotatePipe();
             } else {
-                myBoard.peekPipe(positionX,positionY);
+                myBoard.peekPipe(positionX, positionY);
                 firstTouch = true;
                 time = System.currentTimeMillis();
-                canMove=true;
+                canMove = true;
                 return true;
             }
             return true;
         }
+    }
         return super.onTouchEvent(event);
+
     }
 
     public void update()
