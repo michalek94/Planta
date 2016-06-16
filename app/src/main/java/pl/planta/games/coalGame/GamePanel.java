@@ -93,6 +93,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
                 thread = null;
             }catch(InterruptedException e){e.printStackTrace();}
         }
+        HashMap<String,Integer> wegiel = sqliteHandler.getAmounts();
+        int wegi = wegiel.get("coal_amount");
+        Log.d("TAG", "blabla" + wegi);
     }
 
     @Override

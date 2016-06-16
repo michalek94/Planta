@@ -47,21 +47,6 @@
         android:layout_marginLeft="13.5dp"
         android:layout_marginRight="13.5dp" />
 
-    <com.facebook.login.widget.LoginButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnFacebook"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:layout_below="@+id/textView4"
-        android:layout_marginTop="17.5dp"
-        android:layout_alignLeft="@+id/btn_Register"
-        android:layout_alignStart="@+id/btn_Register"
-        android:layout_alignRight="@+id/btn_Register"
-        android:layout_alignEnd="@+id/btn_Register" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -102,19 +87,5 @@
         android:layout_alignStart="@+id/btn_Login"
         android:layout_alignRight="@+id/btn_Login"
         android:layout_alignEnd="@+id/btn_Login" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/tv_facebook_hint"
-        android:id="@+id/textView4"
-        android:gravity="center_horizontal"
-        android:layout_below="@+id/btn_Register"
-        android:layout_marginTop="17.5dp"
-        android:layout_alignRight="@+id/btnFacebook"
-        android:layout_alignEnd="@+id/btnFacebook"
-        android:layout_alignLeft="@+id/btnFacebook"
-        android:layout_alignStart="@+id/btnFacebook" />
 
 </RelativeLayout>
