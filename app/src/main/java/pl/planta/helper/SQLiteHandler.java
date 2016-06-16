@@ -1092,6 +1092,26 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             temp = (int) (cursor.getInt(column) * 1.5);
             ContentValues contentValues = new ContentValues();
             contentValues.put(cursor.getColumnName(column),temp);
+            db.update(TABLE_PRICES, contentValues, KEY_ID + "=" + 1, null);
+        }
+        cursor.close();
+        db.close();
+    }
+    public void addPrices()
+    {
+        String selectQuery = "SELECT * FROM " + TABLE_PRICES;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            ContentValues contentValues = new ContentValues();
+            for (int i=1;i<9;i++)
+            {
+                contentValues.put(cursor.getColumnName(i),1000);
+            }
+            db.update(TABLE_PRICES, contentValues, KEY_ID + "=" + 1, null);
         }
         cursor.close();
         db.close();
