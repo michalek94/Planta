@@ -872,6 +872,102 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
     /**
+     * UPDATE COAL AMOUNT
+     *
+     * @param coalAmount coal's amount
+     * @return return true if id > 0 else return false
+     */
+    public boolean updateCoalAmount(int coalAmount) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_COAL_AMOUNT, coalAmount);
+
+        long id = db.update(TABLE_STOREROOM, contentValues, KEY_ID + "=" + 1, null);
+        return id > 0;
+    }
+
+    /**
+     * UPDATE COAL MAX
+     *
+     * @param coalMax coal's max
+     * @return return true if id > 0 else return false
+     */
+    public boolean updateCoalMax(int coalMax) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_COAL_MAX, coalMax);
+
+        long id = db.update(TABLE_STOREROOM, contentValues, KEY_ID + "=" + 1, null);
+        return id > 0;
+    }
+
+    /**
+     * UPDATE PIPE AMOUNT
+     *
+     * @param pipeAmount pipe's amount
+     * @return return true if id > 0 else return false
+     */
+    public boolean updatePipeAmount(int pipeAmount) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_PIPE_AMOUNT, pipeAmount);
+
+        long id = db.update(TABLE_STOREROOM, contentValues, KEY_ID + "=" + 1, null);
+        return id > 0;
+    }
+
+    /**
+     * UPDATE PIPE MAX
+     *
+     * @param pipeMax pipe's max
+     * @return return true if id > 0 else return false
+     */
+    public boolean updatePipeMax(int pipeMax) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_STOREROOM_LEVEL, pipeMax);
+
+        long id = db.update(TABLE_STOREROOM, contentValues, KEY_ID + "=" + 1, null);
+        return id > 0;
+    }
+
+    /**
+     * UPDATE ELECTRICITY AMOUNT
+     *
+     * @param electricityAmount electricity's amount
+     * @return return true if id > 0 else return false
+     */
+    public boolean updateElectricityAmount(int electricityAmount) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_ELECTRICITY_AMOUNT, electricityAmount);
+
+        long id = db.update(TABLE_STOREROOM, contentValues, KEY_ID + "=" + 1, null);
+        return id > 0;
+    }
+
+    /**
+     * UPDATE ELECTRICITY MAX
+     *
+     * @param electricityMax electricity's max
+     * @return return true if id > 0 else return false
+     */
+    public boolean updateElectricityMax(int electricityMax) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_ELECTRICITY_MAX, electricityMax);
+
+        long id = db.update(TABLE_STOREROOM, contentValues, KEY_ID + "=" + 1, null);
+        return id > 0;
+    }
+
+    /**
      * Usuwanie wszystkich informacji o użytkowniku - tylko podczas wylogowania
      */
     public void deleteUsers() {
