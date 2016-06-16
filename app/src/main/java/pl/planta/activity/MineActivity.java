@@ -154,9 +154,9 @@ public class MineActivity extends Activity {
                     @Override
                     public void onClick(View v) {
                         if(money >= 2000) {
-                            mSQLiteHandler.updatePipePrice();
+                            mSQLiteHandler.updatePrice(7);
                             tvLvl.setText("3");
-                            tvCost.setText(String.valueOf(mSQLiteHandler.getPipeBonusPrice()));
+                            tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(7)));
                             Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś kopalnię do 3 poziomu!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
