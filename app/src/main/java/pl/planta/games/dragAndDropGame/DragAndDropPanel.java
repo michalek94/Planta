@@ -85,8 +85,8 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
     @Override
     public void surfaceCreated(SurfaceHolder holder){
     firstGame = true;
-        //handler = sqliteHandler.getPipeScore();
-        bestTime =  handler.get("pipe_score");
+        handler = sqliteHandler.getPipeHighScore();
+        bestTime =  handler.get("pipe_highscore");
         a = new BitmapFactory.Options();
         a.inScaled=false;
         bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.rury,a));
@@ -118,7 +118,7 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
                         HashMap<String, String> userUID = sqliteHandler.getUserUid();
                         String uid = userUID.get("uid");
                         bestTime = endTime;
-                        //sqliteHandler.updatePipeScore(1, bestTime);
+                        sqliteHandler.updatePipeHighScore(bestTime);
                         savePipeScoreOnServer(uid, bestTime);
                     }
                     isTrue = true;
