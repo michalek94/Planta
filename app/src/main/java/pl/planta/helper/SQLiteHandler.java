@@ -658,6 +658,38 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
     /**
+     * GET USER'S BUILDINGS LEVELS
+     *
+     * @return buildings levels
+     */
+    public HashMap<String, Integer> getBuildingsLevels() {
+        HashMap<String, Integer> buildingsLevels = new HashMap<>();
+        String selectQuery = "SELECT * FROM " + TABLE_LEVELS;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            buildingsLevels.put(KEY_COMPUTER_LEVEL, cursor.getInt(0));
+            buildingsLevels.put(KEY_COMPUTER_LEVEL, cursor.getInt(1));
+            buildingsLevels.put(KEY_COMPUTER_LEVEL, cursor.getInt(2));
+            buildingsLevels.put(KEY_COMPUTER_LEVEL, cursor.getInt(3));
+            buildingsLevels.put(KEY_COMPUTER_LEVEL, cursor.getInt(4));
+            buildingsLevels.put(KEY_COMPUTER_LEVEL, cursor.getInt(5));
+            buildingsLevels.put(KEY_COMPUTER_LEVEL, cursor.getInt(6));
+            buildingsLevels.put(KEY_COMPUTER_LEVEL, cursor.getInt(7));
+        }
+        cursor.close();
+        db.close();
+
+        // Zwracanie wyniku
+        Log.d(TAG, "Uzytkownik posiada: " + buildingsLevels.toString() + " poziomy budynkow");
+
+        return buildingsLevels;
+    }
+
+    /**
      * UPDATE COMPUTER LEVEL
      *
      * @param computerLevel computer's level
