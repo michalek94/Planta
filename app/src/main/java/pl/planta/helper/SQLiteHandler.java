@@ -16,7 +16,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * DATABASE_VERSION
      */
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     /**
      * DATABASE_NAME
@@ -1115,5 +1115,44 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         }
         cursor.close();
         db.close();
+    }
+
+    public void updateLevels(int column)
+    {
+        String selectQuery = "SELECT * FROM " + TABLE_LEVELS;
+
+        int temp = 0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            temp = cursor.getInt(column);
+            temp++;
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(cursor.getColumnName(column),temp);
+            db.update(TABLE_LEVELS, contentValues, KEY_ID + "=" + 1, null);
+        }
+        cursor.close();
+        db.close();
+    }
+    public int getLevels(int column)
+    {
+        int value=0;
+
+        String selectQuery = "SELECT * FROM " + TABLE_LEVELS;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            value = cursor.getInt(column);
+        }
+        cursor.close();
+        db.close();
+
+        return value;
     }
 }

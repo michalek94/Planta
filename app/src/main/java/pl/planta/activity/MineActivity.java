@@ -146,18 +146,20 @@ public class MineActivity extends Activity {
                 buttonLvlUp = (ImageButton) popUp.getContentView().findViewById(R.id.lvlUpButton);
 
                 tvMain.setText("Rurociąg jest na poziomie: ");
-                tvLvl.setText("2");
+                tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(7)));
                 tvQue.setText("Czy chcesz ulepszyć rurociąg na kolejny poziom za: ");
-                tvCost.setText("2000");
+                tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(7)));
 
                 buttonLvlUp.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(money >= 2000) {
+                        if(money >= mSQLiteHandler.getPrice(7)) {
+                            mSQLiteHandler.updateMoney(money-mSQLiteHandler.getPrice(7));
                             mSQLiteHandler.updatePrice(7);
-                            tvLvl.setText("3");
+                            mSQLiteHandler.updateLevels(7);
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(7)));
-                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś kopalnię do 3 poziomu!", Toast.LENGTH_SHORT).show();
+                            tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(7)));
+                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś kopalnię do " +String.valueOf(mSQLiteHandler.getLevels(7)) + " poziomu!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
                         }
