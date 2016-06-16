@@ -559,6 +559,32 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
     /**
+     * GET PIPE BONUS AND PIPE PRICE FROM SQLITE DATABASE
+     *
+     * @return pipe bonus & price
+     */
+    public HashMap<String, Double> getPipeBonusPrice() {
+        HashMap<String, Double> pipeBonusPrice = new HashMap<>();
+        String selectQuery = "SELECT pipe_bonus, pipe_price FROM " + TABLE_PIPE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            pipeBonusPrice.put(KEY_PIPE_BONUS, cursor.getDouble(0));
+            pipeBonusPrice.put(KEY_PIPE_PRICE, cursor.getDouble(1));
+        }
+        cursor.close();
+        db.close();
+
+        // Zwracanie wyniku
+        Log.d(TAG, "Aktualny bonus i cena wegla to: " + pipeBonusPrice.toString());
+
+        return pipeBonusPrice;
+    }
+
+    /**
      * UPDATE PIPE BONUS
      *
      * @param pipeBonus pipe_bonus
