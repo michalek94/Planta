@@ -77,10 +77,10 @@ public class MainMenuActivity extends Activity {
         mCoal = (TextView) findViewById(R.id.coalTextView1);
 
         HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
-        HashMap<String,Integer> userCoal = mSQLiteHandler.getCoalHighScore();
+        HashMap<String,Integer> userCoal = mSQLiteHandler.getAmounts();
 
         String money = userMoney.get("money").toString();
-        String coal = userCoal.get("coal_highscore").toString();
+        String coal = userCoal.get("coal_amount").toString();
 
         mMoney.setText(money);
         mCoal.setText(coal);
@@ -90,10 +90,10 @@ public class MainMenuActivity extends Activity {
     protected void onResume() {
         super.onResume();
         HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
-        HashMap<String,Integer> userCoal = mSQLiteHandler.getCoalHighScore();
+        HashMap<String,Integer> userCoal = mSQLiteHandler.getAmounts();
 
         String money = userMoney.get("money").toString();
-        String coal = userCoal.get("coal_highscore").toString();
+        String coal = userCoal.get("coal_amount").toString();
 
         mMoney.setText(money);
         mCoal.setText(coal);

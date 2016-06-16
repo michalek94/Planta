@@ -133,8 +133,7 @@ public class MenuActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(income!=null)
-        income.stop();
+        if(income==null)
         income = new Income(this,refreshTime);
     }
 
