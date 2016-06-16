@@ -74,7 +74,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_MINE_LEVEL = "mine_level";
 
     /**
-     * TABLE_LEVELS_COLUMNS
+     * TABLE_STOREROOM_COLUMNS
      */
     private static final String KEY_COAL_AMOUNT = "coal_amount";
     private static final String KEY_COAL_MAX = "coal_max";
@@ -555,6 +555,54 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         contentValues.put(KEY_COAL_PRICE, coalPrice);
 
         long id = db.update(TABLE_COAL, contentValues, KEY_ID + "=" + 1, null);
+        return id > 0;
+    }
+
+    /**
+     * UPDATE PIPE BONUS
+     *
+     * @param pipeBonus pipe_bonus
+     * @return return true if id > 0 else return false
+     */
+    public boolean updatePipeBonus(double pipeBonus) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_PIPE_BONUS, pipeBonus);
+
+        long id = db.update(TABLE_PIPE, contentValues, KEY_ID + "=" + 1, null);
+        return id > 0;
+    }
+
+    /**
+     * UPDATE PIPE PRICE
+     *
+     * @param pipePrice pipe_price
+     * @return return true if id > 0 else return false
+     */
+    public boolean updatePipePrice(double pipePrice) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_PIPE_PRICE, pipePrice);
+
+        long id = db.update(TABLE_PIPE, contentValues, KEY_ID + "=" + 1, null);
+        return id > 0;
+    }
+
+    /**
+     * UPDATE PIPE HIGHSCORE
+     *
+     * @param pipeHighScore pipe_highscore
+     * @return return true if id > 0 else return false
+     */
+    public boolean updatePipeHighScore(int pipeHighScore) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_PIPE_HIGHSCORE, pipeHighScore);
+
+        long id = db.update(TABLE_PIPE, contentValues, KEY_ID + "=" + 1, null);
         return id > 0;
     }
 

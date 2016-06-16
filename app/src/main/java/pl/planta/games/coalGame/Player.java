@@ -28,7 +28,7 @@ public class Player extends GameObject {
         difficulty =0;
         height = h;
         width = w;
-        bonus = sqliteHandler.getCoalBonus();
+        bonus = sqliteHandler.getCoalBonusPrice();
 
         bonuss = bonus.get("coal_bonus");
 

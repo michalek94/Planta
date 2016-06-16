@@ -138,12 +138,10 @@ public class LoginActivity extends Activity {
                         int money           = user.getInt("money");
                         int level           = user.getInt("level");
 
-                        int coalScore       = user.getInt("coal_score");
                         int coalHighScore   = user.getInt("coal_highscore");
                         double coalBonus    = user.getDouble("coal_bonus");
                         double coalPrice    = user.getDouble("coal_price");
 
-                        int pipeScore       = user.getInt("pipe_score");
                         int pipeHighScore   = user.getInt("pipe_highscore");
                         double pipeBonus    = user.getDouble("pipe_bonus");
                         double pipePrice    = user.getDouble("pipe_price");
@@ -157,12 +155,20 @@ public class LoginActivity extends Activity {
                         int pipelineLevel   = user.getInt("pipeline_level");
                         int mineLevel       = user.getInt("mine_level");
 
+                        int coalAmount      = user.getInt("coal_amount");
+                        int coalMax         = user.getInt("coal_max");
+                        int pipeAmount      = user.getInt("pipe_amount");
+                        int pipeMax         = user.getInt("pipe_max");
+                        int elecAmount      = user.getInt("elec_amount");
+                        int elecMax         = user.getInt("elec_max");
+
                         String created_at   = user.getString("created_at");
 
                         SQLiteHandler.addUser(uid, name, email, money, level, created_at);
                         SQLiteHandler.addCoal(coalHighScore, coalBonus, coalPrice);
                         SQLiteHandler.addPipe(pipeHighScore, pipeBonus, pipePrice);
                         SQLiteHandler.addLevels(computerLevel, hookLevel, storeroomLevel, furnaceLevel, factory_level, flatsLevel, pipelineLevel, mineLevel);
+                        SQLiteHandler.addStoreValues(coalAmount, coalMax, pipeAmount, pipeMax, elecAmount, elecMax);
 
                         Intent menuIntent = new Intent(LoginActivity.this, MenuActivity.class);
                         startActivity(menuIntent);

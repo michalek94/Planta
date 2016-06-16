@@ -98,7 +98,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
     @Override
     public void surfaceCreated(SurfaceHolder holder){
 
-        handler = sqliteHandler.getUserCoalScores();
+        handler = sqliteHandler.getCoalHighScore();
         best =  handler.get("coal_highscore");
 
         a = new BitmapFactory.Options();
@@ -220,7 +220,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
         player.resetDX();
         if(counter>best){
             best =counter;
-            sqliteHandler.updateCoalHighScore(1, best);
+            sqliteHandler.updateCoalHighScore(best);
             saveCoalHighscoreOnServer(uid, best);
         }
         counter2 = counter;
