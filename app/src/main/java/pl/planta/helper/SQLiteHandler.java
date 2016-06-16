@@ -356,6 +356,38 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
     /**
+     * ADD UPGRADE PRICES TO SQLITE DATABASE
+     *
+     * @param computerPrice  computer Price
+     * @param hookPrice     hook Price
+     * @param storeRoomPrice storeroom Price
+     * @param furnacePrice   furnace Price
+     * @param factoryPrice   factory Price
+     * @param flatsPrice   flats Price
+     * @param pipelinePrice pipeline Price
+     * @param minePrice     mine Price
+     */
+    public void addPrices(int computerPrice, int hookPrice, int storeRoomPrice, int furnacePrice, int factoryPrice, int flatsPrice, int pipelinePrice, int minePrice) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_COMPUTER_PRICE, computerPrice);
+        contentValues.put(KEY_HOOK_PRICE, hookPrice);
+        contentValues.put(KEY_STOREROOM_PRICE, storeRoomPrice);
+        contentValues.put(KEY_FURNACE_PRICE, furnacePrice);
+        contentValues.put(KEY_FACTORY_PRICE, factoryPrice);
+        contentValues.put(KEY_FLATS_PRICE, flatsPrice);
+        contentValues.put(KEY_PIPELINE_PRICE, pipelinePrice);
+        contentValues.put(KEY_MINE_PRICE, minePrice);
+
+        // Dodawanie wiersza
+        long id = db.insert(TABLE_PRICES, null, contentValues);
+        db.close(); // Zamykanie bazy danych
+
+        Log.d(TAG, "Wartosci dla kosztow rozbudowy budynkow zostaly dodane do SQLite: " + id);
+    }
+
+    /**
      * Pobranie z SQLite uid, name, email, created_at
      *
      * @return user

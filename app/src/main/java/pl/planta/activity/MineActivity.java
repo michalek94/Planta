@@ -104,8 +104,8 @@ public class MineActivity extends Activity {
                 buttonSell.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        handler = mSQLiteHandler.getCoalHighScore();
-                        coal = handler.get("coal_highscore");
+                        handler = mSQLiteHandler.getAmounts();
+                        coal = handler.get("coal_amount");
                         double getCoal = coal*2.0;
                         mSQLiteHandler.updateMoney(money+(int) getCoal);
                         mSQLiteHandler.updateCoalHighScore(0);
