@@ -633,6 +633,159 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
     /**
+     * GET USER'S PIPE HIGHSCORE
+     *
+     * @return pipe_highscore
+     */
+    public HashMap<String, Integer> getPipeHighScore() {
+        HashMap<String, Integer> pipeHighScore = new HashMap<>();
+        String selectQuery = "SELECT pipe_highscore FROM " + TABLE_PIPE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            pipeHighScore.put(KEY_PIPE_HIGHSCORE, cursor.getInt(0));
+        }
+        cursor.close();
+        db.close();
+
+        // Zwracanie wyniku
+        Log.d(TAG, "Uzytkownik posiada: " + pipeHighScore.toString() + " highscore");
+
+        return pipeHighScore;
+    }
+
+    /**
+     * UPDATE COMPUTER LEVEL
+     *
+     * @param computerLevel computer's level
+     * @return return true if id > 0 else return false
+     */
+    public boolean updateComputerLevel(int computerLevel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_COMPUTER_LEVEL, computerLevel);
+
+        long id = db.update(TABLE_LEVELS, contentValues, KEY_ID + "=" + 1, null);
+        return id > 0;
+    }
+
+    /**
+     * UPDATE HOOK LEVEL
+     *
+     * @param hookLevel hook's level
+     * @return return true if id > 0 else return false
+     */
+    public boolean updateHookLevel(int hookLevel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_HOOK_LEVEL, hookLevel);
+
+        long id = db.update(TABLE_LEVELS, contentValues, KEY_ID + "=" + 1, null);
+        return id > 0;
+    }
+
+    /**
+     * UPDATE STOREROOM LEVEL
+     *
+     * @param storeroomLevel storeroom's level
+     * @return return true if id > 0 else return false
+     */
+    public boolean updateStoreroomLevel(int storeroomLevel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_STOREROOM_LEVEL, storeroomLevel);
+
+        long id = db.update(TABLE_LEVELS, contentValues, KEY_ID + "=" + 1, null);
+        return id > 0;
+    }
+
+    /**
+     * UPDATE FURNACE LEVEL
+     *
+     * @param furnaceLevel furnace's level
+     * @return return true if id > 0 else return false
+     */
+    public boolean updateFurnaceLevel(int furnaceLevel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_FURNACE_LEVEL, furnaceLevel);
+
+        long id = db.update(TABLE_LEVELS, contentValues, KEY_ID + "=" + 1, null);
+        return id > 0;
+    }
+
+    /**
+     * UPDATE FACTORY LEVEL
+     *
+     * @param factoryLevel factory's level
+     * @return return true if id > 0 else return false
+     */
+    public boolean updateFactoryLevel(int factoryLevel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_FACTORY_LEVEL, factoryLevel);
+
+        long id = db.update(TABLE_LEVELS, contentValues, KEY_ID + "=" + 1, null);
+        return id > 0;
+    }
+
+    /**
+     * UPDATE FLATS LEVEL
+     *
+     * @param flatsLevel flats's level
+     * @return return true if id > 0 else return false
+     */
+    public boolean updateFlatsLevel(int flatsLevel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_FLATS_LEVEL, flatsLevel);
+
+        long id = db.update(TABLE_LEVELS, contentValues, KEY_ID + "=" + 1, null);
+        return id > 0;
+    }
+
+    /**
+     * UPDATE PIPELINE LEVEL
+     *
+     * @param pipelineLevel pipeline's level
+     * @return return true if id > 0 else return false
+     */
+    public boolean updatePipelineLevel(int pipelineLevel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_PIPELINE_LEVEL, pipelineLevel);
+
+        long id = db.update(TABLE_LEVELS, contentValues, KEY_ID + "=" + 1, null);
+        return id > 0;
+    }
+
+    /**
+     * UPDATE MINE LEVEL
+     *
+     * @param mineLevel mine's level
+     * @return return true if id > 0 else return false
+     */
+    public boolean updateMineLevel(int mineLevel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_MINE_LEVEL, mineLevel);
+
+        long id = db.update(TABLE_LEVELS, contentValues, KEY_ID + "=" + 1, null);
+        return id > 0;
+    }
+
+    /**
      * Usuwanie wszystkich informacji o użytkowniku - tylko podczas wylogowania
      */
     public void deleteUsers() {
