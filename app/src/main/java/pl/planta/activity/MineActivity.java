@@ -143,11 +143,26 @@ public class MineActivity extends Activity {
                 tvLvl = (TextView) popUp.getContentView().findViewById(R.id.textViewPopLvl);
                 tvQue = (TextView) popUp.getContentView().findViewById(R.id.textViewPopQue);
                 tvCost = (TextView) popUp.getContentView().findViewById(R.id.textViewPopCost);
+                buttonLvlUp = (ImageButton) popUp.getContentView().findViewById(R.id.lvlUpButton);
 
                 tvMain.setText("Rurociąg jest na poziomie: ");
                 tvLvl.setText("2");
                 tvQue.setText("Czy chcesz ulepszyć rurociąg na kolejny poziom za: ");
                 tvCost.setText("2000");
+
+                buttonLvlUp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(money >= 2000) {
+                            mSQLiteHandler.updatePipePrice();
+                            tvLvl.setText("3");
+                            tvCost.setText(String.valueOf(mSQLiteHandler.getPipeBonusPrice()));
+                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś kopalnię do 3 poziomu!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
                 final int widthFur =(int) (width * .1);
                 final int heightFur =(int) (height * .2);

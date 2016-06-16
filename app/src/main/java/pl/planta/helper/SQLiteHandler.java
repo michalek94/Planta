@@ -31,6 +31,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String TABLE_PIPE = "pipe";
     private static final String TABLE_STOREROOM = "storeroom";
     private static final String TABLE_LEVELS = "levels";
+    private static final String TABLE_PRICES = "prices";
 
     /**
      * ID_PRIMARY_KEY
@@ -72,6 +73,19 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_FLATS_LEVEL = "flats_level";
     private static final String KEY_PIPELINE_LEVEL = "pipeline_level";
     private static final String KEY_MINE_LEVEL = "mine_level";
+
+    /**
+     * TABLE_LEVELS_COLUMNS
+     */
+    private static final String KEY_COMPUTER_PRICE = "computer_price";
+    private static final String KEY_HOOK_PRICE = "hook_price";
+    private static final String KEY_STOREROOM_PRICE = "storeroom_price";
+    private static final String KEY_FURNACE_PRICE = "furnace_price";
+    private static final String KEY_FACTORY_PRICE = "factory_price";
+    private static final String KEY_FLATS_PRICE = "flats_price";
+    private static final String KEY_PIPELINE_PRICE = "pipeline_price";
+    private static final String KEY_MINE_PRICE = "mine_price";
+
 
     /**
      * TABLE_STOREROOM_COLUMNS
@@ -132,6 +146,21 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             + KEY_MINE_LEVEL + " INTEGER" + ")";
 
     /**
+     * CREATE_TABLE_LEVELS
+     */
+    private static final String CREATE_PRICES_TABLE = "CREATE TABLE "
+            + TABLE_PRICES + "("
+            + KEY_ID + " INTEGER PRIMARY KEY,"
+            + KEY_COMPUTER_PRICE + " INTEGER,"
+            + KEY_HOOK_PRICE + " INTEGER,"
+            + KEY_STOREROOM_PRICE + " INTEGER,"
+            + KEY_FURNACE_PRICE + " INTEGER,"
+            + KEY_FACTORY_PRICE + " INTEGER,"
+            + KEY_FLATS_PRICE + " INTEGER,"
+            + KEY_PIPELINE_PRICE + " INTEGER,"
+            + KEY_MINE_PRICE + " INTEGER" + ")";
+
+    /**
      * CREATE_TABLE_STOREROOM
      */
     private static final String CREATE_STOREROOM_TABLE = "CREATE TABLE "
@@ -168,6 +197,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         Log.d(TAG, "Tabela " + TABLE_PIPE + " zostala utworzona.");
         db.execSQL(CREATE_LEVELS_TABLE);
         Log.d(TAG, "Tabela " + TABLE_LEVELS + " zostala utworzona.");
+        db.execSQL(CREATE_PRICES_TABLE);
+        Log.d(TAG, "Tabela " + TABLE_PRICES + " zostala utworzona.");
         db.execSQL(CREATE_STOREROOM_TABLE);
         Log.d(TAG, "Tabela " + TABLE_STOREROOM + " zostala utworzona.");
     }
@@ -186,6 +217,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COAL);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PIPE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LEVELS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRICES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STOREROOM);
         // Recreate tables
         onCreate(db);
@@ -603,14 +635,25 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * UPDATE PIPE PRICE
      *
-     * @param pipePrice pipe_price
+   //  * @param pipePrice pipe_price
      * @return return true if id > 0 else return false
      */
-    public boolean updatePipePrice(double pipePrice) {
+    public boolean updatePipePrice() {
         SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT pipe_bonus, pipe_price FROM " + TABLE_PIPE;
+        double temp = 0;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+           temp = cursor.getDouble(1) * 1.5;
+
+        }
+        cursor.close();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_PIPE_PRICE, pipePrice);
+        contentValues.put(KEY_PIPE_PRICE, temp);
 
         long id = db.update(TABLE_PIPE, contentValues, KEY_ID + "=" + 1, null);
         return id > 0;
@@ -982,5 +1025,42 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.close();
 
         Log.d(TAG, "Usuwanie wszystkich informacji o uzytkowniku z SQLite.");
+    }
+
+    public int getPrice(int column)
+    {
+        int value=0;
+
+        String selectQuery = "SELECT * FROM " + TABLE_PRICES;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            value = cursor.getInt(column);
+        }
+        cursor.close();
+        db.close();
+
+        return value;
+    }
+
+    public void updatePrice(int column)
+    {
+        String selectQuery = "SELECT * FROM " + TABLE_PRICES;
+        int temp = 0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            temp = (int) (cursor.getInt(column) * 1.5);
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(cursor.getColumnName(column),temp);
+        }
+        cursor.close();
+        db.close();
     }
 }
