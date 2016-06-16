@@ -715,13 +715,13 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
             buildingsLevels.put(KEY_COMPUTER_LEVEL, cursor.getInt(0));
-            buildingsLevels.put(KEY_COMPUTER_LEVEL, cursor.getInt(1));
-            buildingsLevels.put(KEY_COMPUTER_LEVEL, cursor.getInt(2));
-            buildingsLevels.put(KEY_COMPUTER_LEVEL, cursor.getInt(3));
-            buildingsLevels.put(KEY_COMPUTER_LEVEL, cursor.getInt(4));
-            buildingsLevels.put(KEY_COMPUTER_LEVEL, cursor.getInt(5));
-            buildingsLevels.put(KEY_COMPUTER_LEVEL, cursor.getInt(6));
-            buildingsLevels.put(KEY_COMPUTER_LEVEL, cursor.getInt(7));
+            buildingsLevels.put(KEY_HOOK_LEVEL, cursor.getInt(1));
+            buildingsLevels.put(KEY_STOREROOM_LEVEL, cursor.getInt(2));
+            buildingsLevels.put(KEY_FURNACE_LEVEL, cursor.getInt(3));
+            buildingsLevels.put(KEY_FACTORY_LEVEL, cursor.getInt(4));
+            buildingsLevels.put(KEY_FLATS_LEVEL, cursor.getInt(5));
+            buildingsLevels.put(KEY_PIPELINE_LEVEL, cursor.getInt(6));
+            buildingsLevels.put(KEY_MINE_LEVEL, cursor.getInt(7));
         }
         cursor.close();
         db.close();
