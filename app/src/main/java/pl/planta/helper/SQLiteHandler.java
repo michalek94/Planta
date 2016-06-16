@@ -818,6 +818,60 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
     /**
+     * GET USER'S AMOUNTS
+     *
+     * @return amounts
+     */
+    public HashMap<String, Integer> getAmounts() {
+        HashMap<String, Integer> amounts = new HashMap<>();
+        String selectQuery = "SELECT coal_amount, pipe_amount, electricity_amount FROM " + TABLE_STOREROOM;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            amounts.put(KEY_COAL_AMOUNT, cursor.getInt(0));
+            amounts.put(KEY_PIPE_AMOUNT, cursor.getInt(1));
+            amounts.put(KEY_ELECTRICITY_AMOUNT, cursor.getInt(2));
+        }
+        cursor.close();
+        db.close();
+
+        // Zwracanie wyniku
+        Log.d(TAG, "Uzytkownik posiada: " + amounts.toString() + " surowcow");
+
+        return amounts;
+    }
+
+    /**
+     * GET USER'S MAX
+     *
+     * @return max
+     */
+    public HashMap<String, Integer> getMax() {
+        HashMap<String, Integer> max = new HashMap<>();
+        String selectQuery = "SELECT coal_max, pipe_max, electricity_max FROM " + TABLE_STOREROOM;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            max.put(KEY_COAL_MAX, cursor.getInt(0));
+            max.put(KEY_PIPE_MAX, cursor.getInt(1));
+            max.put(KEY_ELECTRICITY_MAX, cursor.getInt(2));
+        }
+        cursor.close();
+        db.close();
+
+        // Zwracanie wyniku
+        Log.d(TAG, "Uzytkownik posiada: " + max.toString() + " surowcow");
+
+        return max;
+    }
+
+    /**
      * Usuwanie wszystkich informacji o użytkowniku - tylko podczas wylogowania
      */
     public void deleteUsers() {
