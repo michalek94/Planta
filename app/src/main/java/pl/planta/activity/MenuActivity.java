@@ -16,6 +16,7 @@ import pl.planta.dialogs.ExitDialog;
 import pl.planta.helper.ChangeLog;
 import pl.planta.helper.SQLiteHandler;
 import pl.planta.helper.SessionManager;
+import pl.planta.thread.Income;
 
 public class MenuActivity extends Activity {
 
@@ -26,6 +27,9 @@ public class MenuActivity extends Activity {
     private ChangeLog changeLog;
     private ExitDialog exitDialog;
     private FragmentManager fragmentManager = getFragmentManager();
+
+    private Income income;
+    private long refreshTime = 5000;
 
 
     @Override
@@ -124,5 +128,19 @@ public class MenuActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(income!=null)
+        income.stop();
+        income = new Income(this,refreshTime);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        income.stop();
     }
 }

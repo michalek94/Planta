@@ -27,7 +27,7 @@ public class MainMenuActivity extends Activity {
     private TextView    mCoal;
     private SQLiteHandler mSQLiteHandler;
     private Refresh refresh;
-    private long refreshTime = 1000;
+    private long refreshTime = 5000;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
