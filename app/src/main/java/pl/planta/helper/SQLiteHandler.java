@@ -1049,6 +1049,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public void updatePrice(int column)
     {
         String selectQuery = "SELECT * FROM " + TABLE_PRICES;
+
         int temp = 0;
 
         SQLiteDatabase db = this.getReadableDatabase();
