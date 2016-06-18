@@ -164,7 +164,7 @@ public class LoginActivity extends Activity {
 
                         int computerPrice   = user.getInt("computer_price");
                         int hookPrice       = user.getInt("hook_price");
-                        int storeroomPrice   = user.getInt("storeroom_price");
+                        int storeroomPrice  = user.getInt("storeroom_price");
                         int furnacePrice    = user.getInt("furnace_price");
                         int factoryPrice    = user.getInt("factory_price");
                         int flatsPrice      = user.getInt("flats_price");
