@@ -14,6 +14,7 @@ import android.widget.*;
 
 
 import pl.planta.R;
+import pl.planta.helper.SQLiteHandler;
 
 public class PlantaActivity extends Activity  {
 
@@ -29,6 +30,8 @@ public class PlantaActivity extends Activity  {
     private TextView tvLvl;
     private TextView tvQue;
     private TextView tvCost;
+    private int columnNr;
+    private SQLiteHandler mSQLiteHandler;
     private ImageButton buttonLvlUp;
 
 
@@ -39,6 +42,9 @@ public class PlantaActivity extends Activity  {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_planta);
+
+        mSQLiteHandler = new SQLiteHandler(getApplicationContext());
+
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -58,6 +64,7 @@ public class PlantaActivity extends Activity  {
         buttonFurnace.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
 
+                columnNr = 4;
 
                 layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View container = layoutInflater.inflate(R.layout.popwindow,null);
@@ -69,9 +76,28 @@ public class PlantaActivity extends Activity  {
                 tvCost = (TextView) popUp.getContentView().findViewById(R.id.textViewPopCost);
 
                 tvMain.setText("Piec jest na poziomie: ");
-                tvLvl.setText("2");
+                tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
                 tvQue.setText("Czy chcesz ulepszyć piec na kolejny poziom za: ");
-                tvCost.setText("2000");
+                tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
+
+                buttonLvlUp = (ImageButton) popUp.getContentView().findViewById(R.id.lvlUpButton);
+
+                buttonLvlUp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
+                            mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
+                            mSQLiteHandler.updatePrice(columnNr);
+                            mSQLiteHandler.updateLevels(columnNr);
+                            tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
+                            tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
+                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś piec do " +String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
                 final int widthFur =(int) (width * .7);
                 final int heightFur =(int) (height * .35);
@@ -94,6 +120,7 @@ public class PlantaActivity extends Activity  {
         buttonHook.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
 
+                columnNr = 2;
 
                 layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View container = layoutInflater.inflate(R.layout.popwindow,null);
@@ -105,9 +132,28 @@ public class PlantaActivity extends Activity  {
                 tvCost = (TextView) popUp.getContentView().findViewById(R.id.textViewPopCost);
 
                 tvMain.setText("Hak jest na poziomie: ");
-                tvLvl.setText("3");
+                tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
                 tvQue.setText("Czy chcesz ulepszyć hak na kolejny poziom za: ");
-                tvCost.setText("3000");
+                tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
+
+                buttonLvlUp = (ImageButton) popUp.getContentView().findViewById(R.id.lvlUpButton);
+
+                buttonLvlUp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
+                            mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
+                            mSQLiteHandler.updatePrice(columnNr);
+                            mSQLiteHandler.updateLevels(columnNr);
+                            tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
+                            tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
+                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś dźwig do " +String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
                 final int widthFur =(int) (width * .4);
                 final int heightFur =(int) (height * .05);
@@ -130,6 +176,7 @@ public class PlantaActivity extends Activity  {
         buttonComputer.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
 
+                columnNr = 1;
 
                 layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View container = layoutInflater.inflate(R.layout.popwindow,null);
@@ -141,9 +188,28 @@ public class PlantaActivity extends Activity  {
                 tvCost = (TextView) popUp.getContentView().findViewById(R.id.textViewPopCost);
 
                 tvMain.setText("Komputer jest na poziomie: ");
-                tvLvl.setText("3");
+                tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
                 tvQue.setText("Czy chcesz ulepszyć komputer na kolejny poziom za: ");
-                tvCost.setText("3000");
+                tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
+
+                buttonLvlUp = (ImageButton) popUp.getContentView().findViewById(R.id.lvlUpButton);
+
+                buttonLvlUp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
+                            mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
+                            mSQLiteHandler.updatePrice(columnNr);
+                            mSQLiteHandler.updateLevels(columnNr);
+                            tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
+                            tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
+                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś panel sterowania do " +String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
                 final int widthFur =(int) (width * .10);
                 final int heightFur =(int) (height * .3);
@@ -166,6 +232,7 @@ public class PlantaActivity extends Activity  {
         buttonDoor.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
 
+                columnNr = 3;
 
                 layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View container = layoutInflater.inflate(R.layout.popwindow,null);
@@ -177,9 +244,28 @@ public class PlantaActivity extends Activity  {
                 tvCost = (TextView) popUp.getContentView().findViewById(R.id.textViewPopCost);
 
                 tvMain.setText("Magazyn jest na poziomie: ");
-                tvLvl.setText("3");
+                tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
                 tvQue.setText("Czy chcesz ulepszyć magazyn na kolejny poziom za: ");
-                tvCost.setText("3000");
+                tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
+
+                buttonLvlUp = (ImageButton) popUp.getContentView().findViewById(R.id.lvlUpButton);
+
+                buttonLvlUp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
+                            mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
+                            mSQLiteHandler.updatePrice(columnNr);
+                            mSQLiteHandler.updateLevels(columnNr);
+                            tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
+                            tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
+                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś panel sterowania do " +String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
                 final int widthFur =(int) (width * .45);
                 final int heightFur =(int) (height * .35);

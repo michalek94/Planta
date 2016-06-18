@@ -75,7 +75,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_MINE_LEVEL = "mine_level";
 
     /**
-     * TABLE_LEVELS_COLUMNS
+     * TABLE_PRICES_COLUMNS
      */
     private static final String KEY_COMPUTER_PRICE = "computer_price";
     private static final String KEY_HOOK_PRICE = "hook_price";
@@ -1068,8 +1068,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        cursor.moveToFirst();
-        if (cursor.getCount() > 0) {
+        if (cursor.moveToFirst()) {
             value = cursor.getInt(column);
         }
         cursor.close();
@@ -1087,9 +1086,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        cursor.moveToFirst();
-        if (cursor.getCount() > 0) {
-            temp = (int) (cursor.getInt(column) * 1.5);
+        if (cursor.moveToFirst()) {
+            temp = (int) (cursor.getInt(column) * 1.25);
             ContentValues contentValues = new ContentValues();
             contentValues.put(cursor.getColumnName(column),temp);
             db.update(TABLE_PRICES, contentValues, KEY_ID + "=" + 1, null);
@@ -1104,8 +1102,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        cursor.moveToFirst();
-        if (cursor.getCount() > 0) {
+        if (cursor.moveToFirst()) {
             ContentValues contentValues = new ContentValues();
             for (int i=1;i<9;i++)
             {
@@ -1126,8 +1123,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        cursor.moveToFirst();
-        if (cursor.getCount() > 0) {
+        if (cursor.moveToFirst()) {
             temp = cursor.getInt(column);
             temp++;
             ContentValues contentValues = new ContentValues();
@@ -1146,13 +1142,51 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        cursor.moveToFirst();
-        if (cursor.getCount() > 0) {
+        if (cursor.moveToFirst()) {
             value = cursor.getInt(column);
         }
         cursor.close();
         db.close();
 
         return value;
+    }
+    public boolean checkMoney(int testValue)
+    {
+
+
+        String selectQuery = "SELECT * FROM " + TABLE_USER;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            if(cursor.getInt(4)>testValue)
+                return true;
+
+        }
+        cursor.close();
+        db.close();
+
+        return false;
+    }
+
+    public void subMoney(int subValue)
+    {
+        String selectQuery = "SELECT * FROM " + TABLE_USER;
+        int temp = 0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            temp = cursor.getInt(4)-subValue;
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(KEY_MONEY ,temp);
+            db.update(TABLE_USER, contentValues, KEY_ID + "=" + 1, null);
+        }
+        cursor.close();
+        db.close();
+
+
     }
 }

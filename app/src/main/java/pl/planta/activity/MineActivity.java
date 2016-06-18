@@ -36,6 +36,7 @@ public class MineActivity extends Activity {
     private SQLiteHandler mSQLiteHandler;
     private int money;
     private int coal;
+    private int columnNr;
     HashMap<String, Integer> handler;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class MineActivity extends Activity {
         buttonEntrance.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-
+                columnNr = 8;
                 layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View container = layoutInflater.inflate(R.layout.popcoalwindow,null);
                 popUp = new PopupWindow(container,widthPop,heightPop,true);
@@ -78,9 +79,9 @@ public class MineActivity extends Activity {
                 buttonSell = (ImageButton) popUp.getContentView().findViewById(R.id.sellButton);
 
                 tvMain.setText("Kopalnia jest na poziomie: ");
-                tvLvl.setText("2");
+                tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
                 tvQue.setText("Czy chcesz ulepszyć kopalnię na kolejny poziom za: ");
-                tvCost.setText("2000");
+                tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
 
                 HashMap<String,Double> coalPrice = mSQLiteHandler.getCoalBonusPrice();
                 String coal_price = coalPrice.get("coal_price").toString();
@@ -89,12 +90,14 @@ public class MineActivity extends Activity {
                 buttonLvlUp.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(money >= 2000) {
-                            mSQLiteHandler.updateCoalBonus(1.3);
-                            mSQLiteHandler.updateMoney(money-2000);
-                            tvLvl.setText("3");
-                            tvCost.setText("3500");
-                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś kopalnię do 3 poziomu!", Toast.LENGTH_SHORT).show();
+
+                        if(mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
+                            mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
+                            mSQLiteHandler.updatePrice(columnNr);
+                            mSQLiteHandler.updateLevels(columnNr);
+                            tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
+                            tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
+                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś kopalnię do " +String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
                         }
@@ -134,7 +137,7 @@ public class MineActivity extends Activity {
         buttonPipeline.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-
+                columnNr = 7;
                 layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View container = layoutInflater.inflate(R.layout.popwindow,null);
                 popUp = new PopupWindow(container,widthPop,heightPop,true);
@@ -146,20 +149,21 @@ public class MineActivity extends Activity {
                 buttonLvlUp = (ImageButton) popUp.getContentView().findViewById(R.id.lvlUpButton);
 
                 tvMain.setText("Rurociąg jest na poziomie: ");
-                tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(7)));
+                tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
                 tvQue.setText("Czy chcesz ulepszyć rurociąg na kolejny poziom za: ");
-                tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(7)));
+                tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
 
                 buttonLvlUp.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(money >= mSQLiteHandler.getPrice(7)) {
-                            mSQLiteHandler.updateMoney(money-mSQLiteHandler.getPrice(7));
-                            mSQLiteHandler.updatePrice(7);
-                            mSQLiteHandler.updateLevels(7);
-                            tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(7)));
-                            tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(7)));
-                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś kopalnię do " +String.valueOf(mSQLiteHandler.getLevels(7)) + " poziomu!", Toast.LENGTH_SHORT).show();
+
+                        if(mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
+                            mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
+                            mSQLiteHandler.updatePrice(columnNr);
+                            mSQLiteHandler.updateLevels(columnNr);
+                            tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
+                            tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
+                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś kopalnię do " +String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
                         }
