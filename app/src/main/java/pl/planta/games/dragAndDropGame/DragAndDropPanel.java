@@ -195,10 +195,10 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
 
     }
 
-    private void savePipeScoreOnServer(final String uid, final int score) {
+    private void savePipeScoreOnServer(final String uid, final int highscore) {
         String tag_string_req = "req_update_pipe_score";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_PIPE_UPDATE, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_PIPE_HIGHSCORE_UPDATE, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
@@ -215,7 +215,7 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
                 Map<String, String> params = new HashMap<>();
 
                 params.put("uid", uid);
-                params.put("pipe_score", String.valueOf(score));
+                params.put("pipe_highscore", String.valueOf(highscore));
 
                 return params;
             }

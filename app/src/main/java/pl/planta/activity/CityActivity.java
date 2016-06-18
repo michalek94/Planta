@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,10 +15,23 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import pl.planta.R;
+import pl.planta.app.AppConfiguration;
+import pl.planta.app.AppController;
 import pl.planta.helper.SQLiteHandler;
 
 public class CityActivity extends Activity {
+
+    private static final String TAG = CityActivity.class.getSimpleName();
 
     private ImageButton buttonResidence;
     private ImageButton buttonIndustry;
@@ -55,6 +69,9 @@ public class CityActivity extends Activity {
         buttonIndustry = (ImageButton)findViewById(R.id.industryButton);
         buttonShop = (ImageButton) findViewById(R.id.shopButton);
 
+        HashMap<String, String> userUID = mSQLiteHandler.getUserUid();
+        final String uid = userUID.get("uid");
+
         buttonResidence.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -82,7 +99,10 @@ public class CityActivity extends Activity {
                         if(mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
                             mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
                             mSQLiteHandler.updatePrice(columnNr);
+                            HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
+                            saveMoneyOnServer(uid, userMoney.get("money"));
                             mSQLiteHandler.updateLevels(columnNr);
+                            saveFlatsLevelOnServer(uid, mSQLiteHandler.getLevels(columnNr));
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
                             tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
                             Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś mieszkania do " +String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
@@ -137,7 +157,10 @@ public class CityActivity extends Activity {
                         if(mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
                             mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
                             mSQLiteHandler.updatePrice(columnNr);
+                            HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
+                            saveMoneyOnServer(uid, userMoney.get("money"));
                             mSQLiteHandler.updateLevels(columnNr);
+                            saveFactoryLevelOnServer(uid, mSQLiteHandler.getLevels(columnNr));
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
                             tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
                             Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś fabryki do " +String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
@@ -172,7 +195,90 @@ public class CityActivity extends Activity {
                 startActivity(intent);
             }
         });
-
-
     }
+
+    private void saveFlatsLevelOnServer(final String uid, final int flatsLevel) {
+        String tag_string_req = "req_update_flats_level";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_FLATS_LEVEL_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("flats_level", String.valueOf(flatsLevel));
+
+                return params;
+            }
+        };
+        AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
+    }
+
+    private void saveFactoryLevelOnServer(final String uid, final int factoryLevel) {
+        String tag_string_req = "req_update_factory_level";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_FACTORY_LEVEL_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("factory_level", String.valueOf(factoryLevel));
+
+                return params;
+            }
+        };
+        AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
+    }
+
+    private void saveMoneyOnServer(final String uid, final int money) {
+        String tag_string_req = "req_update_money";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_MONEY_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("money", String.valueOf(money));
+
+                return params;
+            }
+        };
+        AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
+    }
+
 }
