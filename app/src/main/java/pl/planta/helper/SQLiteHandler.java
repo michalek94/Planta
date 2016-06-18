@@ -359,13 +359,13 @@ public class SQLiteHandler extends SQLiteOpenHelper {
      * ADD UPGRADE PRICES TO SQLITE DATABASE
      *
      * @param computerPrice  computer Price
-     * @param hookPrice     hook Price
+     * @param hookPrice      hook Price
      * @param storeRoomPrice storeroom Price
      * @param furnacePrice   furnace Price
      * @param factoryPrice   factory Price
-     * @param flatsPrice   flats Price
-     * @param pipelinePrice pipeline Price
-     * @param minePrice     mine Price
+     * @param flatsPrice     flats Price
+     * @param pipelinePrice  pipeline Price
+     * @param minePrice      mine Price
      */
     public void addPrices(int computerPrice, int hookPrice, int storeRoomPrice, int furnacePrice, int factoryPrice, int flatsPrice, int pipelinePrice, int minePrice) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -666,8 +666,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     /**
      * UPDATE PIPE PRICE
+     * <p/>
+     * //  * @param pipePrice pipe_price
      *
-   //  * @param pipePrice pipe_price
      * @return return true if id > 0 else return false
      */
     public boolean updatePipePrice() {
@@ -679,7 +680,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
-           temp = cursor.getDouble(1) * 1.5;
+            temp = cursor.getDouble(1) * 1.5;
 
         }
         cursor.close();
@@ -1054,14 +1055,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.delete(TABLE_PIPE, null, null);
         db.delete(TABLE_LEVELS, null, null);
         db.delete(TABLE_STOREROOM, null, null);
+        db.delete(TABLE_PRICES, null, null);
         db.close();
 
         Log.d(TAG, "Usuwanie wszystkich informacji o uzytkowniku z SQLite.");
     }
 
-    public int getPrice(int column)
-    {
-        int value=0;
+    public int getPrice(int column) {
+        int value = 0;
 
         String selectQuery = "SELECT * FROM " + TABLE_PRICES;
 
@@ -1077,8 +1078,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         return value;
     }
 
-    public void updatePrice(int column)
-    {
+    public void updatePrice(int column) {
         String selectQuery = "SELECT * FROM " + TABLE_PRICES;
 
         int temp = 0;
@@ -1089,14 +1089,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             temp = (int) (cursor.getInt(column) * 1.25);
             ContentValues contentValues = new ContentValues();
-            contentValues.put(cursor.getColumnName(column),temp);
+            contentValues.put(cursor.getColumnName(column), temp);
             db.update(TABLE_PRICES, contentValues, KEY_ID + "=" + 1, null);
         }
         cursor.close();
         db.close();
     }
-    public void addPrices()
-    {
+
+    public void addPrices() {
         String selectQuery = "SELECT * FROM " + TABLE_PRICES;
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -1104,9 +1104,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             ContentValues contentValues = new ContentValues();
-            for (int i=1;i<9;i++)
-            {
-                contentValues.put(cursor.getColumnName(i),1000);
+            for (int i = 1; i < 9; i++) {
+                contentValues.put(cursor.getColumnName(i), 1000);
             }
             db.update(TABLE_PRICES, contentValues, KEY_ID + "=" + 1, null);
         }
