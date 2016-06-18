@@ -65,6 +65,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * TABLE_LEVELS_COLUMNS
      */
+
     private static final String KEY_COMPUTER_LEVEL = "computer_level";
     private static final String KEY_HOOK_LEVEL = "hook_level";
     private static final String KEY_STOREROOM_LEVEL = "storeroom_level";
