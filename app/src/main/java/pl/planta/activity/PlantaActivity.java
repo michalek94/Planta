@@ -260,7 +260,7 @@ public class PlantaActivity extends Activity  {
                             mSQLiteHandler.updateLevels(columnNr);
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
                             tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
-                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś panel sterowania do " +String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś magazyn do " +String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
                         }
