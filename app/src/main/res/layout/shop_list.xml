@@ -24,12 +24,14 @@
             android:layout_marginTop="5dp"
             android:padding="2dp"
             android:textColor="#33CC33" />
+
         <TextView
             android:id="@+id/itemDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:layout_marginLeft="10dp"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -49,6 +51,23 @@
             android:text="Kupuję"
             android:id="@+id/itemBuy"
             android:layout_gravity="right" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="itemPrice"
+            android:id="@+id/itemPrice"
+            android:layout_marginLeft="10dp" />
     </LinearLayout>
 
 </RelativeLayout>

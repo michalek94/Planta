@@ -20,15 +20,24 @@ public class ShopActivity extends Activity {
     private TextView mMoney;
 
     private String[] itemName = {
-            "Przyspieszacz vol.10",
-            "Przyspieszacz vol.25",
-            "Przyspieszacz vol.50"
+            "Bonus +10%",
+            "Bonus +10%",
+            "Bonus +50%",
+            "Bonus +50%"
     };
 
     private String[] itemDescription = {
-            "Prędkość wózka zostanie zwiększona o 10% na 5 godzin",
-            "Prędkość wózka zostanie zwiększona o 25% na 5 godzin",
-            "Prędkość wózka zostanie zwiększona o 50% na 5 godzin"
+            "Posiadając ten bonus będziesz otrzymywać +10% więcej węgla przez cały czas",
+            "Posiadając ten bonus będziesz otrzymywać +10% więcej wody przez cały czas",
+            "Posiadając ten bonus będziesz otrzymywać +50% więcej węgla",
+            "Posiadając ten bonus będziesz otrzymywać +50% więcej wody"
+    };
+
+    private String[] itemPrice = {
+            "Cena: 600 sztuk złota",
+            "Cena: 600 sztuk złota",
+            "Cena: 1000 sztuk złota",
+            "Cena: 1000 sztuk złota"
     };
 
     @Override
@@ -38,7 +47,7 @@ public class ShopActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_shop);
 
-        mCustomListView = new CustomListView(this, itemName, itemDescription);
+        mCustomListView = new CustomListView(this, itemName, itemDescription, itemPrice);
         mListView = (ListView) findViewById(R.id.shopListView);
         mListView.setAdapter(mCustomListView);
 

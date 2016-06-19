@@ -22,21 +22,24 @@ public class CustomListView extends ArrayAdapter<String> {
     private final Activity context;
     private final String[] itemName;
     private final String[] itemDescription;
+    private final String[] itemPrice;
     private View        mView;
     private TextView    mTitle;
     private TextView    mDesc;
+    private TextView    mPrice;
     private TextView    mMoney;
     int                 money;
 
     private Button      mBuy;
     private SQLiteHandler mSQLiteHandler;
 
-    public CustomListView(Activity context, String[] itemName, String[] itemDescription) {
+    public CustomListView(Activity context, String[] itemName, String[] itemDescription, String[] itemPrice) {
         super(context, R.layout.shop_list, itemName);
 
         this.context = context;
         this.itemName = itemName;
         this.itemDescription = itemDescription;
+        this.itemPrice = itemPrice;
     }
 
     @Override
@@ -46,14 +49,14 @@ public class CustomListView extends ArrayAdapter<String> {
 
         mTitle = (TextView) mView.findViewById(R.id.itemName);
         mDesc = (TextView) mView.findViewById(R.id.itemDesc);
-        mMoney =  (TextView) (context).findViewById(R.id.tvMoney);
-        mBuy =(Button) mView.findViewById(R.id.itemBuy);
+        mMoney = (TextView) (context).findViewById(R.id.tvMoney);
+        mPrice = (TextView) mView.findViewById(R.id.itemPrice);
+        mBuy = (Button) mView.findViewById(R.id.itemBuy);
         mSQLiteHandler = new SQLiteHandler(context);
 
         mTitle.setText(itemName[position]);
         mDesc.setText(itemDescription[position]);
-
-        final HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
+        mPrice.setText(itemPrice[position]);
 
         money = mSQLiteHandler.getUserMoney().get("money");
 
@@ -62,9 +65,9 @@ public class CustomListView extends ArrayAdapter<String> {
             public void onClick(View v) {
                 money = mSQLiteHandler.getUserMoney().get("money");
                 if(position == 0) {
-                    if(money >= 300) {
+                    if(money >= 600) {
                         mSQLiteHandler.updateCoalBonus(1.1);
-                        mSQLiteHandler.updateMoney(money-300);
+                        mSQLiteHandler.updateMoney(money-600);
                         String money1 = mSQLiteHandler.getUserMoney().get("money").toString();
                         mMoney.setText(money1);
                     } else {
@@ -80,6 +83,15 @@ public class CustomListView extends ArrayAdapter<String> {
                         Toast.makeText(context, "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
                     }
                 } else if (position == 2) {
+                    if(money >= 1000) {
+                        mSQLiteHandler.updateCoalBonus(1.50);
+                        mSQLiteHandler.updateMoney(money-1000);
+                        String money1 = mSQLiteHandler.getUserMoney().get("money").toString();
+                        mMoney.setText(money1);
+                    } else {
+                        Toast.makeText(context, "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (position == 3) {
                     if(money >= 1000) {
                         mSQLiteHandler.updateCoalBonus(1.50);
                         mSQLiteHandler.updateMoney(money-1000);
