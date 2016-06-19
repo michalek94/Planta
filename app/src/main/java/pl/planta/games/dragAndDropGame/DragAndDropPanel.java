@@ -111,7 +111,6 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
                 if (myBoard.check()) {
                     System.out.println("GRA UKONCZONA");
                     endTime = (int) ((System.nanoTime() - startTime) / 1000000000);
-                    firstGame = false;
                     if (bestTime > endTime && firstGame) {
                         //  firstGame=false;
                         myBoard.setENDED(true);
@@ -121,6 +120,15 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
                         sqliteHandler.updatePipeHighScore(bestTime);
                         savePipeScoreOnServer(uid, bestTime);
                     }
+                    int maximumAmount = sqliteHandler.getBuildingsLevels().get("storeroom_level")*1000;
+                    int waterAmount = sqliteHandler.getAmounts().get("pipe_amount");
+                    int waterIncome = 100-endTime*3;
+                    if(waterAmount+waterIncome<maximumAmount) {
+                        sqliteHandler.updatePipeAmount(waterAmount + waterIncome);
+                    }else {
+                        sqliteHandler.updatePipeAmount(maximumAmount);
+                    }
+                    firstGame = false;
                     isTrue = true;
                 } else {
                     isTrue = false;

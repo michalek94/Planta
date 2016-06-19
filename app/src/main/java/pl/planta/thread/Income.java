@@ -25,9 +25,19 @@ public class Income {
     private HashMap<String,Integer> userAmounts;
     private HashMap<String,Integer> userIncome;
 
+    private int maximumAmount;
     private int coalAmount;
     private int coalIncome;
-    private int maximumAmount;
+    private int waterAmount;
+    private int waterIncome;
+    private int electricityAmount;
+    private int electricityIncome;
+    private int coalSub;
+    private int waterSub;
+    private int moneyAmount;
+    private int moneyIncome;
+    private int electricitySub;
+    private int populationAmount;
 
     private long time;
 
@@ -44,13 +54,42 @@ public class Income {
     }
 
     public void income(){
-        coalAmount =mSQLiteHandler.getAmounts().get("coal_amount");
-        coalIncome = mSQLiteHandler.getBuildingsLevels().get("mine_level") * 50;
         maximumAmount = mSQLiteHandler.getBuildingsLevels().get("storeroom_level")*1000;
+        coalAmount =mSQLiteHandler.getAmounts().get("coal_amount");
+        coalIncome = (mSQLiteHandler.getBuildingsLevels().get("mine_level")-1) * 10;
+        waterAmount = mSQLiteHandler.getAmounts().get("pipe_amount");
+        waterIncome = (mSQLiteHandler.getBuildingsLevels().get("pipeline_level")-1) * 10;
+        electricityAmount = mSQLiteHandler.getAmounts().get("electricity_amount");
+        electricityIncome = mSQLiteHandler.getBuildingsLevels().get("computer_level") * 10;
+        coalSub = 10 -  (mSQLiteHandler.getBuildingsLevels().get("hook_level")-1) * 2;
+        waterSub = 10 - (mSQLiteHandler.getBuildingsLevels().get("furnace_level")-1) * 2;
+        moneyAmount = mSQLiteHandler.getUserMoney().get("money");
+        moneyIncome =(mSQLiteHandler.getBuildingsLevels().get("factory_level")+mSQLiteHandler.getBuildingsLevels().get("flats_level")) *25;
+        electricitySub = mSQLiteHandler.getBuildingsLevels().get("factory_level")*10;
+
         if(coalAmount+coalIncome<maximumAmount) {
             mSQLiteHandler.updateCoalAmount(coalAmount + coalIncome);
         }else {
             mSQLiteHandler.updateCoalAmount(maximumAmount);
+        }
+        if(waterAmount+waterIncome<maximumAmount) {
+            mSQLiteHandler.updatePipeAmount(waterAmount + waterIncome);
+        }else {
+            mSQLiteHandler.updatePipeAmount(maximumAmount);
+        }
+        if(electricityAmount+electricityIncome<maximumAmount){
+            if(coalAmount>=coalSub&&waterAmount>=waterSub){
+                mSQLiteHandler.updateElectricityAmount(electricityAmount + electricityIncome);
+                mSQLiteHandler.updateCoalAmount(coalAmount - coalSub);
+                mSQLiteHandler.updatePipeAmount(waterAmount - waterSub);
+            }
+        }
+        else{
+            mSQLiteHandler.updateElectricityAmount(maximumAmount);
+        }
+        if(electricityAmount>=electricitySub){
+            mSQLiteHandler.updateMoney(moneyAmount+moneyIncome);
+            mSQLiteHandler.updateElectricityAmount(electricityAmount-electricitySub);
         }
     }
 

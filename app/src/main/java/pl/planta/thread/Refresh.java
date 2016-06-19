@@ -20,6 +20,9 @@ public class Refresh {
 
     private Context mContext;
     private TextView mCoal;
+    private TextView mWater;
+    private TextView mElectricity;
+    private TextView mMoney;
 
     private SQLiteHandler mSQLiteHandler;
     private final Handler handler = new Handler();
@@ -27,6 +30,9 @@ public class Refresh {
     private HashMap<String,Integer> userAmounts;
 
     private int coalAmount;
+    private int waterAmount;
+    private int electricityAmount;
+    private int moneyAmount;
 
     private long time;
 
@@ -41,6 +47,9 @@ public class Refresh {
         userAmounts = mSQLiteHandler.getAmounts();
         //Getting activity components-----------------------
         mCoal = (TextView) ((Activity)mContext).findViewById(R.id.coalTextView1);
+        mWater = (TextView) ((Activity)mContext).findViewById(R.id.waterTextView1);
+        mElectricity = (TextView) ((Activity)mContext).findViewById(R.id.electricityTextView1);
+        mMoney = (TextView) ((Activity)mContext).findViewById(R.id.cashTextView1);
         //--------------------------------------------------------
         handler.removeCallbacks(runnable);
         handler.postDelayed(runnable, time);
@@ -50,6 +59,12 @@ public class Refresh {
     public void updateTextView(){
         coalAmount =  mSQLiteHandler.getAmounts().get("coal_amount");
         mCoal.setText(""+coalAmount);
+        waterAmount =  mSQLiteHandler.getAmounts().get("pipe_amount");
+        mWater.setText(""+waterAmount);
+        electricityAmount =  mSQLiteHandler.getAmounts().get("electricity_amount");
+        mElectricity.setText(""+electricityAmount);
+        moneyAmount = mSQLiteHandler.getUserMoney().get("money");
+        mMoney.setText(""+moneyAmount);
     }
 
     public void stop() {
@@ -62,7 +77,7 @@ public class Refresh {
         @Override
         public void run() {
                 try {
-                    System.out.println("Wątek refresh: odswierzam textView.");
+                    System.out.println("Wątek refresh: odswiezam textView.");
                     updateTextView();
                 } catch (Exception e) {
                     System.out.println("Blad:" + e);

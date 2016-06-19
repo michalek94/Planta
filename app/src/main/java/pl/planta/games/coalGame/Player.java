@@ -15,22 +15,17 @@ public class Player extends GameObject {
     private boolean playing;
     private Animations animation = new Animations();
     private long startTime;
-    SQLiteHandler sqliteHandler;
-    HashMap<String, Double> bonus;
-    double bonuss;
+
 
 
     public Player(Context context, Bitmap res, int w, int h, int numFrames){
-        sqliteHandler = new SQLiteHandler(context);
+
         x=GamePanel.WIDTH/2-250;
         y=GamePanel.HEIGHT-290;
         dx=0;
         difficulty =0;
         height = h;
         width = w;
-        bonus = sqliteHandler.getCoalBonusPrice();
-
-        bonuss = bonus.get("coal_bonus");
 
         Bitmap[] image = new Bitmap[numFrames];
         spritesheet = res;
@@ -45,7 +40,7 @@ public class Player extends GameObject {
     public void move(float b)
     {
 
-        dx += (b * bonuss);
+        dx += b;
     }
 
     public void update(){

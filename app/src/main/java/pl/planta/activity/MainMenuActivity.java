@@ -24,6 +24,8 @@ public class MainMenuActivity extends Activity {
     private ImageButton plantaButton;
     private ImageButton mineButton;
     private TextView    mMoney;
+    private TextView    mWater;
+    private TextView    mElectricity;
     private TextView    mCoal;
     private SQLiteHandler mSQLiteHandler;
     private Refresh refresh;
@@ -75,28 +77,34 @@ public class MainMenuActivity extends Activity {
         mSQLiteHandler = new SQLiteHandler(getApplicationContext());
         mMoney = (TextView) findViewById(R.id.cashTextView1);
         mCoal = (TextView) findViewById(R.id.coalTextView1);
-
-        HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
+        mWater =(TextView) findViewById(R.id.waterTextView1);
+        mElectricity = (TextView) findViewById(R.id.electricityTextView1);
+        /*HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
         HashMap<String,Integer> userCoal = mSQLiteHandler.getAmounts();
 
         String money = userMoney.get("money").toString();
         String coal = userCoal.get("coal_amount").toString();
 
         mMoney.setText(money);
-        mCoal.setText(coal);
+        mCoal.setText(coal);*/
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
-        HashMap<String,Integer> userCoal = mSQLiteHandler.getAmounts();
+        HashMap<String,Integer> userAmounts = mSQLiteHandler.getAmounts();
 
         String money = userMoney.get("money").toString();
-        String coal = userCoal.get("coal_amount").toString();
+        String coal = userAmounts.get("coal_amount").toString();
+        String water = userAmounts.get("pipe_amount").toString();
+        String electricity = userAmounts.get("electricity_amount").toString();
 
         mMoney.setText(money);
         mCoal.setText(coal);
+        mWater.setText(water);
+        mElectricity.setText(electricity);
+
         refresh = new Refresh(this,refreshTime);
     }
 

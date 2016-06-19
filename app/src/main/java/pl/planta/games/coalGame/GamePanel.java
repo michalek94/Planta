@@ -216,6 +216,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
     }
 
     public void newGame() {
+        int maximumAmount = sqliteHandler.getBuildingsLevels().get("storeroom_level")*1000;
+        int coalAmount =sqliteHandler.getAmounts().get("coal_amount");
+        int coalIncome = counter*3;
+        if(coalAmount+coalIncome<maximumAmount) {
+            sqliteHandler.updateCoalAmount(coalAmount + coalIncome);
+        }else {
+            sqliteHandler.updateCoalAmount(maximumAmount);
+        }
         HashMap<String, String> userUID = sqliteHandler.getUserUid();
         String uid = userUID.get("uid");
         dissapear = false;
@@ -266,7 +274,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
         if (!player.getPlaying() && newGameCreated && reset && end) {
             Paint paint1 = new Paint();
             paint1.setColor(Color.BLACK);
-            paint1.setTextSize(80);
+            paint1.setTextSize(70);
             paint1.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
             canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ramka, a), 270, 200, null);
             canvas.drawText("Twój wynik: " + counter2, WIDTH / 2 - 310, HEIGHT / 2 - 50, paint1);
