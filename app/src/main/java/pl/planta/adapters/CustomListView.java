@@ -1,6 +1,7 @@
 package pl.planta.adapters;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +10,26 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
 import java.util.HashMap;
+import java.util.Map;
 
 import pl.planta.R;
+import pl.planta.app.AppConfiguration;
+import pl.planta.app.AppController;
 import pl.planta.helper.SQLiteHandler;
 
 /**
  * Created by panko on 11.06.2016.
  */
 public class CustomListView extends ArrayAdapter<String> {
+
+    private static final String TAG = CustomListView.class.getSimpleName();
 
     private final Activity context;
     private final String[] itemName;
@@ -60,13 +72,17 @@ public class CustomListView extends ArrayAdapter<String> {
 
         money = mSQLiteHandler.getUserMoney().get("money");
 
+        HashMap<String, String> userUID = mSQLiteHandler.getUserUid();
+        final String uid = userUID.get("uid");
+
         mBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 money = mSQLiteHandler.getUserMoney().get("money");
                 if(position == 0) {
                     if(money >= 600) {
-                        mSQLiteHandler.updateCoalBonus(1.1);
+                        mSQLiteHandler.updateCoalBonus(1.5);
+                        saveCoalBonusOnServer(uid, 1.5);
                         mSQLiteHandler.updateMoney(money-600);
                         String money1 = mSQLiteHandler.getUserMoney().get("money").toString();
                         mMoney.setText(money1);
@@ -75,7 +91,8 @@ public class CustomListView extends ArrayAdapter<String> {
                     }
                 } else if (position == 1) {
                     if(money >= 600) {
-                        mSQLiteHandler.updateCoalBonus(1.25);
+                        mSQLiteHandler.updatePipeBonus(1.5);
+                        savePipeBonusOnServer(uid, 1.5);
                         mSQLiteHandler.updateMoney(money-600);
                         String money1 = mSQLiteHandler.getUserMoney().get("money").toString();
                         mMoney.setText(money1);
@@ -84,7 +101,8 @@ public class CustomListView extends ArrayAdapter<String> {
                     }
                 } else if (position == 2) {
                     if(money >= 1000) {
-                        mSQLiteHandler.updateCoalBonus(1.50);
+                        mSQLiteHandler.updateCoalBonus(1.1);
+                        saveCoalBonusOnServer(uid, 1.1);
                         mSQLiteHandler.updateMoney(money-1000);
                         String money1 = mSQLiteHandler.getUserMoney().get("money").toString();
                         mMoney.setText(money1);
@@ -93,7 +111,8 @@ public class CustomListView extends ArrayAdapter<String> {
                     }
                 } else if (position == 3) {
                     if(money >= 1000) {
-                        mSQLiteHandler.updateCoalBonus(1.50);
+                        mSQLiteHandler.updatePipeBonus(1.1);
+                        savePipeBonusOnServer(uid, 1.1);
                         mSQLiteHandler.updateMoney(money-1000);
                         String money1 = mSQLiteHandler.getUserMoney().get("money").toString();
                         mMoney.setText(money1);
@@ -105,5 +124,61 @@ public class CustomListView extends ArrayAdapter<String> {
         });
 
         return mView;
+    }
+
+    private void saveCoalBonusOnServer(final String uid, final double coalBonus) {
+        String tag_string_req = "req_update_coal_bonus";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_COAL_BONUS_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("coal_bonus", String.valueOf(coalBonus));
+
+                return params;
+            }
+        };
+        AppController.getInstance(context).addToRequestQueue(stringRequest, tag_string_req);
+    }
+
+    private void savePipeBonusOnServer(final String uid, final double pipeBonus) {
+        String tag_string_req = "req_update_pipe_bonus";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_PIPE_BONUS_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("pipe_bonus", String.valueOf(pipeBonus));
+
+                return params;
+            }
+        };
+        AppController.getInstance(context).addToRequestQueue(stringRequest, tag_string_req);
     }
 }

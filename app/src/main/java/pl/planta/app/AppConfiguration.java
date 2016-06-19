@@ -56,5 +56,10 @@ public class AppConfiguration {
     // Link do aktualizowania poziomu komputera
     public static String URL_MINE_PRICE_UPDATE = "http://www.gra.ebrandis.pl/www/android_planta/save_mine_price.php";
 
+    // Link do aktualizowania poziomu komputera
+    public static String URL_COAL_BONUS_UPDATE = "http://www.gra.ebrandis.pl/www/android_planta/save_coal_bonus.php";
+    // Link do aktualizowania poziomu komputera
+    public static String URL_PIPE_BONUS_UPDATE = "http://www.gra.ebrandis.pl/www/android_planta/save_pipe_bonus.php";
+
 
 }
