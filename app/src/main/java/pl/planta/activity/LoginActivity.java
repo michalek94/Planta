@@ -143,10 +143,12 @@ public class LoginActivity extends Activity {
                         int coalHighScore = user.getInt("coal_highscore");
                         double coalBonus = user.getDouble("coal_bonus");
                         double coalPrice = user.getDouble("coal_price");
+                        double coalIncomeBonus = user.getDouble("coal_income_bonus");
 
                         int pipeHighScore = user.getInt("pipe_highscore");
                         double pipeBonus = user.getDouble("pipe_bonus");
                         double pipePrice = user.getDouble("pipe_price");
+                        double pipeIncomeBonus = user.getDouble("pipe_income_bonus");
 
                         int computerLevel = user.getInt("computer_level");
                         int hookLevel = user.getInt("hook_level");
@@ -173,8 +175,8 @@ public class LoginActivity extends Activity {
                         String created_at = user.getString("created_at");
 
                         SQLiteHandler.addUser(uid, name, email, money, level, created_at);
-                        SQLiteHandler.addCoal(coalHighScore, coalBonus, coalPrice);
-                        SQLiteHandler.addPipe(pipeHighScore, pipeBonus, pipePrice);
+                        SQLiteHandler.addCoal(coalHighScore, coalBonus, coalPrice, coalIncomeBonus);
+                        SQLiteHandler.addPipe(pipeHighScore, pipeBonus, pipePrice, pipeIncomeBonus);
                         SQLiteHandler.addLevels(computerLevel, hookLevel, storeroomLevel, furnaceLevel, factory_level, flatsLevel, pipelineLevel, mineLevel);
                         SQLiteHandler.addStoreValues(coalAmount, pipeAmount, elecAmount);
                         SQLiteHandler.addPrices(computerPrice, hookPrice, storeroomPrice, furnacePrice, factoryPrice, flatsPrice, pipelinePrice, minePrice);

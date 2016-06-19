@@ -81,8 +81,8 @@ public class CustomListView extends ArrayAdapter<String> {
                 money = mSQLiteHandler.getUserMoney().get("money");
                 if(position == 0) {
                     if(money >= 600) {
-                        mSQLiteHandler.updateCoalBonus(1.5);
-                        saveCoalBonusOnServer(uid, 1.5);
+                        mSQLiteHandler.changeCoalBonus(1.1);
+                        saveCoalIncomeBonusOnServer(uid, 1.1);
                         mSQLiteHandler.updateMoney(money-600);
                         String money1 = mSQLiteHandler.getUserMoney().get("money").toString();
                         mMoney.setText(money1);
@@ -91,8 +91,8 @@ public class CustomListView extends ArrayAdapter<String> {
                     }
                 } else if (position == 1) {
                     if(money >= 600) {
-                        mSQLiteHandler.updatePipeBonus(1.5);
-                        savePipeBonusOnServer(uid, 1.5);
+                        mSQLiteHandler.changePipeBonus(1.1);
+                        savePipeIncomeBonusOnServer(uid, 1.1);
                         mSQLiteHandler.updateMoney(money-600);
                         String money1 = mSQLiteHandler.getUserMoney().get("money").toString();
                         mMoney.setText(money1);
@@ -101,8 +101,8 @@ public class CustomListView extends ArrayAdapter<String> {
                     }
                 } else if (position == 2) {
                     if(money >= 1000) {
-                        mSQLiteHandler.updateCoalBonus(1.1);
-                        saveCoalBonusOnServer(uid, 1.1);
+                        mSQLiteHandler.updateCoalBonus(1.5);
+                        saveCoalBonusOnServer(uid, 1.5);
                         mSQLiteHandler.updateMoney(money-1000);
                         String money1 = mSQLiteHandler.getUserMoney().get("money").toString();
                         mMoney.setText(money1);
@@ -111,8 +111,8 @@ public class CustomListView extends ArrayAdapter<String> {
                     }
                 } else if (position == 3) {
                     if(money >= 1000) {
-                        mSQLiteHandler.updatePipeBonus(1.1);
-                        savePipeBonusOnServer(uid, 1.1);
+                        mSQLiteHandler.updatePipeBonus(1.5);
+                        savePipeBonusOnServer(uid, 1.5);
                         mSQLiteHandler.updateMoney(money-1000);
                         String money1 = mSQLiteHandler.getUserMoney().get("money").toString();
                         mMoney.setText(money1);
@@ -175,6 +175,62 @@ public class CustomListView extends ArrayAdapter<String> {
 
                 params.put("uid", uid);
                 params.put("pipe_bonus", String.valueOf(pipeBonus));
+
+                return params;
+            }
+        };
+        AppController.getInstance(context).addToRequestQueue(stringRequest, tag_string_req);
+    }
+
+    private void saveCoalIncomeBonusOnServer(final String uid, final double coalIncomeBonus) {
+        String tag_string_req = "req_update_coal_income_bonus";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_COAL_INCOME_BONUS_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("coal_income_bonus", String.valueOf(coalIncomeBonus));
+
+                return params;
+            }
+        };
+        AppController.getInstance(context).addToRequestQueue(stringRequest, tag_string_req);
+    }
+
+    private void savePipeIncomeBonusOnServer(final String uid, final double pipeIncomeBonus) {
+        String tag_string_req = "req_update_pipe_income_bonus";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_PIPE_INCOME_BONUS_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("pipe_income_bonus", String.valueOf(pipeIncomeBonus));
 
                 return params;
             }
