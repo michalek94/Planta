@@ -570,4 +570,13 @@ public class PlantaActivity extends Activity {
         };
         AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
     }
+
+    protected void onPause() {
+        super.onPause();
+        HashMap<String, String> userUID = mSQLiteHandler.getUserUid();
+        HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
+        final String uid = userUID.get("uid");
+        this.saveMoneyOnServer(uid, userMoney.get("money") );
+    }
 }
+

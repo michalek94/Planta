@@ -111,7 +111,7 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
                 if (myBoard.check()) {
                     System.out.println("GRA UKONCZONA");
                     endTime = (int) ((System.nanoTime() - startTime) / 1000000000);
-                    if (bestTime > endTime && firstGame) {
+                    if (bestTime > endTime && firstGame || bestTime == 0) {
                         //  firstGame=false;
                         myBoard.setENDED(true);
                         HashMap<String, String> userUID = sqliteHandler.getUserUid();
