@@ -15,6 +15,7 @@ import java.util.Map;
 
 import pl.planta.app.AppConfiguration;
 import pl.planta.app.AppController;
+import pl.planta.helper.SQLiteHandler;
 
 /**
  * Created by panko on 19.06.2016.
@@ -24,10 +25,16 @@ public class Save {
     private static final String TAG = Save.class.getSimpleName();
 
     private Context mContext;
+    private SQLiteHandler mSQLiteHandler;
 
     public Save(Context mContext) {
         this.mContext = mContext;
+        mSQLiteHandler = new SQLiteHandler(mContext);
     }
+
+    private HashMap<String, String> userUID = mSQLiteHandler.getUserUid();
+    final String uid = userUID.get("uid");
+
     // zapis wungla
     private void saveCoalAmountOnServer(final String uid, final int coalAmount) {
         String tag_string_req = "req_update_coal_amount";
