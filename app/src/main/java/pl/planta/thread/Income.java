@@ -2,38 +2,21 @@ package pl.planta.thread;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Handler;
-
-import java.util.HashMap;
-
-import pl.planta.R;
-import pl.planta.activity.LoginActivity;
 import pl.planta.helper.SQLiteHandler;
-import pl.planta.helper.SessionManager;
 
 public class Income {
-    private static String TAG = Income.class.getSimpleName();
-
-    private SessionManager sessionManager;
-
-    private Context mContext;
-
     private SQLiteHandler mSQLiteHandler;
     private final Handler handler = new Handler();
 
-    private HashMap<String,Integer> userAmounts;
-    private HashMap<String,Integer> userIncome;
 
     private long time;
 
 
     public Income(Activity activity, long time) {
-        this.mContext = activity;
         this.time = time;
 
-        sessionManager = new SessionManager(mContext);
-        mSQLiteHandler = new SQLiteHandler(mContext);
+        mSQLiteHandler = new SQLiteHandler(activity);
 
         handler.removeCallbacks(runnable);
         handler.postDelayed(runnable, time);
