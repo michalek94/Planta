@@ -16,7 +16,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * DATABASE_VERSION
      */
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
 
     /**
      * DATABASE_NAME
@@ -54,6 +54,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_COAL_HIGHSCORE = "coal_highscore";
     private static final String KEY_COAL_BONUS = "coal_bonus";
     private static final String KEY_COAL_PRICE = "coal_price";
+    private static final String KEY_COAL_INCOME_BONUS = "coal_income_bonus";
 
     /**
      * TABLE_PIPE_COLUMNS
@@ -61,6 +62,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_PIPE_HIGHSCORE = "pipe_highscore";
     private static final String KEY_PIPE_BONUS = "pipe_bonus";
     private static final String KEY_PIPE_PRICE = "pipe_price";
+    private static final String KEY_PIPE_INCOME_BONUS = "pipe_income_bonus";
 
     /**
      * TABLE_LEVELS_COLUMNS
@@ -116,7 +118,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_COAL_HIGHSCORE + " INTEGER,"
             + KEY_COAL_BONUS + " REAL,"
-            + KEY_COAL_PRICE + " REAL" + ")";
+            + KEY_COAL_PRICE + " REAL,"
+            + KEY_COAL_INCOME_BONUS + " REAL" + ")";
 
     /**
      * CREATE_TABLE_PIPE
@@ -126,7 +129,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_PIPE_HIGHSCORE + " INTEGER,"
             + KEY_PIPE_BONUS + " REAL,"
-            + KEY_PIPE_PRICE + " REAL" + ")";
+            + KEY_PIPE_PRICE + " REAL,"
+            + KEY_PIPE_INCOME_BONUS + " REAL" + ")";
 
     /**
      * CREATE_TABLE_LEVELS
@@ -253,13 +257,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
      * @param coalBonus     coal bonus
      * @param coalPrice     coal price
      */
-    public void addCoal(int coalHighScore, double coalBonus, double coalPrice) {
+    public void addCoal(int coalHighScore, double coalBonus, double coalPrice, double coalIncomeBonus) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_COAL_HIGHSCORE, coalHighScore);
         contentValues.put(KEY_COAL_BONUS, coalBonus);
         contentValues.put(KEY_COAL_PRICE, coalPrice);
+        contentValues.put(KEY_COAL_INCOME_BONUS, coalIncomeBonus);
 
         // Dodawanie wiersza
         long id = db.insert(TABLE_COAL, null, contentValues);
@@ -275,19 +280,52 @@ public class SQLiteHandler extends SQLiteOpenHelper {
      * @param pipeBonus     pipe bonus
      * @param pipePrice     pipe price
      */
-    public void addPipe(int pipeHighScore, double pipeBonus, double pipePrice) {
+    public void addPipe(int pipeHighScore, double pipeBonus, double pipePrice, double pipeIncomeBonus) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_PIPE_HIGHSCORE, pipeHighScore);
         contentValues.put(KEY_PIPE_BONUS, pipeBonus);
         contentValues.put(KEY_PIPE_PRICE, pipePrice);
+        contentValues.put(KEY_PIPE_INCOME_BONUS, pipeIncomeBonus);
 
         // Dodawanie wiersza
         long id = db.insert(TABLE_PIPE, null, contentValues);
         db.close(); // Zamykanie bazy danych
 
         Log.d(TAG, "Wartosci dla gry PIPE zostaly dodane do SQLite: " + id);
+    }
+
+    public void changeCoalBonus(double bonus)
+    {
+        String selectQuery = "SELECT * FROM " + TABLE_COAL;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(KEY_COAL_INCOME_BONUS ,bonus);
+            db.update(TABLE_COAL, contentValues, KEY_ID + "=" + 1, null);
+        }
+        cursor.close();
+        db.close();
+    }
+
+    public void changePipeBonus(double bonus)
+    {
+        String selectQuery = "SELECT * FROM " + TABLE_PIPE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(KEY_PIPE_INCOME_BONUS ,bonus);
+            db.update(TABLE_PIPE, contentValues, KEY_ID + "=" + 1, null);
+        }
+        cursor.close();
+        db.close();
     }
 
     /**
