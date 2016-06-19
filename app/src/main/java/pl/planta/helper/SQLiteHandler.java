@@ -598,7 +598,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
      */
     public HashMap<String, Double> getCoalBonusPrice() {
         HashMap<String, Double> coalBonusPrice = new HashMap<>();
-        String selectQuery = "SELECT coal_bonus, coal_price FROM " + TABLE_COAL;
+        String selectQuery = "SELECT coal_bonus, coal_price, coal_income_bonus FROM " + TABLE_COAL;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -607,6 +607,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         if (cursor.getCount() > 0) {
             coalBonusPrice.put(KEY_COAL_BONUS, cursor.getDouble(0));
             coalBonusPrice.put(KEY_COAL_PRICE, cursor.getDouble(1));
+            coalBonusPrice.put(KEY_COAL_INCOME_BONUS, cursor.getDouble(2));
         }
         cursor.close();
         db.close();
@@ -656,7 +657,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
      */
     public HashMap<String, Double> getPipeBonusPrice() {
         HashMap<String, Double> pipeBonusPrice = new HashMap<>();
-        String selectQuery = "SELECT pipe_bonus, pipe_price FROM " + TABLE_PIPE;
+        String selectQuery = "SELECT pipe_bonus, pipe_price, pipe_income_bonus FROM " + TABLE_PIPE;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -665,6 +666,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         if (cursor.getCount() > 0) {
             pipeBonusPrice.put(KEY_PIPE_BONUS, cursor.getDouble(0));
             pipeBonusPrice.put(KEY_PIPE_PRICE, cursor.getDouble(1));
+            pipeBonusPrice.put(KEY_PIPE_INCOME_BONUS, cursor.getDouble(2));
         }
         cursor.close();
         db.close();
