@@ -14,6 +14,7 @@ import pl.planta.helper.ChangeLog;
 import pl.planta.helper.SQLiteHandler;
 import pl.planta.helper.SessionManager;
 import pl.planta.thread.Income;
+import pl.planta.thread.Save;
 
 public class MenuActivity extends Activity {
 

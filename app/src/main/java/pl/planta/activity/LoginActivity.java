@@ -32,6 +32,7 @@ import pl.planta.helper.InternetConnection;
 import pl.planta.helper.RegEx;
 import pl.planta.helper.SQLiteHandler;
 import pl.planta.helper.SessionManager;
+import pl.planta.thread.Save;
 
 public class LoginActivity extends Activity {
 
@@ -45,6 +46,7 @@ public class LoginActivity extends Activity {
     private SQLiteHandler SQLiteHandler;
     private RegEx regEx;
     private InternetConnection internetConnection;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -232,6 +234,8 @@ public class LoginActivity extends Activity {
             inputPassword.setTransformationMethod(new PasswordTransformationMethod());
         }
     }
+
+
 
     @Override
     protected void onDestroy() {

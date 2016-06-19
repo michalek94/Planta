@@ -32,11 +32,8 @@ public class Save {
         mSQLiteHandler = new SQLiteHandler(mContext);
     }
 
-    private HashMap<String, String> userUID = mSQLiteHandler.getUserUid();
-    final String uid = userUID.get("uid");
-
     // zapis wungla
-    private void saveCoalAmountOnServer(final String uid, final int coalAmount) {
+    public void saveCoalAmountOnServer(final String uid, final int coalAmount) {
         String tag_string_req = "req_update_coal_amount";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_COAL_AMOUNT_UPDATE, new Response.Listener<String>() {
@@ -64,7 +61,7 @@ public class Save {
         AppController.getInstance(mContext).addToRequestQueue(stringRequest, tag_string_req);
     }
     // zapis wody
-    private void savePipeAmountOnServer(final String uid, final int pipeAmount) {
+    public void savePipeAmountOnServer(final String uid, final int pipeAmount) {
         String tag_string_req = "req_update_coal_amount";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_PIPE_AMOUNT_UPDATE, new Response.Listener<String>() {
@@ -92,7 +89,7 @@ public class Save {
         AppController.getInstance(mContext).addToRequestQueue(stringRequest, tag_string_req);
     }
     // zapis prundu
-    private void saveElecAmountOnServer(final String uid, final int elecAmount) {
+    public void saveElecAmountOnServer(final String uid, final int elecAmount) {
         String tag_string_req = "req_update_coal_amount";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_ELEC_AMOUNT_UPDATE, new Response.Listener<String>() {

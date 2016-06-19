@@ -16,6 +16,7 @@ import java.util.HashMap;
 import pl.planta.R;
 import pl.planta.helper.SQLiteHandler;
 import pl.planta.thread.Refresh;
+import pl.planta.thread.Save;
 
 public class MainMenuActivity extends Activity {
 
@@ -30,6 +31,8 @@ public class MainMenuActivity extends Activity {
     private SQLiteHandler mSQLiteHandler;
     private Refresh refresh;
     private long refreshTime = 5000;
+
+    private Save save;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +82,8 @@ public class MainMenuActivity extends Activity {
         mCoal = (TextView) findViewById(R.id.coalTextView1);
         mWater =(TextView) findViewById(R.id.waterTextView1);
         mElectricity = (TextView) findViewById(R.id.electricityTextView1);
+
+        save = new Save(this);
         /*HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
         HashMap<String,Integer> userCoal = mSQLiteHandler.getAmounts();
 
@@ -111,6 +116,12 @@ public class MainMenuActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
+        HashMap<String,Integer> userAmounts = mSQLiteHandler.getAmounts();
+        HashMap<String, String> userUID = mSQLiteHandler.getUserUid();
+        String uid = userUID.get("uid");
+        save.saveCoalAmountOnServer(uid,userAmounts.get("coal_amount"));
+        save.saveElecAmountOnServer(uid,userAmounts.get("pipe_amount"));
+        save.savePipeAmountOnServer(uid,userAmounts.get("electricity_amount"));
         refresh.stop();
     }
 }
