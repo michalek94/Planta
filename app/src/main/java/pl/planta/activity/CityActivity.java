@@ -103,6 +103,7 @@ public class CityActivity extends Activity {
                             saveMoneyOnServer(uid, userMoney.get("money"));
                             mSQLiteHandler.updateLevels(columnNr);
                             saveFlatsLevelOnServer(uid, mSQLiteHandler.getLevels(columnNr));
+                            saveFlatsPriceOnServer(uid, mSQLiteHandler.getPrice(columnNr));
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
                             tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
                             Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś mieszkania do " + String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
@@ -115,7 +116,6 @@ public class CityActivity extends Activity {
                 final int widthFur = (int) (width * .7);
                 final int heightFur = (int) (height * .2);
                 popUp.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, widthFur, heightFur);
-
 
                 container.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -161,6 +161,7 @@ public class CityActivity extends Activity {
                             saveMoneyOnServer(uid, userMoney.get("money"));
                             mSQLiteHandler.updateLevels(columnNr);
                             saveFactoryLevelOnServer(uid, mSQLiteHandler.getLevels(columnNr));
+                            saveFactoryPriceOnServer(uid, mSQLiteHandler.getPrice(columnNr));
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
                             tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
                             Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś fabryki do " + String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
@@ -173,7 +174,6 @@ public class CityActivity extends Activity {
                 final int widthFur = (int) (width * .1);
                 final int heightFur = (int) (height * .2);
                 popUp.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, widthFur, heightFur);
-
 
                 container.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -225,6 +225,34 @@ public class CityActivity extends Activity {
         AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
     }
 
+    private void saveFlatsPriceOnServer(final String uid, final int flatsPrice) {
+        String tag_string_req = "req_update_flats_price";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_FLATS_PRICE_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("flats_price", String.valueOf(flatsPrice));
+
+                return params;
+            }
+        };
+        AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
+    }
+
     private void saveFactoryLevelOnServer(final String uid, final int factoryLevel) {
         String tag_string_req = "req_update_factory_level";
 
@@ -246,6 +274,34 @@ public class CityActivity extends Activity {
 
                 params.put("uid", uid);
                 params.put("factory_level", String.valueOf(factoryLevel));
+
+                return params;
+            }
+        };
+        AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
+    }
+
+    private void saveFactoryPriceOnServer(final String uid, final int factoryPrice) {
+        String tag_string_req = "req_update_factory_price";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_FACTORY_PRICE_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("factory_price", String.valueOf(factoryPrice));
 
                 return params;
             }

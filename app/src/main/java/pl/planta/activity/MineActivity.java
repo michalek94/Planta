@@ -112,6 +112,7 @@ public class MineActivity extends Activity {
                             saveMoneyOnServer(uid, userMoney.get("money"));
                             mSQLiteHandler.updateLevels(columnNr);
                             saveMineLevelOnServer(uid, mSQLiteHandler.getLevels(columnNr));
+                            saveMinePriceOnServer(uid, mSQLiteHandler.getPrice(columnNr));
 
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
                             tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
@@ -137,7 +138,6 @@ public class MineActivity extends Activity {
                 final int widthFur = (int) (width * .7);
                 final int heightFur = (int) (height * .2);
                 popUp.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, widthFur, heightFur);
-
 
                 container.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -183,6 +183,7 @@ public class MineActivity extends Activity {
                             saveMoneyOnServer(uid, userMoney.get("money"));
                             mSQLiteHandler.updateLevels(columnNr);
                             savePipelineLevelOnServer(uid, mSQLiteHandler.getLevels(columnNr));
+                            savePipelinePriceOnServer(uid, mSQLiteHandler.getPrice(columnNr));
 
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
                             tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
@@ -196,7 +197,6 @@ public class MineActivity extends Activity {
                 final int widthFur = (int) (width * .1);
                 final int heightFur = (int) (height * .2);
                 popUp.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, widthFur, heightFur);
-
 
                 container.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -240,6 +240,34 @@ public class MineActivity extends Activity {
         AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
     }
 
+    private void saveMinePriceOnServer(final String uid, final int minePrice) {
+        String tag_string_req = "req_update_mine_price";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_MINE_PRICE_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("mine_price", String.valueOf(minePrice));
+
+                return params;
+            }
+        };
+        AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
+    }
+
     private void savePipelineLevelOnServer(final String uid, final int pipelineLevel) {
         String tag_string_req = "req_update_pipeline_level";
 
@@ -261,6 +289,34 @@ public class MineActivity extends Activity {
 
                 params.put("uid", uid);
                 params.put("pipeline_level", String.valueOf(pipelineLevel));
+
+                return params;
+            }
+        };
+        AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
+    }
+
+    private void savePipelinePriceOnServer(final String uid, final int pipelinePrice) {
+        String tag_string_req = "req_update_pipeline_price";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_PIPELINE_PRICE_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("pipeline_price", String.valueOf(pipelinePrice));
 
                 return params;
             }

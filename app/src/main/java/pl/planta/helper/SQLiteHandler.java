@@ -16,7 +16,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * DATABASE_VERSION
      */
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
     /**
      * DATABASE_NAME
@@ -92,11 +92,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
      * TABLE_STOREROOM_COLUMNS
      */
     private static final String KEY_COAL_AMOUNT = "coal_amount";
-    private static final String KEY_COAL_MAX = "coal_max";
     private static final String KEY_PIPE_AMOUNT = "pipe_amount";
-    private static final String KEY_PIPE_MAX = "pipe_max";
     private static final String KEY_ELECTRICITY_AMOUNT = "electricity_amount";
-    private static final String KEY_ELECTRICITY_MAX = "electricity_max";
 
     /**
      * CREATE_TABLE_USER
@@ -168,11 +165,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             + TABLE_STOREROOM + "("
             + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_COAL_AMOUNT + " INTEGER,"
-            + KEY_COAL_MAX + " INTEGER,"
             + KEY_PIPE_AMOUNT + " INTEGER,"
-            + KEY_PIPE_MAX + "  INTEGER,"
-            + KEY_ELECTRICITY_AMOUNT + " INTEGER,"
-            + KEY_ELECTRICITY_MAX + " INTEGER" + ")";
+            + KEY_ELECTRICITY_AMOUNT + " INTEGER" + ")";
 
     /**
      * CONSTRUCTOR
@@ -332,22 +326,16 @@ public class SQLiteHandler extends SQLiteOpenHelper {
      * ADD VALUES TO STOREROOM TABLE TO SQLITE DATABASE
      *
      * @param coalAmount        coal amount
-     * @param coalMax           coal max
      * @param pipeAmount        pipe amount
-     * @param pipeMax           pipe max
      * @param electricityAmount electricity amount
-     * @param electricityMax    electricity max
      */
-    public void addStoreValues(int coalAmount, int coalMax, int pipeAmount, int pipeMax, int electricityAmount, int electricityMax) {
+    public void addStoreValues(int coalAmount, int pipeAmount, int electricityAmount) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_COAL_AMOUNT, coalAmount);
-        contentValues.put(KEY_COAL_MAX, coalMax);
-        contentValues.put(KEY_PIPE_AMOUNT, pipeAmount);
-        contentValues.put(KEY_PIPE_MAX, pipeMax);
+        contentValues.put(KEY_PIPE_AMOUNT, pipeAmount);;
         contentValues.put(KEY_ELECTRICITY_AMOUNT, electricityAmount);
-        contentValues.put(KEY_ELECTRICITY_MAX, electricityMax);
 
         // Dodawanie wiersza
         long id = db.insert(TABLE_STOREROOM, null, contentValues);
@@ -922,33 +910,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * GET USER'S MAX
-     *
-     * @return max
-     */
-    public HashMap<String, Integer> getMax() {
-        HashMap<String, Integer> max = new HashMap<>();
-        String selectQuery = "SELECT coal_max, pipe_max, electricity_max FROM " + TABLE_STOREROOM;
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        cursor.moveToFirst();
-        if (cursor.getCount() > 0) {
-            max.put(KEY_COAL_MAX, cursor.getInt(0));
-            max.put(KEY_PIPE_MAX, cursor.getInt(1));
-            max.put(KEY_ELECTRICITY_MAX, cursor.getInt(2));
-        }
-        cursor.close();
-        db.close();
-
-        // Zwracanie wyniku
-        Log.d(TAG, "Uzytkownik posiada: " + max.toString() + " surowcow");
-
-        return max;
-    }
-
-    /**
      * UPDATE COAL AMOUNT
      *
      * @param coalAmount coal's amount
@@ -959,22 +920,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_COAL_AMOUNT, coalAmount);
-
-        long id = db.update(TABLE_STOREROOM, contentValues, KEY_ID + "=" + 1, null);
-        return id > 0;
-    }
-
-    /**
-     * UPDATE COAL MAX
-     *
-     * @param coalMax coal's max
-     * @return return true if id > 0 else return false
-     */
-    public boolean updateCoalMax(int coalMax) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_COAL_MAX, coalMax);
 
         long id = db.update(TABLE_STOREROOM, contentValues, KEY_ID + "=" + 1, null);
         return id > 0;
@@ -997,22 +942,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * UPDATE PIPE MAX
-     *
-     * @param pipeMax pipe's max
-     * @return return true if id > 0 else return false
-     */
-    public boolean updatePipeMax(int pipeMax) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_STOREROOM_LEVEL, pipeMax);
-
-        long id = db.update(TABLE_STOREROOM, contentValues, KEY_ID + "=" + 1, null);
-        return id > 0;
-    }
-
-    /**
      * UPDATE ELECTRICITY AMOUNT
      *
      * @param electricityAmount electricity's amount
@@ -1023,22 +952,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_ELECTRICITY_AMOUNT, electricityAmount);
-
-        long id = db.update(TABLE_STOREROOM, contentValues, KEY_ID + "=" + 1, null);
-        return id > 0;
-    }
-
-    /**
-     * UPDATE ELECTRICITY MAX
-     *
-     * @param electricityMax electricity's max
-     * @return return true if id > 0 else return false
-     */
-    public boolean updateElectricityMax(int electricityMax) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_ELECTRICITY_MAX, electricityMax);
 
         long id = db.update(TABLE_STOREROOM, contentValues, KEY_ID + "=" + 1, null);
         return id > 0;

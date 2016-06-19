@@ -102,10 +102,13 @@ public class PlantaActivity extends Activity {
                         if (mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
                             mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
                             mSQLiteHandler.updatePrice(columnNr);
+
                             HashMap<String, Integer> userMoney = mSQLiteHandler.getUserMoney();
                             saveMoneyOnServer(uid, userMoney.get("money"));
                             mSQLiteHandler.updateLevels(columnNr);
                             saveFurnaceLevelOnServer(uid, mSQLiteHandler.getLevels(columnNr));
+                            saveFurnacePriceOnServer(uid, mSQLiteHandler.getPrice(columnNr));
+
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
                             tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
                             Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś piec do " + String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
@@ -160,10 +163,13 @@ public class PlantaActivity extends Activity {
                         if (mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
                             mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
                             mSQLiteHandler.updatePrice(columnNr);
+
                             HashMap<String, Integer> userMoney = mSQLiteHandler.getUserMoney();
                             saveMoneyOnServer(uid, userMoney.get("money"));
                             mSQLiteHandler.updateLevels(columnNr);
                             saveHookLevelOnServer(uid, mSQLiteHandler.getLevels(columnNr));
+                            saveHookPriceOnServer(uid, mSQLiteHandler.getPrice(columnNr));
+
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
                             tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
                             Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś dźwig do " + String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
@@ -218,10 +224,13 @@ public class PlantaActivity extends Activity {
                         if (mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
                             mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
                             mSQLiteHandler.updatePrice(columnNr);
+
                             HashMap<String, Integer> userMoney = mSQLiteHandler.getUserMoney();
                             saveMoneyOnServer(uid, userMoney.get("money"));
                             mSQLiteHandler.updateLevels(columnNr);
                             saveComputerLevelOnServer(uid, mSQLiteHandler.getLevels(columnNr));
+                            saveComputerPriceOnServer(uid, mSQLiteHandler.getPrice(columnNr));
+
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
                             tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
                             Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś panel sterowania do " + String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
@@ -276,10 +285,13 @@ public class PlantaActivity extends Activity {
                         if (mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
                             mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
                             mSQLiteHandler.updatePrice(columnNr);
+
                             HashMap<String, Integer> userMoney = mSQLiteHandler.getUserMoney();
                             saveMoneyOnServer(uid, userMoney.get("money"));
                             mSQLiteHandler.updateLevels(columnNr);
                             saveStoreroomLevelOnServer(uid, mSQLiteHandler.getLevels(columnNr));
+                            saveStoreroomPriceOnServer(uid, mSQLiteHandler.getPrice(columnNr));
+
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
                             tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
                             Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś magazyn do " + String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
@@ -335,6 +347,34 @@ public class PlantaActivity extends Activity {
         AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
     }
 
+    private void saveFurnacePriceOnServer(final String uid, final int furnacePrice) {
+        String tag_string_req = "req_update_furnace_price";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_FURNACE_PRICE_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("furnace_price", String.valueOf(furnacePrice));
+
+                return params;
+            }
+        };
+        AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
+    }
+
     private void saveHookLevelOnServer(final String uid, final int hookLevel) {
         String tag_string_req = "req_update_hook_level";
 
@@ -356,6 +396,34 @@ public class PlantaActivity extends Activity {
 
                 params.put("uid", uid);
                 params.put("hook_level", String.valueOf(hookLevel));
+
+                return params;
+            }
+        };
+        AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
+    }
+
+    private void saveHookPriceOnServer(final String uid, final int hookPrice) {
+        String tag_string_req = "req_update_hook_price";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_HOOK_PRICE_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("hook_price", String.valueOf(hookPrice));
 
                 return params;
             }
@@ -391,6 +459,34 @@ public class PlantaActivity extends Activity {
         AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
     }
 
+    private void saveComputerPriceOnServer(final String uid, final int computerPrice) {
+        String tag_string_req = "req_update_computer_price";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_COMPUTER_PRICE_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("computer_price", String.valueOf(computerPrice));
+
+                return params;
+            }
+        };
+        AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
+    }
+
     private void saveStoreroomLevelOnServer(final String uid, final int storeroomLevel) {
         String tag_string_req = "req_update_storeroom_level";
 
@@ -412,6 +508,34 @@ public class PlantaActivity extends Activity {
 
                 params.put("uid", uid);
                 params.put("storeroom_level", String.valueOf(storeroomLevel));
+
+                return params;
+            }
+        };
+        AppController.getInstance(this).addToRequestQueue(stringRequest, tag_string_req);
+    }
+
+    private void saveStoreroomPriceOnServer(final String uid, final int storeroomPrice) {
+        String tag_string_req = "req_update_storeroom_price";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_STOREROOM_PRICE_UPDATE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Odpowiedz aktualizacji wynikow: " + response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Problem aktualizacji wynikow: " + error.getMessage());
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("uid", uid);
+                params.put("storeroom_price", String.valueOf(storeroomPrice));
 
                 return params;
             }

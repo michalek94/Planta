@@ -156,11 +156,8 @@ public class LoginActivity extends Activity {
                         int mineLevel = user.getInt("mine_level");
 
                         int coalAmount = user.getInt("coal_amount");
-                        int coalMax = user.getInt("coal_max");
                         int pipeAmount = user.getInt("pipe_amount");
-                        int pipeMax = user.getInt("pipe_max");
                         int elecAmount = user.getInt("elec_amount");
-                        int elecMax = user.getInt("elec_max");
 
                         int computerPrice = user.getInt("computer_price");
                         int hookPrice = user.getInt("hook_price");
@@ -177,7 +174,7 @@ public class LoginActivity extends Activity {
                         SQLiteHandler.addCoal(coalHighScore, coalBonus, coalPrice);
                         SQLiteHandler.addPipe(pipeHighScore, pipeBonus, pipePrice);
                         SQLiteHandler.addLevels(computerLevel, hookLevel, storeroomLevel, furnaceLevel, factory_level, flatsLevel, pipelineLevel, mineLevel);
-                        SQLiteHandler.addStoreValues(coalAmount, coalMax, pipeAmount, pipeMax, elecAmount, elecMax);
+                        SQLiteHandler.addStoreValues(coalAmount, pipeAmount, elecAmount);
                         SQLiteHandler.addPrices(computerPrice, hookPrice, storeroomPrice, furnacePrice, factoryPrice, flatsPrice, pipelinePrice, minePrice);
 
                         Intent menuIntent = new Intent(LoginActivity.this, MenuActivity.class);
