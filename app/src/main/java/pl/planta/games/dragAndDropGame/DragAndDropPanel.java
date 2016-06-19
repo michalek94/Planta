@@ -122,7 +122,8 @@ public class DragAndDropPanel extends SurfaceView implements SurfaceHolder.Callb
                     }
                     int maximumAmount = sqliteHandler.getBuildingsLevels().get("storeroom_level")*1000;
                     int waterAmount = sqliteHandler.getAmounts().get("pipe_amount");
-                    int waterIncome = 100-endTime*3;
+                    double waterBonus = sqliteHandler.getPipeBonusPrice().get("pipe_bonus");
+                    int waterIncome = (int)((100-endTime)*3*waterBonus);
                     if(waterAmount+waterIncome<maximumAmount) {
                         sqliteHandler.updatePipeAmount(waterAmount + waterIncome);
                     }else {

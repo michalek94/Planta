@@ -218,9 +218,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
     public void newGame() {
         int maximumAmount = sqliteHandler.getBuildingsLevels().get("storeroom_level")*1000;
         int coalAmount =sqliteHandler.getAmounts().get("coal_amount");
+        double coalBonus = sqliteHandler.getCoalBonusPrice().get("coal_bonus");;
         int coalIncome = counter*3;
         if(coalAmount+coalIncome<maximumAmount) {
-            sqliteHandler.updateCoalAmount(coalAmount + coalIncome);
+            sqliteHandler.updateCoalAmount((int)((coalAmount + coalIncome)*coalBonus));
         }else {
             sqliteHandler.updateCoalAmount(maximumAmount);
         }
