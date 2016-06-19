@@ -2,9 +2,7 @@ package pl.planta.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -47,7 +45,7 @@ public class ShopActivity extends Activity {
         mSQLiteHandler = new SQLiteHandler(getApplicationContext());
         mMoney = (TextView) findViewById(R.id.tvMoney);
 
-        HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
+        HashMap<String, Integer> userMoney = mSQLiteHandler.getUserMoney();
 
         String money = userMoney.get("money").toString();
 

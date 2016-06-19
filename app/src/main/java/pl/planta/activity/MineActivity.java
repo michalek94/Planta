@@ -2,7 +2,6 @@ package pl.planta.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -32,7 +31,7 @@ import pl.planta.helper.SQLiteHandler;
 public class MineActivity extends Activity {
 
     private static final String TAG = MineActivity.class.getSimpleName();
-
+    private HashMap<String, Integer> handler;
     private ImageButton buttonEntrance;
     private ImageButton buttonPipeline;
     private PopupWindow popUp;
@@ -49,7 +48,6 @@ public class MineActivity extends Activity {
     private int money;
     private int coal;
     private int columnNr;
-    HashMap<String, Integer> handler;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,13 +64,13 @@ public class MineActivity extends Activity {
 
         final int width = dm.widthPixels;
         final int height = dm.heightPixels;
-        final int widthPop =(int) (width * .35);
+        final int widthPop = (int) (width * .35);
         final int heightPop = (int) (height * .6);
 
         relativeLayout = (android.support.percent.PercentRelativeLayout) findViewById(R.id.mineLayout);
 
-        buttonEntrance = (ImageButton)findViewById(R.id.entranceButton);
-        buttonPipeline = (ImageButton)findViewById(R.id.pipelineButton);
+        buttonEntrance = (ImageButton) findViewById(R.id.entranceButton);
+        buttonPipeline = (ImageButton) findViewById(R.id.pipelineButton);
 
         HashMap<String, String> userUID = mSQLiteHandler.getUserUid();
         final String uid = userUID.get("uid");
@@ -81,9 +79,9 @@ public class MineActivity extends Activity {
             public void onClick(View v) {
 
                 columnNr = 8;
-                layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                View container = layoutInflater.inflate(R.layout.popcoalwindow,null);
-                popUp = new PopupWindow(container,widthPop,heightPop,true);
+                layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                View container = layoutInflater.inflate(R.layout.popcoalwindow, null);
+                popUp = new PopupWindow(container, widthPop, heightPop, true);
 
                 tvMain = (TextView) popUp.getContentView().findViewById(R.id.textViewPopMain);
                 tvLvl = (TextView) popUp.getContentView().findViewById(R.id.textViewPopLvl);
@@ -98,7 +96,7 @@ public class MineActivity extends Activity {
                 tvQue.setText("Czy chcesz ulepszyć kopalnię na kolejny poziom za: ");
                 tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
 
-                HashMap<String,Double> coalPrice = mSQLiteHandler.getCoalBonusPrice();
+                HashMap<String, Double> coalPrice = mSQLiteHandler.getCoalBonusPrice();
                 String coal_price = coalPrice.get("coal_price").toString();
                 tvPrice.setText(coal_price);
 
@@ -106,16 +104,18 @@ public class MineActivity extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        if(mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
+                        if (mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
                             mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
                             mSQLiteHandler.updatePrice(columnNr);
-                            HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
+
+                            HashMap<String, Integer> userMoney = mSQLiteHandler.getUserMoney();
                             saveMoneyOnServer(uid, userMoney.get("money"));
                             mSQLiteHandler.updateLevels(columnNr);
                             saveMineLevelOnServer(uid, mSQLiteHandler.getLevels(columnNr));
+
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
                             tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
-                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś kopalnię do " +String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś kopalnię do " + String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
                         }
@@ -127,16 +127,16 @@ public class MineActivity extends Activity {
                     public void onClick(View v) {
                         handler = mSQLiteHandler.getAmounts();
                         coal = handler.get("coal_amount");
-                        double getCoal = coal*2.0;
-                        mSQLiteHandler.updateMoney(money+(int) getCoal);
+                        double getCoal = coal * 2.0;
+                        mSQLiteHandler.updateMoney(money + (int) getCoal);
                         mSQLiteHandler.updateCoalHighScore(0);
                         Toast.makeText(getApplicationContext(), "Gratulacje! Sprzedałeś " + coal + " ton węgla!", Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                final int widthFur =(int) (width * .7);
-                final int heightFur =(int) (height * .2);
-                popUp.showAtLocation(relativeLayout, Gravity.NO_GRAVITY,widthFur, heightFur);
+                final int widthFur = (int) (width * .7);
+                final int heightFur = (int) (height * .2);
+                popUp.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, widthFur, heightFur);
 
 
                 container.setOnTouchListener(new View.OnTouchListener() {
@@ -156,9 +156,9 @@ public class MineActivity extends Activity {
             public void onClick(View v) {
 
                 columnNr = 7;
-                layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                View container = layoutInflater.inflate(R.layout.popwindow,null);
-                popUp = new PopupWindow(container,widthPop,heightPop,true);
+                layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                View container = layoutInflater.inflate(R.layout.popwindow, null);
+                popUp = new PopupWindow(container, widthPop, heightPop, true);
 
                 tvMain = (TextView) popUp.getContentView().findViewById(R.id.textViewPopMain);
                 tvLvl = (TextView) popUp.getContentView().findViewById(R.id.textViewPopLvl);
@@ -175,25 +175,27 @@ public class MineActivity extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        if(mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
+                        if (mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
                             mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
                             mSQLiteHandler.updatePrice(columnNr);
-                            HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
+
+                            HashMap<String, Integer> userMoney = mSQLiteHandler.getUserMoney();
                             saveMoneyOnServer(uid, userMoney.get("money"));
                             mSQLiteHandler.updateLevels(columnNr);
                             savePipelineLevelOnServer(uid, mSQLiteHandler.getLevels(columnNr));
+
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
                             tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
-                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś rurociąg do " +String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś rurociąg do " + String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-                final int widthFur =(int) (width * .1);
-                final int heightFur =(int) (height * .2);
-                popUp.showAtLocation(relativeLayout, Gravity.NO_GRAVITY,widthFur, heightFur);
+                final int widthFur = (int) (width * .1);
+                final int heightFur = (int) (height * .2);
+                popUp.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, widthFur, heightFur);
 
 
                 container.setOnTouchListener(new View.OnTouchListener() {

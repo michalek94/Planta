@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import pl.planta.R;
-import pl.planta.helper.SQLiteHandler;
 import pl.planta.helper.SessionManager;
 
 public class SplashActivity extends Activity {

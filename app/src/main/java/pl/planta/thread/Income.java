@@ -13,7 +13,7 @@ import pl.planta.helper.SQLiteHandler;
 import pl.planta.helper.SessionManager;
 
 public class Income {
-    private static String TAG = LoginActivity.class.getSimpleName();
+    private static String TAG = Income.class.getSimpleName();
 
     private SessionManager sessionManager;
 
@@ -95,7 +95,7 @@ public class Income {
 
     public void stop() {
         handler.removeCallbacksAndMessages(null);
-        System.out.println("Niszcze watek income");;
+        System.out.println("Niszcze watek income");
     }
 
 

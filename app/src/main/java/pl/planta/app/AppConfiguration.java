@@ -28,4 +28,11 @@ public class AppConfiguration {
     public static String URL_PIPELINE_LEVEL_UPDATE = "http://www.gra.ebrandis.pl/www/android_planta/save_pipeline_level.php";
     // Link do aktualizowania poziomu komputera
     public static String URL_MINE_LEVEL_UPDATE = "http://www.gra.ebrandis.pl/www/android_planta/save_mine_level.php";
+
+    // Link do aktualizowania poziomu komputera
+    public static String URL_COAL_AMOUNT_UPDATE = "http://www.gra.ebrandis.pl/www/android_planta/save_coal_amount.php";
+    // Link do aktualizowania poziomu komputera
+    public static String URL_PIPE_AMOUNT_UPDATE = "http://www.gra.ebrandis.pl/www/android_planta/save_pipe_amount.php";
+    // Link do aktualizowania poziomu komputera
+    public static String URL_ELEC_AMOUNT_UPDATE = "http://www.gra.ebrandis.pl/www/android_planta/save_elec_amount.php";
 }

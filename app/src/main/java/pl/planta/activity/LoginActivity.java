@@ -131,47 +131,47 @@ public class LoginActivity extends Activity {
                         sessionManager.setLogin(true);
 
                         //// Przechowaj jego dane w SQLite
-                        String uid          = jsonObject.getString("uid");
-                        JSONObject user     = jsonObject.getJSONObject("user");
-                        String name         = user.getString("name");
-                        String email        = user.getString("email");
-                        int money           = user.getInt("money");
-                        int level           = user.getInt("level");
+                        String uid = jsonObject.getString("uid");
+                        JSONObject user = jsonObject.getJSONObject("user");
+                        String name = user.getString("name");
+                        String email = user.getString("email");
+                        int money = user.getInt("money");
+                        int level = user.getInt("level");
 
-                        int coalHighScore   = user.getInt("coal_highscore");
-                        double coalBonus    = user.getDouble("coal_bonus");
-                        double coalPrice    = user.getDouble("coal_price");
+                        int coalHighScore = user.getInt("coal_highscore");
+                        double coalBonus = user.getDouble("coal_bonus");
+                        double coalPrice = user.getDouble("coal_price");
 
-                        int pipeHighScore   = user.getInt("pipe_highscore");
-                        double pipeBonus    = user.getDouble("pipe_bonus");
-                        double pipePrice    = user.getDouble("pipe_price");
+                        int pipeHighScore = user.getInt("pipe_highscore");
+                        double pipeBonus = user.getDouble("pipe_bonus");
+                        double pipePrice = user.getDouble("pipe_price");
 
-                        int computerLevel   = user.getInt("computer_level");
-                        int hookLevel       = user.getInt("hook_level");
-                        int storeroomLevel  = user.getInt("storeroom_level");
-                        int furnaceLevel    = user.getInt("furnace_level");
-                        int factory_level   = user.getInt("factory_level");
-                        int flatsLevel      = user.getInt("flats_level");
-                        int pipelineLevel   = user.getInt("pipeline_level");
-                        int mineLevel       = user.getInt("mine_level");
+                        int computerLevel = user.getInt("computer_level");
+                        int hookLevel = user.getInt("hook_level");
+                        int storeroomLevel = user.getInt("storeroom_level");
+                        int furnaceLevel = user.getInt("furnace_level");
+                        int factory_level = user.getInt("factory_level");
+                        int flatsLevel = user.getInt("flats_level");
+                        int pipelineLevel = user.getInt("pipeline_level");
+                        int mineLevel = user.getInt("mine_level");
 
-                        int coalAmount      = user.getInt("coal_amount");
-                        int coalMax         = user.getInt("coal_max");
-                        int pipeAmount      = user.getInt("pipe_amount");
-                        int pipeMax         = user.getInt("pipe_max");
-                        int elecAmount      = user.getInt("elec_amount");
-                        int elecMax         = user.getInt("elec_max");
+                        int coalAmount = user.getInt("coal_amount");
+                        int coalMax = user.getInt("coal_max");
+                        int pipeAmount = user.getInt("pipe_amount");
+                        int pipeMax = user.getInt("pipe_max");
+                        int elecAmount = user.getInt("elec_amount");
+                        int elecMax = user.getInt("elec_max");
 
-                        int computerPrice   = user.getInt("computer_price");
-                        int hookPrice       = user.getInt("hook_price");
-                        int storeroomPrice  = user.getInt("storeroom_price");
-                        int furnacePrice    = user.getInt("furnace_price");
-                        int factoryPrice    = user.getInt("factory_price");
-                        int flatsPrice      = user.getInt("flats_price");
-                        int pipelinePrice   = user.getInt("pipeline_price");
-                        int minePrice       = user.getInt("mine_price");
+                        int computerPrice = user.getInt("computer_price");
+                        int hookPrice = user.getInt("hook_price");
+                        int storeroomPrice = user.getInt("storeroom_price");
+                        int furnacePrice = user.getInt("furnace_price");
+                        int factoryPrice = user.getInt("factory_price");
+                        int flatsPrice = user.getInt("flats_price");
+                        int pipelinePrice = user.getInt("pipeline_price");
+                        int minePrice = user.getInt("mine_price");
 
-                        String created_at   = user.getString("created_at");
+                        String created_at = user.getString("created_at");
 
                         SQLiteHandler.addUser(uid, name, email, money, level, created_at);
                         SQLiteHandler.addCoal(coalHighScore, coalBonus, coalPrice);
@@ -240,7 +240,7 @@ public class LoginActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
 
-        if(progressDialog != null) {
+        if (progressDialog != null) {
             progressDialog.dismiss();
             progressDialog = null;
         }

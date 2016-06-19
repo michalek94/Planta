@@ -8,9 +8,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
-
 import pl.planta.R;
 import pl.planta.dialogs.ExitDialog;
 import pl.planta.helper.ChangeLog;
@@ -23,7 +20,6 @@ public class MenuActivity extends Activity {
     private Button btnLogout, btnGraj, btnMenuTesting;
     private SessionManager sessionManager;
     private SQLiteHandler sqLiteHandler;
-    private CallbackManager callbackManager;
     private ChangeLog changeLog;
     private ExitDialog exitDialog;
     private FragmentManager fragmentManager = getFragmentManager();
@@ -35,14 +31,6 @@ public class MenuActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /**
-         * Facebook SDK Initialize
-         */
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        /**
-         * Initialize instance of CallbackManager
-         */
-        callbackManager = CallbackManager.Factory.create();
         /**
          * Set flags to make full screen on device
          */
@@ -117,24 +105,11 @@ public class MenuActivity extends Activity {
         showConfirmExitDialog();
     }
 
-    /**
-     * Forward the login results to the callbackManager created in onCreate()
-     *
-     * @param requestCode requestCode
-     * @param resultCode  resultCode
-     * @param data        data
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
-        if(income==null)
-        income = new Income(this,refreshTime);
+        if (income == null)
+            income = new Income(this, refreshTime);
     }
 
     @Override

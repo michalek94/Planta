@@ -4,15 +4,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.*;
-
+import android.view.WindowManager;
+import android.widget.ImageButton;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -28,7 +29,7 @@ import pl.planta.app.AppConfiguration;
 import pl.planta.app.AppController;
 import pl.planta.helper.SQLiteHandler;
 
-public class PlantaActivity extends Activity  {
+public class PlantaActivity extends Activity {
 
     private static final String TAG = PlantaActivity.class.getSimpleName();
 
@@ -47,32 +48,28 @@ public class PlantaActivity extends Activity  {
     private SQLiteHandler mSQLiteHandler;
     private ImageButton buttonLvlUp;
 
-
-
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_planta);
 
-        mSQLiteHandler = new SQLiteHandler(getApplicationContext());
-
-
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         final int width = dm.widthPixels;
         final int height = dm.heightPixels;
-        final int widthPop =(int) (width * .35);
+        final int widthPop = (int) (width * .35);
         final int heightPop = (int) (height * .55);
 
         relativeLayout = (android.support.percent.PercentRelativeLayout) findViewById(R.id.plantaLayout);
 
-        buttonFurnace = (ImageButton)findViewById(R.id.furnaceButton);
-        buttonHook = (ImageButton)findViewById(R.id.hookButton);
-        buttonComputer = (ImageButton)findViewById(R.id.computerButton);
-        buttonDoor = (ImageButton)findViewById(R.id.doorButton);
+        buttonFurnace = (ImageButton) findViewById(R.id.furnaceButton);
+        buttonHook = (ImageButton) findViewById(R.id.hookButton);
+        buttonComputer = (ImageButton) findViewById(R.id.computerButton);
+        buttonDoor = (ImageButton) findViewById(R.id.doorButton);
+
+        mSQLiteHandler = new SQLiteHandler(getApplicationContext());
 
         HashMap<String, String> userUID = mSQLiteHandler.getUserUid();
         final String uid = userUID.get("uid");
@@ -82,9 +79,9 @@ public class PlantaActivity extends Activity  {
 
                 columnNr = 4;
 
-                layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                View container = layoutInflater.inflate(R.layout.popwindow,null);
-                popUp = new PopupWindow(container,widthPop,heightPop,true);
+                layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                View container = layoutInflater.inflate(R.layout.popwindow, null);
+                popUp = new PopupWindow(container, widthPop, heightPop, true);
 
                 tvMain = (TextView) popUp.getContentView().findViewById(R.id.textViewPopMain);
                 tvLvl = (TextView) popUp.getContentView().findViewById(R.id.textViewPopLvl);
@@ -102,26 +99,25 @@ public class PlantaActivity extends Activity  {
                     @Override
                     public void onClick(View v) {
 
-                        if(mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
+                        if (mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
                             mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
                             mSQLiteHandler.updatePrice(columnNr);
-                            HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
+                            HashMap<String, Integer> userMoney = mSQLiteHandler.getUserMoney();
                             saveMoneyOnServer(uid, userMoney.get("money"));
                             mSQLiteHandler.updateLevels(columnNr);
                             saveFurnaceLevelOnServer(uid, mSQLiteHandler.getLevels(columnNr));
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
                             tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
-                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś piec do " +String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś piec do " + String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-                final int widthFur =(int) (width * .7);
-                final int heightFur =(int) (height * .35);
-                popUp.showAtLocation(relativeLayout, Gravity.NO_GRAVITY,widthFur, heightFur);
-
+                final int widthFur = (int) (width * .7);
+                final int heightFur = (int) (height * .35);
+                popUp.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, widthFur, heightFur);
 
                 container.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -141,9 +137,9 @@ public class PlantaActivity extends Activity  {
 
                 columnNr = 2;
 
-                layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                View container = layoutInflater.inflate(R.layout.popwindow,null);
-                popUp = new PopupWindow(container,widthPop,heightPop,true);
+                layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                View container = layoutInflater.inflate(R.layout.popwindow, null);
+                popUp = new PopupWindow(container, widthPop, heightPop, true);
 
                 tvMain = (TextView) popUp.getContentView().findViewById(R.id.textViewPopMain);
                 tvLvl = (TextView) popUp.getContentView().findViewById(R.id.textViewPopLvl);
@@ -161,26 +157,25 @@ public class PlantaActivity extends Activity  {
                     @Override
                     public void onClick(View v) {
 
-                        if(mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
+                        if (mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
                             mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
                             mSQLiteHandler.updatePrice(columnNr);
-                            HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
+                            HashMap<String, Integer> userMoney = mSQLiteHandler.getUserMoney();
                             saveMoneyOnServer(uid, userMoney.get("money"));
                             mSQLiteHandler.updateLevels(columnNr);
                             saveHookLevelOnServer(uid, mSQLiteHandler.getLevels(columnNr));
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
                             tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
-                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś dźwig do " +String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś dźwig do " + String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-                final int widthFur =(int) (width * .4);
-                final int heightFur =(int) (height * .05);
-                popUp.showAtLocation(relativeLayout, Gravity.NO_GRAVITY,widthFur, heightFur);
-
+                final int widthFur = (int) (width * .4);
+                final int heightFur = (int) (height * .05);
+                popUp.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, widthFur, heightFur);
 
                 container.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -200,9 +195,9 @@ public class PlantaActivity extends Activity  {
 
                 columnNr = 1;
 
-                layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                View container = layoutInflater.inflate(R.layout.popwindow,null);
-                popUp = new PopupWindow(container,widthPop,heightPop,true);
+                layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                View container = layoutInflater.inflate(R.layout.popwindow, null);
+                popUp = new PopupWindow(container, widthPop, heightPop, true);
 
                 tvMain = (TextView) popUp.getContentView().findViewById(R.id.textViewPopMain);
                 tvLvl = (TextView) popUp.getContentView().findViewById(R.id.textViewPopLvl);
@@ -220,26 +215,25 @@ public class PlantaActivity extends Activity  {
                     @Override
                     public void onClick(View v) {
 
-                        if(mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
+                        if (mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
                             mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
                             mSQLiteHandler.updatePrice(columnNr);
-                            HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
+                            HashMap<String, Integer> userMoney = mSQLiteHandler.getUserMoney();
                             saveMoneyOnServer(uid, userMoney.get("money"));
                             mSQLiteHandler.updateLevels(columnNr);
                             saveComputerLevelOnServer(uid, mSQLiteHandler.getLevels(columnNr));
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
                             tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
-                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś panel sterowania do " +String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś panel sterowania do " + String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-                final int widthFur =(int) (width * .10);
-                final int heightFur =(int) (height * .3);
-                popUp.showAtLocation(relativeLayout, Gravity.NO_GRAVITY,widthFur, heightFur);
-
+                final int widthFur = (int) (width * .10);
+                final int heightFur = (int) (height * .3);
+                popUp.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, widthFur, heightFur);
 
                 container.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -259,9 +253,9 @@ public class PlantaActivity extends Activity  {
 
                 columnNr = 3;
 
-                layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                View container = layoutInflater.inflate(R.layout.popwindow,null);
-                popUp = new PopupWindow(container,widthPop,heightPop,true);
+                layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                View container = layoutInflater.inflate(R.layout.popwindow, null);
+                popUp = new PopupWindow(container, widthPop, heightPop, true);
 
                 tvMain = (TextView) popUp.getContentView().findViewById(R.id.textViewPopMain);
                 tvLvl = (TextView) popUp.getContentView().findViewById(R.id.textViewPopLvl);
@@ -279,26 +273,25 @@ public class PlantaActivity extends Activity  {
                     @Override
                     public void onClick(View v) {
 
-                        if(mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
+                        if (mSQLiteHandler.checkMoney(mSQLiteHandler.getPrice(columnNr))) {
                             mSQLiteHandler.subMoney(mSQLiteHandler.getPrice(columnNr));
                             mSQLiteHandler.updatePrice(columnNr);
-                            HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
+                            HashMap<String, Integer> userMoney = mSQLiteHandler.getUserMoney();
                             saveMoneyOnServer(uid, userMoney.get("money"));
                             mSQLiteHandler.updateLevels(columnNr);
                             saveStoreroomLevelOnServer(uid, mSQLiteHandler.getLevels(columnNr));
                             tvCost.setText(String.valueOf(mSQLiteHandler.getPrice(columnNr)));
                             tvLvl.setText(String.valueOf(mSQLiteHandler.getLevels(columnNr)));
-                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś magazyn do " +String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Gratulacje! Powiekszyłeś magazyn do " + String.valueOf(mSQLiteHandler.getLevels(columnNr)) + " poziomu!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), "Masz za mało środków na koncie", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-                final int widthFur =(int) (width * .45);
-                final int heightFur =(int) (height * .35);
-                popUp.showAtLocation(relativeLayout, Gravity.NO_GRAVITY,widthFur, heightFur);
-
+                final int widthFur = (int) (width * .45);
+                final int heightFur = (int) (height * .35);
+                popUp.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, widthFur, heightFur);
 
                 container.setOnTouchListener(new View.OnTouchListener() {
                     @Override

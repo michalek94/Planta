@@ -14,7 +14,7 @@ import pl.planta.helper.SQLiteHandler;
 import pl.planta.helper.SessionManager;
 
 public class Refresh {
-    private static String TAG = LoginActivity.class.getSimpleName();
+    private static String TAG = Refresh.class.getSimpleName();
 
     private SessionManager sessionManager;
 
