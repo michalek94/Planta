@@ -30,7 +30,7 @@ public class MainMenuActivity extends Activity {
     private TextView    mCoal;
     private SQLiteHandler mSQLiteHandler;
     private Refresh refresh;
-    private long refreshTime = 5000;
+    private long refreshTime = 10000;
 
     private Save save;
 

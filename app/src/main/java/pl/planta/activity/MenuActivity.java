@@ -27,7 +27,7 @@ public class MenuActivity extends Activity {
     private FragmentManager fragmentManager = getFragmentManager();
 
     private Income income;
-    private long refreshTime = 5000;
+    private long refreshTime = 10000;
 
 
     @Override

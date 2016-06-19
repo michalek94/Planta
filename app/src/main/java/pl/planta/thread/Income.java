@@ -26,17 +26,17 @@ public class Income {
         int maximumAmount = mSQLiteHandler.getBuildingsLevels().get("storeroom_level") * 1000;
         int coalAmount = mSQLiteHandler.getAmounts().get("coal_amount");
         double coalBonusIncome = mSQLiteHandler.getCoalBonusPrice().get("coal_income_bonus");
-        int coalIncome = (int) (((mSQLiteHandler.getBuildingsLevels().get("mine_level") - 1) * 10) * coalBonusIncome);
+        int coalIncome = (int) (((mSQLiteHandler.getBuildingsLevels().get("mine_level") - 1) * 20) * coalBonusIncome);
         int waterAmount = mSQLiteHandler.getAmounts().get("pipe_amount");
         double waterBonusIncome = mSQLiteHandler.getPipeBonusPrice().get("pipe_income_bonus");
-        int waterIncome = (int) (((mSQLiteHandler.getBuildingsLevels().get("pipeline_level") - 1) * 10) * waterBonusIncome);
+        int waterIncome = (int) (((mSQLiteHandler.getBuildingsLevels().get("pipeline_level") - 1) * 20) * waterBonusIncome);
         int electricityAmount = mSQLiteHandler.getAmounts().get("electricity_amount");
-        int electricityIncome = mSQLiteHandler.getBuildingsLevels().get("computer_level") * 10;
-        int coalSub = 10 - (mSQLiteHandler.getBuildingsLevels().get("hook_level") - 1) * 2;
-        int waterSub = 10 - (mSQLiteHandler.getBuildingsLevels().get("furnace_level") - 1) * 2;
+        int electricityIncome = mSQLiteHandler.getBuildingsLevels().get("computer_level") * 20;
+        int coalSub = 20 - (mSQLiteHandler.getBuildingsLevels().get("hook_level") - 1) * 2;
+        int waterSub = 20 - (mSQLiteHandler.getBuildingsLevels().get("furnace_level") - 1) * 2;
         int moneyAmount = mSQLiteHandler.getUserMoney().get("money");
         int moneyIncome = (mSQLiteHandler.getBuildingsLevels().get("factory_level") + mSQLiteHandler.getBuildingsLevels().get("flats_level")) * 25;
-        int electricitySub = mSQLiteHandler.getBuildingsLevels().get("factory_level") * 10;
+        int electricitySub = mSQLiteHandler.getBuildingsLevels().get("factory_level") * 20;
 
         if(coalAmount + coalIncome < maximumAmount) {
             mSQLiteHandler.updateCoalAmount(coalAmount + coalIncome);
