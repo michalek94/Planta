@@ -32,6 +32,7 @@ public class MineActivity extends Activity {
 
     private static final String TAG = MineActivity.class.getSimpleName();
     private HashMap<String, Integer> handler;
+    private HashMap<String, Double> handlerDouble;
     private ImageButton buttonEntrance;
     private ImageButton buttonPipeline;
     private PopupWindow popUp;
@@ -127,11 +128,17 @@ public class MineActivity extends Activity {
                     @Override
                     public void onClick(View v) {
                         handler = mSQLiteHandler.getAmounts();
+                        handlerDouble = mSQLiteHandler.getCoalBonusPrice();
+                        double coalPrice = handlerDouble.get("coal_price");
                         coal = handler.get("coal_amount");
-                        double getCoal = coal * 2.0;
-                        mSQLiteHandler.updateMoney(money + (int) getCoal);
-                        mSQLiteHandler.updateCoalHighScore(0);
-                        Toast.makeText(getApplicationContext(), "Gratulacje! Sprzedałeś " + coal + " ton węgla!", Toast.LENGTH_SHORT).show();
+                        double getCoal = coal * coalPrice;
+                        if(coal >= 100) {
+                            mSQLiteHandler.updateMoney(money + (int) getCoal);
+                            mSQLiteHandler.updateCoalAmount(coal - 100);
+                            Toast.makeText(getApplicationContext(), "Gratulacje! Sprzedałeś " + 100 + " ton węgla!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Musisz posiadać co najmniej 100 ton węgla!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 

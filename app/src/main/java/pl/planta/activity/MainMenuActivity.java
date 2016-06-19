@@ -84,14 +84,6 @@ public class MainMenuActivity extends Activity {
         mElectricity = (TextView) findViewById(R.id.electricityTextView1);
 
         save = new Save(this);
-        /*HashMap<String,Integer> userMoney = mSQLiteHandler.getUserMoney();
-        HashMap<String,Integer> userCoal = mSQLiteHandler.getAmounts();
-
-        String money = userMoney.get("money").toString();
-        String coal = userCoal.get("coal_amount").toString();
-
-        mMoney.setText(money);
-        mCoal.setText(coal);*/
     }
 
     @Override
