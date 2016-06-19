@@ -18,7 +18,8 @@ import pl.planta.thread.Save;
 
 public class MenuActivity extends Activity {
 
-    private Button btnLogout, btnGraj, btnMenuTesting;
+    private Button btnLogout;
+    private Button btnGraj;
     private SessionManager sessionManager;
     private SQLiteHandler sqLiteHandler;
     private ChangeLog changeLog;
@@ -43,7 +44,6 @@ public class MenuActivity extends Activity {
          */
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnGraj = (Button) findViewById(R.id.btnGraj);
-        btnMenuTesting = (Button) findViewById(R.id.btnUstawienia);
 
         sessionManager = new SessionManager(getApplicationContext());
         sqLiteHandler = new SQLiteHandler(getApplicationContext());
@@ -64,14 +64,6 @@ public class MenuActivity extends Activity {
             public void onClick(View v) {
                 Intent gameIntent = new Intent(MenuActivity.this, MainMenuActivity.class);
                 startActivity(gameIntent);
-            }
-        });
-
-        btnMenuTesting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent gamingTests = new Intent(MenuActivity.this, SettingsActivity.class);
-                startActivity(gamingTests);
             }
         });
 
