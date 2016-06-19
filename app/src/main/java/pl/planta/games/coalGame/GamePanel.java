@@ -101,13 +101,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
     @Override
     public void surfaceCreated(SurfaceHolder holder){
 
-        handler = sqliteHandler.getCoalHighScore();
-        best =  handler.get("coal_highscore");
-
         a = new BitmapFactory.Options();
         a.inScaled=false;
         bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.tlo,a));
-        player = new Player(mContext,BitmapFactory.decodeResource(getResources(), R.drawable.wuzek,a),340,244,1);
+        player = new Player(BitmapFactory.decodeResource(getResources(), R.drawable.wuzek,a),340,244,1);
         coals = new ArrayList<>();
         coalStartTime = System.nanoTime();
         thread = new MainThread(getHolder(), this);
@@ -227,6 +224,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, Se
         }
         HashMap<String, String> userUID = sqliteHandler.getUserUid();
         String uid = userUID.get("uid");
+        handler = sqliteHandler.getCoalHighScore();
+        best =  handler.get("coal_highscore");
         dissapear = false;
         coals.clear();
         player.resetDX();

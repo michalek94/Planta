@@ -18,7 +18,7 @@ public class Player extends GameObject {
 
 
 
-    public Player(Context context, Bitmap res, int w, int h, int numFrames){
+    public Player(Bitmap res, int w, int h, int numFrames){
 
         x=GamePanel.WIDTH/2-250;
         y=GamePanel.HEIGHT-290;

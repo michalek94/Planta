@@ -25,19 +25,6 @@ public class Income {
     private HashMap<String,Integer> userAmounts;
     private HashMap<String,Integer> userIncome;
 
-    private int maximumAmount;
-    private int coalAmount;
-    private int coalIncome;
-    private int waterAmount;
-    private int waterIncome;
-    private int electricityAmount;
-    private int electricityIncome;
-    private int coalSub;
-    private int waterSub;
-    private int moneyAmount;
-    private int moneyIncome;
-    private int electricitySub;
-
     private long time;
 
 
@@ -53,33 +40,33 @@ public class Income {
     }
 
     public void income(){
-        maximumAmount = mSQLiteHandler.getBuildingsLevels().get("storeroom_level")*1000;
-        coalAmount =mSQLiteHandler.getAmounts().get("coal_amount");
+        int maximumAmount = mSQLiteHandler.getBuildingsLevels().get("storeroom_level") * 1000;
+        int coalAmount = mSQLiteHandler.getAmounts().get("coal_amount");
         double coalBonusIncome = mSQLiteHandler.getCoalBonusPrice().get("coal_income_bonus");
-        coalIncome = (int)(((mSQLiteHandler.getBuildingsLevels().get("mine_level")-1) * 10) * coalBonusIncome);
-        waterAmount = mSQLiteHandler.getAmounts().get("pipe_amount");
+        int coalIncome = (int) (((mSQLiteHandler.getBuildingsLevels().get("mine_level") - 1) * 10) * coalBonusIncome);
+        int waterAmount = mSQLiteHandler.getAmounts().get("pipe_amount");
         double waterBonusIncome = mSQLiteHandler.getPipeBonusPrice().get("pipe_income_bonus");
-        waterIncome =(int)(((mSQLiteHandler.getBuildingsLevels().get("pipeline_level")-1) * 10) * waterBonusIncome);
-        electricityAmount = mSQLiteHandler.getAmounts().get("electricity_amount");
-        electricityIncome = mSQLiteHandler.getBuildingsLevels().get("computer_level") * 10;
-        coalSub = 10 -  (mSQLiteHandler.getBuildingsLevels().get("hook_level")-1) * 2;
-        waterSub = 10 - (mSQLiteHandler.getBuildingsLevels().get("furnace_level")-1) * 2;
-        moneyAmount = mSQLiteHandler.getUserMoney().get("money");
-        moneyIncome =(mSQLiteHandler.getBuildingsLevels().get("factory_level")+mSQLiteHandler.getBuildingsLevels().get("flats_level")) *25;
-        electricitySub = mSQLiteHandler.getBuildingsLevels().get("factory_level")*10;
+        int waterIncome = (int) (((mSQLiteHandler.getBuildingsLevels().get("pipeline_level") - 1) * 10) * waterBonusIncome);
+        int electricityAmount = mSQLiteHandler.getAmounts().get("electricity_amount");
+        int electricityIncome = mSQLiteHandler.getBuildingsLevels().get("computer_level") * 10;
+        int coalSub = 10 - (mSQLiteHandler.getBuildingsLevels().get("hook_level") - 1) * 2;
+        int waterSub = 10 - (mSQLiteHandler.getBuildingsLevels().get("furnace_level") - 1) * 2;
+        int moneyAmount = mSQLiteHandler.getUserMoney().get("money");
+        int moneyIncome = (mSQLiteHandler.getBuildingsLevels().get("factory_level") + mSQLiteHandler.getBuildingsLevels().get("flats_level")) * 25;
+        int electricitySub = mSQLiteHandler.getBuildingsLevels().get("factory_level") * 10;
 
-        if(coalAmount+coalIncome<maximumAmount) {
+        if(coalAmount + coalIncome < maximumAmount) {
             mSQLiteHandler.updateCoalAmount(coalAmount + coalIncome);
         }else {
             mSQLiteHandler.updateCoalAmount(maximumAmount);
         }
-        if(waterAmount+waterIncome<maximumAmount) {
+        if(waterAmount + waterIncome < maximumAmount) {
             mSQLiteHandler.updatePipeAmount(waterAmount + waterIncome);
         }else {
             mSQLiteHandler.updatePipeAmount(maximumAmount);
         }
-        if(electricityAmount+electricityIncome<maximumAmount){
-            if(coalAmount>=coalSub&&waterAmount>=waterSub){
+        if(electricityAmount + electricityIncome < maximumAmount){
+            if(coalAmount >= coalSub && waterAmount >= waterSub){
                 mSQLiteHandler.updateElectricityAmount(electricityAmount + electricityIncome);
                 mSQLiteHandler.updateCoalAmount(coalAmount - coalSub);
                 mSQLiteHandler.updatePipeAmount(waterAmount - waterSub);
@@ -88,9 +75,9 @@ public class Income {
         else{
             mSQLiteHandler.updateElectricityAmount(maximumAmount);
         }
-        if(electricityAmount>=electricitySub){
-            mSQLiteHandler.updateMoney(moneyAmount+moneyIncome);
-            mSQLiteHandler.updateElectricityAmount(electricityAmount-electricitySub);
+        if(electricityAmount >= electricitySub){
+            mSQLiteHandler.updateMoney(moneyAmount + moneyIncome);
+            mSQLiteHandler.updateElectricityAmount(electricityAmount - electricitySub);
         }
     }
 

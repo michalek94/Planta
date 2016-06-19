@@ -54,7 +54,9 @@ public class DragAndDropThread extends Thread
             waitTime = targetTime-timeMillis;
             try{
                 sleep(waitTime);
-            }catch(Exception e){}
+            }catch(Exception e){
+                e.printStackTrace();
+            }
 
             totalTime += System.nanoTime()-startTime;
             frameCount++;
