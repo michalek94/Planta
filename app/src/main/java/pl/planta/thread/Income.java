@@ -3,6 +3,9 @@ package pl.planta.thread;
 
 import android.app.Activity;
 import android.os.Handler;
+
+import java.util.Random;
+
 import pl.planta.helper.SQLiteHandler;
 
 public class Income {
@@ -11,6 +14,7 @@ public class Income {
 
 
     private long time;
+    private int counter=0;
 
 
     public Income(Activity activity, long time) {
@@ -38,6 +42,8 @@ public class Income {
         int moneyIncome = (mSQLiteHandler.getBuildingsLevels().get("factory_level") + mSQLiteHandler.getBuildingsLevels().get("flats_level")) * 25;
         int electricitySub = mSQLiteHandler.getBuildingsLevels().get("factory_level") * 20;
 
+        Random rn = new Random();
+
         if(coalAmount + coalIncome < maximumAmount) {
             mSQLiteHandler.updateCoalAmount(coalAmount + coalIncome);
         }else {
@@ -62,6 +68,13 @@ public class Income {
             mSQLiteHandler.updateMoney(moneyAmount + moneyIncome);
             mSQLiteHandler.updateElectricityAmount(electricityAmount - electricitySub);
         }
+        if(counter==5){
+            double price = (rn.nextInt(200)+100)/100.0;
+            System.out.println("Zmieniono cene wegla: "+price);
+            mSQLiteHandler.updateCoalPrice(price);
+            counter=0;
+        }
+        counter++;
     }
 
     public void stop() {
