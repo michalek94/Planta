@@ -28,12 +28,25 @@ public class Income {
 
     public void income(){
         int maximumAmount = mSQLiteHandler.getBuildingsLevels().get("storeroom_level") * 1000;
+        //coal income ----------------------
         int coalAmount = mSQLiteHandler.getAmounts().get("coal_amount");
         double coalBonusIncome = mSQLiteHandler.getCoalBonusPrice().get("coal_income_bonus");
         int coalIncome = (int) (((mSQLiteHandler.getBuildingsLevels().get("mine_level") - 1) * 20) * coalBonusIncome);
+        if(coalAmount + coalIncome < maximumAmount) {
+            mSQLiteHandler.updateCoalAmount(coalAmount + coalIncome);
+        }else {
+            mSQLiteHandler.updateCoalAmount(maximumAmount);
+        }
+        //-------------water income ------------------------------------
         int waterAmount = mSQLiteHandler.getAmounts().get("pipe_amount");
         double waterBonusIncome = mSQLiteHandler.getPipeBonusPrice().get("pipe_income_bonus");
         int waterIncome = (int) (((mSQLiteHandler.getBuildingsLevels().get("pipeline_level") - 1) * 20) * waterBonusIncome);
+        if(waterAmount + waterIncome < maximumAmount) {
+            mSQLiteHandler.updatePipeAmount(waterAmount + waterIncome);
+        }else {
+            mSQLiteHandler.updatePipeAmount(maximumAmount);
+        }
+        //--------------electricity income ---------------------------------------
         int electricityAmount = mSQLiteHandler.getAmounts().get("electricity_amount");
         int electricityIncome = mSQLiteHandler.getBuildingsLevels().get("computer_level") * 20;
         int coalSub = 20 - (mSQLiteHandler.getBuildingsLevels().get("hook_level") - 1) * 2;
@@ -41,19 +54,8 @@ public class Income {
         int moneyAmount = mSQLiteHandler.getUserMoney().get("money");
         int moneyIncome = (mSQLiteHandler.getBuildingsLevels().get("factory_level") + mSQLiteHandler.getBuildingsLevels().get("flats_level")) * 25;
         int electricitySub = mSQLiteHandler.getBuildingsLevels().get("factory_level") * 20;
-
-        Random rn = new Random();
-
-        if(coalAmount + coalIncome < maximumAmount) {
-            mSQLiteHandler.updateCoalAmount(coalAmount + coalIncome);
-        }else {
-            mSQLiteHandler.updateCoalAmount(maximumAmount);
-        }
-        if(waterAmount + waterIncome < maximumAmount) {
-            mSQLiteHandler.updatePipeAmount(waterAmount + waterIncome);
-        }else {
-            mSQLiteHandler.updatePipeAmount(maximumAmount);
-        }
+        coalAmount = mSQLiteHandler.getAmounts().get("coal_amount");
+        waterAmount = mSQLiteHandler.getAmounts().get("pipe_amount");
         if(electricityAmount + electricityIncome < maximumAmount){
             if(coalAmount >= coalSub && waterAmount >= waterSub){
                 mSQLiteHandler.updateElectricityAmount(electricityAmount + electricityIncome);
@@ -64,10 +66,14 @@ public class Income {
         else{
             mSQLiteHandler.updateElectricityAmount(maximumAmount);
         }
+        //money income -------------------
+        electricityAmount = mSQLiteHandler.getAmounts().get("electricity_amount");
         if(electricityAmount >= electricitySub){
             mSQLiteHandler.updateMoney(moneyAmount + moneyIncome);
             mSQLiteHandler.updateElectricityAmount(electricityAmount - electricitySub);
         }
+        //-----------fluktuacja węgla ----------------------
+        Random rn = new Random();
         if(counter==5){
             double price = (rn.nextInt(200)+100)/100.0;
             System.out.println("Zmieniono cene wegla: "+price);
