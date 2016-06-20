@@ -1113,7 +1113,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
-            if(cursor.getInt(4)>testValue)
+            if(cursor.getInt(4)>=testValue)
                 return true;
 
         }
