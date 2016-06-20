@@ -62,7 +62,7 @@ public class Save {
     }
     // zapis wody
     public void savePipeAmountOnServer(final String uid, final int pipeAmount) {
-        String tag_string_req = "req_update_coal_amount";
+        String tag_string_req = "req_update_pipe_amount";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_PIPE_AMOUNT_UPDATE, new Response.Listener<String>() {
             @Override
@@ -90,7 +90,7 @@ public class Save {
     }
     // zapis prundu
     public void saveElecAmountOnServer(final String uid, final int elecAmount) {
-        String tag_string_req = "req_update_coal_amount";
+        String tag_string_req = "req_update_elec_amount";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfiguration.URL_ELEC_AMOUNT_UPDATE, new Response.Listener<String>() {
             @Override

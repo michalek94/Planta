@@ -112,8 +112,8 @@ public class MainMenuActivity extends Activity {
         HashMap<String, String> userUID = mSQLiteHandler.getUserUid();
         String uid = userUID.get("uid");
         save.saveCoalAmountOnServer(uid,userAmounts.get("coal_amount"));
-        save.saveElecAmountOnServer(uid,userAmounts.get("pipe_amount"));
-        save.savePipeAmountOnServer(uid,userAmounts.get("electricity_amount"));
+        save.saveElecAmountOnServer(uid,userAmounts.get("electricity_amount"));
+        save.savePipeAmountOnServer(uid,userAmounts.get("pipe_amount"));
         refresh.stop();
     }
 }
