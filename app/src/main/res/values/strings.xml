@@ -47,5 +47,6 @@
     <string name="btn_logout">WYLOGUJ</string>
     <string name="btn_settings">MENU</string>
     <string name="btn_play">GRAJ</string>
+    <string name="btn_tutorial">OPIS</string>
 
 </resources>

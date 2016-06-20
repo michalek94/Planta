@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="1"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:id="@+id/imgBuilding"
+        android:layout_width="60dp"
+        android:layout_height="145dp"
+        android:padding="5dp"
+        android:layout_weight="0.42" />
+
+    <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/nameBuilding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:padding="2dp"
+            android:textColor="#fef577" />
+        <TextView
+            android:id="@+id/descBuilding"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/bright_foreground_disabled_material_dark"
+            android:minLines="2"
+            android:scrollHorizontally="false"/>
+    </LinearLayout>
+
+</LinearLayout>
+
+</RelativeLayout>

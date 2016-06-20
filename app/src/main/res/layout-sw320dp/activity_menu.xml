@@ -56,9 +56,23 @@
         android:id="@+id/btnLogout"
         android:background="@drawable/button_rejestracja"
         android:textSize="24sp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/btnGraj" />
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/btnTutorial"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_tutorial"
+        android:id="@+id/btnTutorial"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/btnGraj"
+        android:background="@drawable/button_rejestracja"
+        android:layout_alignLeft="@+id/btnLogout"
+        android:layout_alignStart="@+id/btnLogout"
+        android:layout_alignRight="@+id/btnLogout"
+        android:layout_alignEnd="@+id/btnLogout"
+        android:textSize="24sp" />
 
 
 </RelativeLayout>

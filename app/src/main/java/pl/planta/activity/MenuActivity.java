@@ -20,6 +20,7 @@ public class MenuActivity extends Activity {
 
     private Button btnLogout;
     private Button btnGraj;
+    private Button btnTutorial;
     private SessionManager sessionManager;
     private SQLiteHandler sqLiteHandler;
     private ChangeLog changeLog;
@@ -44,6 +45,7 @@ public class MenuActivity extends Activity {
          */
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnGraj = (Button) findViewById(R.id.btnGraj);
+        btnTutorial = (Button) findViewById(R.id.btnTutorial);
 
         sessionManager = new SessionManager(getApplicationContext());
         sqLiteHandler = new SQLiteHandler(getApplicationContext());
@@ -64,6 +66,14 @@ public class MenuActivity extends Activity {
             public void onClick(View v) {
                 Intent gameIntent = new Intent(MenuActivity.this, MainMenuActivity.class);
                 startActivity(gameIntent);
+            }
+        });
+
+        btnTutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent tutorialIntent = new Intent(MenuActivity.this, TutorialActivity.class);
+                startActivity(tutorialIntent);
             }
         });
 
