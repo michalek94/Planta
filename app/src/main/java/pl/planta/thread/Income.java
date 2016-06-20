@@ -49,11 +49,11 @@ public class Income {
         //--------------electricity income ---------------------------------------
         int electricityAmount = mSQLiteHandler.getAmounts().get("electricity_amount");
         int electricityIncome = mSQLiteHandler.getBuildingsLevels().get("computer_level") * 20;
-        int coalSub = 20 - (mSQLiteHandler.getBuildingsLevels().get("hook_level") - 1) * 2;
-        int waterSub = 20 - (mSQLiteHandler.getBuildingsLevels().get("furnace_level") - 1) * 2;
+        int coalSub = 35 - (mSQLiteHandler.getBuildingsLevels().get("hook_level") - 1) * 2;
+        int waterSub = 35 - (mSQLiteHandler.getBuildingsLevels().get("furnace_level") - 1) * 2;
         int moneyAmount = mSQLiteHandler.getUserMoney().get("money");
         int moneyIncome = (mSQLiteHandler.getBuildingsLevels().get("factory_level") + mSQLiteHandler.getBuildingsLevels().get("flats_level")) * 25;
-        int electricitySub = mSQLiteHandler.getBuildingsLevels().get("factory_level") * 20;
+        int electricitySub = mSQLiteHandler.getBuildingsLevels().get("factory_level") * 25;
         coalAmount = mSQLiteHandler.getAmounts().get("coal_amount");
         waterAmount = mSQLiteHandler.getAmounts().get("pipe_amount");
         if(electricityAmount + electricityIncome < maximumAmount){

@@ -70,17 +70,26 @@ public class Board  {
         }
     }
 
+    private boolean isClicked = false;
     public void movePipes(int x, int y){
         if(!isENDED) {
-            for (int i = pipes.size() - 1; i >= 2; i--) {
-                if (pipes.get(i).getPipeArea().contains(x, y)) {
-                    pipes.push(pipes.get(i));
-                    pipes.peek().setX(x - partWidth / 2);
-                    pipes.peek().setY(y - partHeight / 2);
-                    pipes.peek().updateArea();
-                    pipes.remove(pipes.get(i));
-                    break;
+            if(!isClicked) {
+                for (int i = pipes.size() - 1; i >= 2; i--) {
+                    if (pipes.get(i).getPipeArea().contains(x, y)) {
+                        pipes.push(pipes.get(i));
+                        pipes.peek().setX(x - partWidth / 2);
+                        pipes.peek().setY(y - partHeight / 2);
+                        pipes.peek().updateArea();
+                        pipes.remove(pipes.get(i));
+                        isClicked=true;
+                        break;
+                    }
                 }
+            }
+            else{
+                pipes.peek().setX(x - partWidth / 2);
+                pipes.peek().setY(y - partHeight / 2);
+                pipes.peek().updateArea();
             }
         }
     }
